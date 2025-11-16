@@ -1,103 +1,45 @@
-import React, { useEffect, useRef } from "react";
-import { gsap } from "gsap";
+import React from "react";
 
-const Contact = () => {
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    if (sectionRef.current && sectionRef.current.children) {
-      gsap.fromTo(
-        sectionRef.current.children,
-        { opacity: 0, y: 50 },
-        { opacity: 1, y: 0, duration: 0.8, stagger: 0.2, ease: "power3.out" }
-      );
-    }
-  }, []);
-
-  const socialLinks = [
-    {
-      name: "IG",
-      label: "Instagram",
-      url: "https://www.instagram.com/yourprofile",
-    },
-    {
-      name: "BE",
-      label: "Behance",
-      url: "https://www.behance.net/yourprofile",
-    },
-    {
-      name: "IN",
-      label: "LinkedIn",
-      url: "https://www.linkedin.com/in/yourprofile",
-    },
-    { name: "DR", label: "Dribbble", url: "https://dribbble.com/yourprofile" },
-  ];
-
+export default function Contact() {
   return (
-    <section
-      ref={sectionRef}
-      className="min-h-screen flex items-center justify-center px-8 md:px-16 bg-[#F5F1E8]"
-    >
-      <div className="max-w-4xl w-full">
-        <h2
-          className="text-5xl md:text-7xl font-light mb-16 text-gray-900"
-          style={{ fontFamily: "Lora, serif", letterSpacing: "-0.02em" }}
-        >
+    <section className="min-h-screen pt-[120px] px-[60px] pb-[60px] max-md:px-[30px] max-md:pt-[100px]">
+      <div className="max-w-[800px] mx-auto">
+        <h2 className="contact-title text-[clamp(40px,6vw,80px)] font-light mb-[60px] tracking-[-2px] text-[#003049]">
           Let's work together
         </h2>
-
-        <div className="space-y-12">
-          <div className="border-b border-gray-300 pb-8">
-            <div
-              className="text-xs uppercase tracking-widest text-gray-500 mb-3"
-              style={{ fontFamily: "Lora, serif" }}
-            >
+        <div className="flex flex-col gap-[40px]">
+          <div className="border-b border-[#669bbc] pb-[30px]">
+            <div className="text-[12px] text-[#669bbc] tracking-[2px] uppercase mb-[12px]">
               Email
             </div>
             <a
               href="mailto:hello@jnco.design"
-              className="text-3xl md:text-4xl text-gray-900 hover:text-amber-600 transition-colors duration-300"
-              style={{ fontFamily: "Lora, serif" }}
+              className="text-[28px] font-light text-[#003049] no-underline transition-colors duration-300 hover:text-[#c1121f] max-md:text-[20px] max-md:break-words"
             >
               hello@jnco.design
             </a>
           </div>
-
-          <div className="border-b border-gray-300 pb-8">
-            <div
-              className="text-xs uppercase tracking-widest text-gray-500 mb-6"
-              style={{ fontFamily: "Lora, serif" }}
-            >
+          <div className="border-b border-[#669bbc] pb-[30px]">
+            <div className="text-[12px] text-[#669bbc] tracking-[2px] uppercase mb-[12px]">
               Social
             </div>
-            <div className="flex gap-6">
-              {socialLinks.map((social) => (
+            <div className="flex gap-[30px] mt-[20px]">
+              {["IG", "BE", "IN", "DR"].map((social) => (
                 <a
-                  key={social.name}
-                  href={social.url} // ✅ real URL
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.label}
-                  className="w-14 h-14 border border-gray-400 rounded-full flex items-center justify-center text-gray-600 hover:border-amber-600 hover:text-amber-600 hover:-translate-y-1 transition-all duration-300"
-                  style={{ fontFamily: "Lora, serif" }}
+                  key={social}
+                  href="facebook.com"
+                  className="w-[50px] h-[50px] border border-[#669bbc] rounded-full flex items-center justify-center text-[#669bbc] no-underline transition-all duration-300 text-[18px] hover:border-[#c1121f] hover:text-[#c1121f] hover:-translate-y-[5px]"
                 >
-                  {social.name}
+                  {social}
                 </a>
               ))}
             </div>
           </div>
-
-          <div className="border-b border-gray-300 pb-8">
-            <div
-              className="text-xs uppercase tracking-widest text-gray-500 mb-3"
-              style={{ fontFamily: "Lora, serif" }}
-            >
+          <div className="border-b border-[#669bbc] pb-[30px]">
+            <div className="text-[12px] text-[#669bbc] tracking-[2px] uppercase mb-[12px]">
               Location
             </div>
-            <div
-              className="text-3xl md:text-4xl text-gray-900"
-              style={{ fontFamily: "Lora, serif" }}
-            >
+            <div className="text-[28px] font-light text-[#003049] max-md:text-[20px] max-md:break-words">
               Cagayan de Oro, Philippines
             </div>
           </div>
@@ -105,6 +47,4 @@ const Contact = () => {
       </div>
     </section>
   );
-};
-
-export default Contact;
+}

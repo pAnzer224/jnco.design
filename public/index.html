@@ -3,10 +3,62 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JNCO Design</title>
+    <title>jnco.design</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @font-face {
+        font-family: "Chainprinter";
+        src: url("/fonts/Chainprinter Regular.ttf") format("truetype");
+      }
+
+      body {
+        font-family: "Helvetica Neue", Arial, sans-serif;
+      }
+
+      .logo,
+      .page-title,
+      .contact-title {
+        font-family: "Chainprinter", "Helvetica Neue", Arial, sans-serif;
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: #fff;
+        transition: width 0.3s;
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateX(-50%) translateY(0);
+        }
+        40% {
+          transform: translateX(-50%) translateY(-10px);
+        }
+        60% {
+          transform: translateX(-50%) translateY(-5px);
+        }
+      }
+
+      .bounce {
+        animation: bounce 2s infinite;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
