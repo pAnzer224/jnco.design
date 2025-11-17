@@ -40,7 +40,7 @@ export default function Contact() {
               Location
             </div>
             <div className="text-[28px] font-light text-[#003049] max-md:text-[20px] max-md:break-words">
-              Cagayan de Oro, Philippines
+              San Carlos City, Negros Occidental, Philippines
             </div>
           </div>
         </div>

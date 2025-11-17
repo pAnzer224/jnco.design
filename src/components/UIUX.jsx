@@ -7,53 +7,49 @@ export default function UIUX({ setActivePage }) {
     {
       type: "figma",
       src: "https://embed.figma.com/proto/5wBwyF60CDZL3ePNyHKVFH/UI-UX-Design-Contest?node-id=7-315&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=7%3A315&embed-host=share",
-      thumbnail: "/images/drjas.png",
+      thumbnail: "/images/laco.jpg",
       title: "UI/UX Design Contest",
       category: "First Place Winner",
     },
     {
       type: "link",
       url: "https://drjaspetcare.vercel.app/",
-      thumbnail: "/images/drjas.png",
+      thumbnail: "/images/drjas.jpg",
       title: "Dr. Jas Pet Care",
       category: "Capstone Project",
     },
     {
       type: "figma",
       src: "https://embed.figma.com/proto/1AS1gmmD7h2v9Mm8w9tynZ/negros-shit?node-id=12-83&starting-point-node-id=2%3A2&embed-host=share",
-      thumbnail: "/images/negros.png",
+      thumbnail: "/images/negrosdelight.jpg",
       title: "Negros Delights",
-      category: "Web Application",
+      category: "Mobile Application",
     },
     {
       type: "link",
       url: "https://lemake.vercel.app/",
-      thumbnail: "/images/lemake.png",
+      thumbnail: "/images/lemake.jpg",
       title: "Lemake",
       category: "Resume Builder",
     },
     {
       type: "figma",
       src: "https://embed.figma.com/proto/0qFy3Aq3XfHb8GE1sXmMIz/SAD?node-id=105-2838&scaling=contain&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=105%3A2838&embed-host=share",
-      thumbnail: "/images/maestro.png",
+      thumbnail: "/images/maestro.jpg",
       title: "Maestro Solutions",
       category: "Software Engineering Project",
     },
     {
       type: "figma",
       src: "https://embed.figma.com/proto/QONWszrkRHmMBeWeHepbgp/Task-3---Vertical-and-Horizontal-Scrolling?node-id=5-505&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=5%3A505&show-proto-sidebar=1&embed-host=share",
-      thumbnail: "/images/smartcart.png",
+      thumbnail: "/images/smartcart.jpg",
       title: "SmartCart",
       category: "Mobile App Design",
     },
   ];
 
   const handleClick = (item, index) => {
-    if (item.type === "link") {
-      window.open(item.url, "_blank");
-    } else {
-      setOpenModal(index);
-    }
+    setOpenModal(index);
   };
 
   return (
@@ -96,8 +92,8 @@ export default function UIUX({ setActivePage }) {
         ))}
       </div>
 
-      {/* Modal for Figma embeds */}
-      {openModal !== null && works[openModal].type === "figma" && (
+      {/* Modal for Figma embeds and Vercel links */}
+      {openModal !== null && (
         <div
           className="fixed inset-0 bg-black bg-opacity-95 z-[2000] flex items-center justify-center"
           onClick={() => setOpenModal(null)}
@@ -109,8 +105,9 @@ export default function UIUX({ setActivePage }) {
             ×
           </button>
           {/* Mobile app prototypes (SmartCart and Negros Delights) */}
-          {works[openModal].title === "SmartCart" ||
-          works[openModal].title === "Negros Delights" ? (
+          {(works[openModal].title === "SmartCart" ||
+            works[openModal].title === "Negros Delights") &&
+          works[openModal].type === "figma" ? (
             <div
               className="relative w-full h-full flex items-center justify-center"
               style={{
@@ -140,6 +137,18 @@ export default function UIUX({ setActivePage }) {
                   allowFullScreen
                 ></iframe>
               </div>
+            </div>
+          ) : works[openModal].type === "link" ? (
+            /* Vercel links - fullscreen iframe */
+            <div className="w-full h-full" onClick={(e) => e.stopPropagation()}>
+              <iframe
+                title={works[openModal].title}
+                style={{ border: "none" }}
+                width="100%"
+                height="100%"
+                src={works[openModal].url}
+                allowFullScreen
+              ></iframe>
             </div>
           ) : (
             /* Desktop prototypes - fullscreen */
