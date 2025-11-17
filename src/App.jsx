@@ -1,34 +1,62 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { gsap } from "gsap";
 
 import Nav from "./components/Nav";
 import Home from "./components/Home";
-import Graphic from "./components/Graphic";
+import Graphics from "./components/Graphic";
 import Mockups from "./components/Mockups";
 import UIUX from "./components/UIUX";
 
 export default function App() {
   const [activePage, setActivePage] = useState("home");
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const bigCircleRef = useRef(null);
   const smallCircleRef = useRef(null);
   const plusRef = useRef(null);
   const plusAreaRef = useRef(null);
 
-  // Change page from Nav → update state or scroll
+  // Sync activePage with current route
+  useEffect(() => {
+    const path = location.pathname;
+    if (path === "/") setActivePage("home");
+    else if (path === "/graphics") setActivePage("graphic");
+    else if (path === "/mockups") setActivePage("mockups");
+    else if (path === "/uiux") setActivePage("uiux");
+    else if (path.includes("#contact") || activePage === "contact")
+      setActivePage("contact");
+  }, [location.pathname, activePage]);
+
+  // Handle page navigation
   const handlePageChange = (page) => {
     if (page === "home") {
+      navigate("/");
       window.scrollTo({ top: 0, behavior: "smooth" });
-      setActivePage("home");
     } else if (page === "contact") {
-      const contactSection = document.getElementById("contact-section");
-      if (contactSection) {
-        contactSection.scrollIntoView({ behavior: "smooth" });
+      if (location.pathname !== "/") {
+        navigate("/");
+        setTimeout(() => {
+          const contactSection = document.getElementById("contact-section");
+          if (contactSection) {
+            contactSection.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 100);
+      } else {
+        const contactSection = document.getElementById("contact-section");
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: "smooth" });
+        }
       }
-    } else {
-      // For sub-pages like graphic, mockups, uiux
-      setActivePage(page);
+    } else if (page === "graphic") {
+      navigate("/graphics");
+    } else if (page === "mockups") {
+      navigate("/mockups");
+    } else if (page === "uiux") {
+      navigate("/uiux");
     }
+    setActivePage(page);
   };
 
   // Custom cursor logic
@@ -126,13 +154,9 @@ export default function App() {
         el.removeEventListener("mouseleave", onMouseHoverAreaOut);
       });
     };
-  }, [activePage]);
+  }, [location.pathname]);
 
-  // Show work detail pages
-  const isWorkDetailPage =
-    activePage === "graphic" ||
-    activePage === "mockups" ||
-    activePage === "uiux";
+  const isWorkDetailPage = location.pathname !== "/";
 
   return (
     <div
@@ -194,10 +218,21 @@ export default function App() {
 
       <Nav activePage={activePage} setActivePage={handlePageChange} />
 
-      {!isWorkDetailPage && <Home setActivePage={setActivePage} />}
-      {activePage === "graphic" && <Graphic setActivePage={handlePageChange} />}
-      {activePage === "mockups" && <Mockups setActivePage={handlePageChange} />}
-      {activePage === "uiux" && <UIUX setActivePage={handlePageChange} />}
+      <Routes>
+        <Route path="/" element={<Home setActivePage={setActivePage} />} />
+        <Route
+          path="/graphics"
+          element={<Graphics setActivePage={handlePageChange} />}
+        />
+        <Route
+          path="/mockups"
+          element={<Mockups setActivePage={handlePageChange} />}
+        />
+        <Route
+          path="/uiux"
+          element={<UIUX setActivePage={handlePageChange} />}
+        />
+      </Routes>
     </div>
   );
 }

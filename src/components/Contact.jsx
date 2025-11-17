@@ -13,10 +13,10 @@ export default function Contact() {
               Email
             </div>
             <a
-              href="mailto:hello@jnco.design"
+              href="mailto:juneco.mirande@gmail.com"
               className="text-[28px] font-light text-[#003049] no-underline transition-colors duration-300 hover:text-[#c1121f] max-md:text-[20px] max-md:break-words"
             >
-              hello@jnco.design
+              juneco.mirande@gmail.com
             </a>
           </div>
           <div className="border-b border-[#669bbc] pb-[30px]">
