@@ -67,6 +67,7 @@ export default function UIUX({ setActivePage }) {
     {
       type: "scrollable-image",
       images: [
+        "/images/oracle1.gif",
         "/images/oracle1.jpg",
         "/images/oracle2.jpg",
         "/images/oracle3.jpg",

@@ -49,7 +49,7 @@ export default function Graphics({ setActivePage }) {
       {
         type: "single",
         thumbnail: "/images/simulatedsanctuarythumb.jpg",
-        image: "/images/simulatedsanctuary.jpg",
+        image: "/images/simulatedsanctuary.png",
         title: "Simulated Sanctuary",
         category: "Photo Manipulation",
         tools: ["/images/photoshop.svg"],

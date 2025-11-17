@@ -11,6 +11,7 @@ export default function Mockups({ setActivePage }) {
     {
       thumbnail: "/images/artifythumb.jpg",
       images: [
+        "/images/artify0.png",
         "/images/artify1.png",
         "/images/artify2.jpg",
         "/images/artify3.jpg",
@@ -22,9 +23,12 @@ export default function Mockups({ setActivePage }) {
     {
       thumbnail: "/images/panzerexoticsthumb.jpg",
       images: [
+        "/images/panzerexotics2.jpg",
+        "/images/panzerexotics3.jpg",
         "/images/panzerexotics4.jpg",
         "/images/panzerexotics5.jpg",
         "/images/panzerexotics6.jpg",
+        "/images/panzerexotics7.jpg",
       ],
       title: "Panzer Exotics",
       category: "Product Design",
