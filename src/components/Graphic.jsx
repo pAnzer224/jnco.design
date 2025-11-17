@@ -250,7 +250,6 @@ export default function Graphics({ setActivePage }) {
                           src={item}
                           className="max-w-full max-h-full object-contain"
                           loop
-                          muted
                           playsInline
                           preload="auto"
                           style={{
