@@ -1,57 +1,63 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  cursor: none !important;
-}
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300..700&family=JetBrains+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+@tailwind base;
+
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  body {
+    @apply bg-background text-dark font-sans antialiased overflow-x-hidden;
+    cursor: none !important;
+  }
 }
 
 * {
   cursor: none !important;
 }
 
-.cursor {
-  pointer-events: none;
+::-webkit-scrollbar {
+  display: none;
 }
 
-.cursor__circle {
-  position: fixed;
-  top: 0;
-  left: 0;
-  mix-blend-mode: difference;
-  z-index: 10000;
-  transform: translateX(-50%) translateY(-50%);
+html {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-.cursor__circle--big {
-  stroke: #dedede;
-  fill: transparent;
-  mix-blend-mode: difference;
+/* Custom selection */
+::selection {
+  @apply bg-accent text-background;
 }
 
-.cursor__circle--small {
-  fill: #dedede;
-  mix-blend-mode: difference;
+.text-gradient-uiux {
+  background: linear-gradient(90deg, #E63B2E 0%, #E63B2E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.cursor__plus {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 10000;
-  stroke: transparent;
-  fill: transparent;
-  mix-blend-mode: normal;
-  transform: translateX(-50%) translateY(-50%);
+.text-gradient-graphic {
+  background: radial-gradient(circle at top right, #E8E4DD 0%, #CC5833 40%, #E63B2E 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.cursor__plus--area {
-  stroke: transparent;
+.displacement-text {
+  filter: url(#displacementFilter);
+}
+
+.footer-clip-transition {
+  clip-path: inset(0 round 5rem 5rem 0 0);
+  background-color: #111111;
+}
+
+/* For mobile, we can slightly reduce the radius for better fit */
+@media (max-width: 768px) {
+  .footer-clip-transition {
+    clip-path: inset(0 round 3rem 3rem 0 0);
+  }
 }

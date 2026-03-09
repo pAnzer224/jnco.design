@@ -1,42 +1,47 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
+import { CaretLeft, CaretRight, X } from "@phosphor-icons/react";
+
 
 export default function Mockups({ setActivePage }) {
   const [openModal, setOpenModal] = useState(null);
+  const navigate = useNavigate();
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const imageRefs = useRef([]);
   const containerRef = useRef(null);
 
   const works = [
     {
-      thumbnail: "/images/artifythumb.jpg",
+      thumbnail: "/images/artifythumb.webp",
       images: [
-        "/images/artify0.png",
-        "/images/artify1.png",
-        "/images/artify2.jpg",
-        "/images/artify3.jpg",
+        "/images/artify0.webp",
+        "/images/artify1.webp",
+        "/images/artify2.webp",
+        "/images/artify3.webp",
       ],
       title: "Artify",
       category: "Brand Design",
       tools: ["/images/photoshop.svg"],
     },
     {
-      thumbnail: "/images/panzerexoticsthumb.jpg",
+      thumbnail: "/images/panzerexoticsthumb.webp",
       images: [
-        "/images/panzerexotics2.jpg",
-        "/images/panzerexotics3.jpg",
-        "/images/panzerexotics4.jpg",
-        "/images/panzerexotics5.jpg",
-        "/images/panzerexotics6.jpg",
-        "/images/panzerexotics7.jpg",
+        "/images/panzerexotics2.webp",
+        "/images/panzerexotics3.webp",
+        "/images/panzerexotics4.webp",
+        "/images/panzerexotics5.webp",
+        "/images/panzerexotics6.webp",
+        "/images/panzerexotics7.webp",
       ],
       title: "Panzer Exotics",
       category: "Product Design",
       tools: ["/images/photoshop.svg"],
     },
     {
-      thumbnail: "/images/smartcartthumb.jpg",
-      images: ["/images/smartcart1.jpg"],
+      thumbnail: "/images/smartcartthumb.webp",
+      images: ["/images/smartcart1.webp"],
       title: "SmartCart",
       category: "Mobile Design",
       tools: ["/images/photoshop.svg"],
@@ -100,64 +105,51 @@ export default function Mockups({ setActivePage }) {
 
   return (
     <section
-      className="min-h-screen pt-[140px] px-4 sm:px-8 md:px-12 lg:px-16 pb-16 max-md:pt-[120px]"
-      style={{ backgroundColor: "#669BBC" }}
+      className="min-h-screen pt-[140px] px-4 sm:px-8 md:px-12 md:pl-[120px] lg:px-24 lg:pl-[140px] pb-16 bg-background text-dark"
     >
       <button
-        onClick={() => setActivePage("home")}
-        className="mb-[40px] text-[14px] font-light tracking-[1px] uppercase text-[#003049] hover:text-[#FDF0D5] transition-colors duration-300"
-        style={{ fontFamily: "'Chainprinter', monospace" }}
+        onClick={() => { setActivePage("home"); navigate("/"); window.scrollTo(0, 0); }}
+        className="mb-[40px] text-[12px] font-mono font-bold tracking-[2px] uppercase text-dark/70 hover:text-accent transition-colors duration-300 flex items-center gap-2"
       >
-        ← Back to Home
+        <CaretLeft size={20} weight="bold" /> Back to Index
       </button>
-      <div
-        className="page-title text-[14px] font-light tracking-[3px] uppercase text-[#003049] mb-[80px]"
-        style={{ fontFamily: "'Chainprinter', monospace" }}
-      >
+
+
+      <div className="font-sans font-bold text-5xl sm:text-7xl tracking-tighter uppercase text-dark mb-[80px]">
         Mockups
       </div>
 
       {/* Gallery Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[2px] max-w-[1400px]">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full border-t border-dark/10 pt-10">
         {works.map((item, index) => (
           <div
             key={index}
             onClick={() => handleClick(index)}
-            className="aspect-square bg-[#1a1a1a] overflow-hidden relative cursor-pointer group"
+            className="aspect-square bg-primary overflow-hidden relative cursor-pointer group rounded-[2rem] border border-dark/10 hover:border-accent/40 shadow-sm"
           >
             <img
               src={item.thumbnail}
               alt={item.title}
-              className="w-full h-full object-cover transition-transform duration-[600ms] ease-out group-hover:scale-105"
+              className="w-full h-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-105 opacity-80 mix-blend-luminosity grayscale group-hover:grayscale-0 group-hover:mix-blend-normal group-hover:opacity-100"
             />
-            {/* Title - Always Visible */}
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[rgba(0,0,0,0.8)] via-[rgba(0,0,0,0.6)] to-transparent p-[30px] pointer-events-none">
-              <div
-                className="text-[24px] font-normal mb-[4px] text-[#fdf0d5]"
-                style={{ fontFamily: "'Lora', serif" }}
-              >
+            {/* Title */}
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent p-6 pointer-events-none">
+              <div className="text-2xl font-bold mb-1 text-primary font-sans uppercase tracking-tight">
                 {item.title}
               </div>
-              <div
-                className="text-[12px] text-[#669bbc] tracking-[2px] uppercase"
-                style={{ fontFamily: "'Chainprinter', monospace" }}
-              >
+              <div className="text-[10px] text-accent tracking-[2px] uppercase font-mono font-bold">
                 {item.category}
               </div>
             </div>
 
-            {/* Tools Icons - Show on Hover */}
-            <div className="absolute top-[20px] right-[20px] flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-[400ms]">
+            {/* Tools Icons */}
+            <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
               {item.tools.map((tool, toolIndex) => (
                 <div
                   key={toolIndex}
-                  className="w-10 h-10 bg-[rgba(0,0,0,0.7)] rounded-full flex items-center justify-center backdrop-blur-sm"
+                  className="w-10 h-10 bg-dark/80 rounded-full flex items-center justify-center backdrop-blur-md border border-primary/20"
                 >
-                  <img
-                    src={tool}
-                    alt="Tool icon"
-                    className="w-6 h-6 object-contain"
-                  />
+                  <img src={tool} alt="Tool icon" className="w-5 h-5 object-contain filter invert" />
                 </div>
               ))}
             </div>
@@ -168,24 +160,23 @@ export default function Mockups({ setActivePage }) {
       {/* Modal with Horizontal Gallery */}
       {openModal !== null && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-95 z-[2000] flex items-center justify-center p-4"
+          className="fixed inset-0 bg-dark/95 backdrop-blur-xl z-[2000] flex items-center justify-center p-4 sm:p-8"
           onClick={() => setOpenModal(null)}
         >
           <button
             onClick={() => setOpenModal(null)}
-            className="absolute top-20 right-8 bg-[#669BBC] text-white text-sm font-light tracking-[1px] uppercase hover:bg-[#003049] transition-colors duration-300 z-[2001] flex items-center gap-2 px-6 py-3 rounded"
-            style={{ fontFamily: "'Chainprinter', monospace" }}
+            className="absolute top-8 right-8 text-primary/50 hover:text-accent transition-colors duration-300 z-[2001] flex items-center justify-center w-12 h-12 rounded-full border border-primary/20 hover:border-accent"
           >
-            ← Return to Gallery
+            <X size={24} weight="bold" />
           </button>
+
 
           <div
             ref={containerRef}
-            className="relative w-full max-w-5xl h-[70vh] flex items-center justify-center"
+            className="relative w-full max-w-7xl h-[80vh] flex items-center justify-center"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Image Gallery Container */}
-            <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
+            <div className="relative w-full h-full flex items-center justify-center overflow-hidden rounded-[2rem] bg-black border border-primary/10 shadow-2xl">
               {works[openModal].images.map((img, imgIndex) => (
                 <div
                   key={imgIndex}
@@ -197,10 +188,7 @@ export default function Mockups({ setActivePage }) {
                     src={img}
                     alt={`${works[openModal].title} ${imgIndex + 1}`}
                     className="max-w-full max-h-full object-contain"
-                    style={{
-                      pointerEvents:
-                        imgIndex === currentIndex ? "auto" : "none",
-                    }}
+                    style={{ pointerEvents: imgIndex === currentIndex ? "auto" : "none" }}
                   />
                 </div>
               ))}
@@ -211,27 +199,25 @@ export default function Mockups({ setActivePage }) {
               <>
                 <button
                   onClick={handlePrev}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-[#669BBC] hover:bg-[#003049] text-white w-12 h-12 rounded-full flex items-center justify-center transition-colors duration-300 z-20"
-                  style={{ fontFamily: "'Chainprinter', monospace" }}
+                  className="absolute left-2 sm:-left-6 top-1/2 -translate-y-1/2 bg-dark hover:bg-accent text-primary w-14 h-14 rounded-full flex items-center justify-center transition-colors duration-300 z-20 border border-primary/20"
                 >
-                  ←
+                  <CaretLeft size={32} weight="bold" />
                 </button>
                 <button
                   onClick={handleNext}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-[#669BBC] hover:bg-[#003049] text-white w-12 h-12 rounded-full flex items-center justify-center transition-colors duration-300 z-20"
-                  style={{ fontFamily: "'Chainprinter', monospace" }}
+                  className="absolute right-2 sm:-right-6 top-1/2 -translate-y-1/2 bg-dark hover:bg-accent text-primary w-14 h-14 rounded-full flex items-center justify-center transition-colors duration-300 z-20 border border-primary/20"
                 >
-                  →
+                  <CaretRight size={32} weight="bold" />
                 </button>
+
               </>
             )}
 
             {/* Image Counter */}
-            <div
-              className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black bg-opacity-50 text-white px-4 py-2 rounded-full text-sm z-20"
-              style={{ fontFamily: "'Chainprinter', monospace" }}
-            >
+            <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-primary/50 tracking-[3px] font-mono text-xs z-20 font-bold uppercase flex items-center gap-4">
+              <span className="w-8 h-[1px] bg-accent" />
               {currentIndex + 1} / {works[openModal].images.length}
+              <span className="w-8 h-[1px] bg-accent" />
             </div>
           </div>
         </div>
