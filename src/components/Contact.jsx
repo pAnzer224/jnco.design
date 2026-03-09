@@ -44,11 +44,12 @@ export default function Contact() {
                 { icon: InstagramLogo, href: "https://instagram.com" },
                 { icon: FigmaLogo, href: "https://figma.com/@jnco" },
                 { icon: DribbbleLogo, href: "https://dribbble.com/jnco" }
-              ].map((LinkItem, idx) => (
-                <a key={idx} href={LinkItem.href} className="w-16 h-16 rounded-full border border-primary/20 flex items-center justify-center text-primary hover:bg-accent hover:border-accent hover:text-background transition-all duration-300 transform hover:-translate-y-2">
-                  <LinkItem.icon size={28} />
+              ].map(({ icon: Icon, href }, idx) => (
+                <a key={idx} href={href} className="w-16 h-16 rounded-full border border-primary/20 flex items-center justify-center text-primary hover:bg-accent hover:border-accent hover:text-background transition-all duration-300 transform hover:-translate-y-2">
+                  <Icon size={28} />
                 </a>
               ))}
+
             </div>
           </div>
         </div>

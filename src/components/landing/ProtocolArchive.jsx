@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -34,6 +35,8 @@ const ProtocolArchive = () => {
     const containerRef = useRef(null);
     const cardsRef = useRef([]);
     const navigate = useNavigate();
+    const [loadedImages, setLoadedImages] = useState({});
+
 
     useEffect(() => {
         let ctx = gsap.context(() => {
@@ -91,15 +94,24 @@ const ProtocolArchive = () => {
                                 navigate(card.path);
                                 window.scrollTo({ top: 0, behavior: "smooth" });
                             }}
-                            className="card-inner relative w-full max-w-5xl h-[70vh] rounded-[2rem] sm:rounded-[3rem] overflow-hidden cursor-pointer group shadow-2xl border-4 border-dark/5"
+                            className={`card-inner relative w-full max-w-5xl h-[70vh] rounded-[2rem] sm:rounded-[3rem] overflow-hidden cursor-pointer group shadow-2xl border-4 border-dark/5 ${!loadedImages[card.bg] ? 'skeleton' : ''}`}
                         >
+                            {/* Hidden Image for Loading Listener */}
+                            <img
+                                src={card.bg}
+                                alt=""
+                                className="hidden"
+                                onLoad={() => setLoadedImages(prev => ({ ...prev, [card.bg]: true }))}
+                            />
+
                             {/* Background Image */}
                             <div
-                                className="absolute inset-0 bg-cover bg-center transition-all duration-[800ms] ease-[power3.out] opacity-80 md:opacity-60 md:mix-blend-luminosity md:grayscale group-hover:scale-110 md:group-hover:mix-blend-normal md:group-hover:grayscale-0 md:group-hover:opacity-100"
+                                className={`absolute inset-0 bg-cover bg-center transition-all duration-[800ms] ease-[power3.out] opacity-80 md:opacity-60 md:mix-blend-luminosity md:grayscale group-hover:scale-110 md:group-hover:mix-blend-normal md:group-hover:grayscale-0 md:group-hover:opacity-100 ${loadedImages[card.bg] ? 'opacity-80' : 'opacity-0'}`}
                                 style={{ backgroundImage: `url('${card.bg}')` }}
                             />
                             {/* Dark Overlay gradient */}
                             <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent" />
+
 
                             <div className="absolute inset-0 flex flex-col justify-between p-8 sm:p-12 z-10 text-primary">
 

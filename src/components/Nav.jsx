@@ -78,7 +78,7 @@ export default function Nav({ activePage, setActivePage }) {
 
   // Handle Mobile Menu Animation
   const menuOverlayRef = useRef(null);
-  const menuContentRef = useRef(null);
+
 
   useEffect(() => {
     if (isMobileMenuOpen) {

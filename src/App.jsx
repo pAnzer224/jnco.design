@@ -11,8 +11,8 @@ import UIUX from "./components/UIUX";
 
 export default function App() {
   const [activePage, setActivePage] = useState("home");
-  const navigate = useNavigate();
   const location = useLocation();
+
 
   const cursorRef = useRef(null);
   const [cursorState, setCursorState] = useState("default"); // default, click, text

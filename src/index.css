@@ -6,6 +6,31 @@
 @tailwind utilities;
 
 
+@layer utilities {
+  .skeleton {
+    @apply relative overflow-hidden bg-primary/20;
+  }
+
+  .skeleton::after {
+    @apply absolute inset-0 content-[""];
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent);
+    animation: shimmer 1.5s infinite;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 @layer base {
   body {
     @apply bg-background text-dark font-sans antialiased overflow-x-hidden;

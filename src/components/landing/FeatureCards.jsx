@@ -1,5 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
+
 import { FigmaLogo, PaintBrush, TerminalWindow } from "@phosphor-icons/react";
+
+const messages = ["Initializing Photoshop workspace...", "Generating raster textures...", "Exporting high-fidelity vectors. "];
 
 const FeatureCards = () => {
     // 1. UI/UX Layers
@@ -23,8 +26,8 @@ const FeatureCards = () => {
 
     // 2. Graphic Design Terminal
     const [typewriter, setTypewriter] = useState("");
-    const messages = ["Initializing Photoshop workspace...", "Generating raster textures...", "Exporting high-fidelity vectors. "];
     const [msgIdx, setMsgIdx] = useState(0);
+
 
     useEffect(() => {
         let currentText = messages[msgIdx];
@@ -105,7 +108,8 @@ const FeatureCards = () => {
                         <p className="font-mono text-xs text-primary/50 leading-relaxed">Whether it's Illustrator or Photoshop, I craft raw assets, compelling typography, and striking graphics.</p>
                     </div>
                     <div className="bg-black/50 rounded-xl p-6 font-mono text-[11px] leading-loose text-accent flex flex-col justify-end min-h-[120px] shadow-inner border border-primary/5">
-                        <p className="text-primary/70 mb-2">// Adobe Workflow Engine</p>
+                        <p className="text-primary/70 mb-2">{"// Adobe Workflow Engine"}</p>
+
                         <p>
                             &gt; {typewriter}<span className="inline-block w-2 h-3 bg-primary ml-1 animate-pulse" />
                         </p>

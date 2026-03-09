@@ -103,6 +103,8 @@ export default function Mockups({ setActivePage }) {
     );
   };
 
+  const [imagesLoaded, setImagesLoaded] = useState({});
+
   return (
     <section
       className="min-h-screen pt-[140px] px-4 sm:px-8 md:px-12 md:pl-[120px] lg:px-24 lg:pl-[140px] pb-16 bg-background text-dark"
@@ -125,13 +127,15 @@ export default function Mockups({ setActivePage }) {
           <div
             key={index}
             onClick={() => handleClick(index)}
-            className="aspect-square bg-primary overflow-hidden relative cursor-pointer group rounded-[2rem] border border-dark/10 hover:border-accent/40 shadow-sm"
+            className={`aspect-square overflow-hidden relative cursor-pointer group rounded-[2rem] border border-dark/10 hover:border-accent/40 shadow-sm ${!imagesLoaded[item.thumbnail] ? 'skeleton' : 'bg-primary'}`}
           >
             <img
               src={item.thumbnail}
               alt={item.title}
-              className="w-full h-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-105 opacity-80 mix-blend-luminosity grayscale group-hover:grayscale-0 group-hover:mix-blend-normal group-hover:opacity-100"
+              onLoad={() => setImagesLoaded(prev => ({ ...prev, [item.thumbnail]: true }))}
+              className={`w-full h-full object-cover transition-all duration-[800ms] ease-out group-hover:scale-105 opacity-80 mix-blend-luminosity grayscale group-hover:grayscale-0 group-hover:mix-blend-normal group-hover:opacity-100 ${imagesLoaded[item.thumbnail] ? 'opacity-100' : 'opacity-0'}`}
             />
+
             {/* Title */}
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent p-6 pointer-events-none">
               <div className="text-2xl font-bold mb-1 text-primary font-sans uppercase tracking-tight">
