@@ -1,11 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { FigmaLogo, PaintBrush, TerminalWindow, NavigationArrow } from "@phosphor-icons/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import { FigmaLogo, PaintBrush, TerminalWindow } from "@phosphor-icons/react";
+gsap.registerPlugin(ScrollTrigger);
 
-const messages = ["Initializing Photoshop workspace...", "Generating raster textures...", "Exporting high-fidelity vectors. "];
+const messages = [
+    "ps_core.dll loaded @ 0x7FFA2B3C [12ms]",
+    "Rasterizing layer 'bg_texture' at 300dpi...",
+    "VRAM alloc: 4096MB / scratch disk: OK",
+    "GPU: NVIDIA GTX 1650 — OpenCL 3.0 ready",
+    "Flatten: merged 14 layers → composite.psd",
+    "Export path: /assets/brand/hero_v3.png",
+    "Color profile: sRGB IEC61966-2.1 embedded",
+    "Smart object cache invalidated → rebuilding",
+    "ai.exe: artboard 1/3 rendered [87ms]",
+    "Saving: hero_v3.ai [48.2MB] ✓",
+];
 
 const FeatureCards = () => {
-    // 1. UI/UX Layers
     const [layersDeck, setLayersDeck] = useState([
         { id: 1, label: "001 // Frames", desc: "Auto-layout components." },
         { id: 2, label: "002 // Prototyping", desc: "Interactive flows." },
@@ -24,10 +37,28 @@ const FeatureCards = () => {
         return () => clearInterval(interval);
     }, []);
 
-    // 2. Graphic Design Terminal
     const [typewriter, setTypewriter] = useState("");
     const [msgIdx, setMsgIdx] = useState(0);
 
+    const sectionRef = useRef(null);
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            gsap.to(".feature-card", {
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: "top 85%",
+                },
+                y: 0,
+                opacity: 1,
+                scale: 1,
+                duration: 1.2,
+                stagger: 0.2,
+                ease: "back.out(1.7)",
+            });
+        }, sectionRef);
+        return () => ctx.revert();
+    }, []);
 
     useEffect(() => {
         let currentText = messages[msgIdx];
@@ -42,21 +73,20 @@ const FeatureCards = () => {
                     setMsgIdx((m) => (m + 1) % messages.length);
                 }, 2000);
             }
-        }, 50);
+        }, 40);
         return () => clearInterval(charInterval);
     }, [msgIdx]);
 
     return (
-        <section className="bg-background py-32 px-4 sm:px-8 md:pl-[120px] lg:pl-[140px] xl:pr-16 container mx-auto" id="skills">
+        <section ref={sectionRef} className="bg-background py-32 px-4 sm:px-8 md:pl-[120px] lg:pl-[140px] xl:pr-16 container mx-auto" id="skills">
             <div className="text-center mb-24">
-                <h2 className="font-sans font-black text-4xl sm:text-6xl text-dark tracking-tighter uppercase mb-6">Execution Stack</h2>
+                <h2 className="font-sans font-black text-4xl sm:text-6xl text-dark tracking-tighter uppercase mb-6">How i execute</h2>
                 <div className="w-16 h-1 bg-accent mx-auto" />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                {/* Card 1: UI/UX Architecture */}
-                <div className="relative bg-primary border-[1.5px] border-dark/10 rounded-[2rem] h-[400px] p-8 shadow-xl flex flex-col justify-between overflow-hidden group hover:-translate-y-1 transition-transform duration-500">
+                <div className="feature-card opacity-0 translate-y-10 relative bg-primary/80 backdrop-blur-md border-[1.5px] border-dark/10 rounded-[2rem] h-[400px] p-8 shadow-xl flex flex-col justify-between overflow-hidden group hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:shadow-2xl hover:shadow-dark/5">
                     <div>
                         <div className="flex justify-between items-center mb-8 text-black">
                             <FigmaLogo size={32} weight="duotone" />
@@ -94,8 +124,7 @@ const FeatureCards = () => {
                     </div>
                 </div>
 
-                {/* Card 2: Graphic Design */}
-                <div className="bg-dark rounded-[2rem] h-[400px] p-8 shadow-xl flex flex-col justify-between border-2 border-transparent hover:border-accent/30 transition-colors duration-500 group">
+                <div className="feature-card opacity-0 translate-y-10 bg-dark/95 backdrop-blur-md rounded-[2rem] h-[400px] p-8 shadow-xl flex flex-col justify-between border-2 border-transparent hover:border-accent/30 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-2 group hover:shadow-2xl hover:shadow-accent/5">
                     <div>
                         <div className="flex justify-between items-center mb-8 text-primary">
                             <PaintBrush size={32} weight="duotone" className="text-accent" />
@@ -109,15 +138,13 @@ const FeatureCards = () => {
                     </div>
                     <div className="bg-black/50 rounded-xl p-6 font-mono text-[11px] leading-loose text-accent flex flex-col justify-end min-h-[120px] shadow-inner border border-primary/5">
                         <p className="text-primary/70 mb-2">{"// Adobe Workflow Engine"}</p>
-
                         <p>
                             &gt; {typewriter}<span className="inline-block w-2 h-3 bg-primary ml-1 animate-pulse" />
                         </p>
                     </div>
                 </div>
 
-                {/* Card 3: Front-End */}
-                <div className="relative bg-primary border-[1.5px] border-dark/10 rounded-[2rem] h-[400px] p-8 shadow-xl flex flex-col justify-between hover:-translate-y-1 transition-transform duration-500 overflow-hidden">
+                <div className="feature-card opacity-0 translate-y-10 relative bg-primary/80 backdrop-blur-md border-[1.5px] border-dark/10 rounded-[2rem] h-[400px] p-8 shadow-xl flex flex-col justify-between hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] overflow-hidden md:col-span-2 lg:col-span-1 hover:shadow-2xl hover:shadow-dark/5">
                     <div>
                         <div className="flex justify-between items-center mb-8 text-dark">
                             <TerminalWindow size={32} weight="duotone" />
@@ -142,10 +169,11 @@ const FeatureCards = () => {
                             <p className="pl-4">)</p>
                             <p>{"}"}</p>
                         </div>
-
-                        <svg className="absolute w-5 h-5 text-white drop-shadow-md top-1/2 left-1/2 -ml-2 -mt-2 animate-[cursorMove_3s_cubic-bezier(0.25,1,0.5,1)_infinite]" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M7 2L21 16L14 17L12 22L7 2Z" />
-                        </svg>
+                        <NavigationArrow
+                            size={20}
+                            weight="fill"
+                            className="absolute text-white drop-shadow-md top-1/2 left-1/2 -ml-2 -mt-2 animate-[cursorMove_3s_cubic-bezier(0.25,1,0.5,1)_infinite]"
+                        />
                     </div>
                 </div>
 

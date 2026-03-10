@@ -51,17 +51,17 @@ const Philosophy = () => {
         return () => ctx.revert();
     }, []);
 
-    const description = "I work primarily with Photoshop for graphic design and Figma for UI/UX projects. I am comfortable with the full design process—from initial concepts and wireframes to final deliverables. I also have experience in UI/UX design and front-end development, which helps me understand how designs translate into actual products. I focus on creating designs that are both visually appealing and functional, whether it is a logo, infographic, or website interface.";
-
-    return (
-        <section ref={containerRef} className="relative bg-dark text-primary min-h-screen flex flex-col justify-center overflow-hidden py-32 px-4 sm:px-8 xl:px-32 md:pl-[120px] lg:pl-[140px] w-full" id="philosophy">
-            <div
-                className="absolute inset-0 opacity-10 bg-cover bg-fixed bg-center mix-blend-lighten grayscale"
-                style={{ backgroundImage: "url('/images/laco.webp')" }}
-            />
-
-            <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center justify-center text-center md:items-start md:text-left pb-20 border-b border-primary/10 px-4 md:pl-0 md:pr-4">
-                <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-8 font-bold">About Me</h3>
+    const description = "Frontend Developer and UI/UX Designer with 8 years of experience in graphic design and digital media. Proficient in modern web technologies and design tools with a strong foundation in creating responsive, user-centered applications. Demonstrated ability to adapt quickly to new technologies and frameworks while delivering quality results in collaborative environments.";
+ 
+     return (
+        <section ref={containerRef} className="relative bg-dark text-primary min-h-screen flex flex-col justify-center overflow-hidden py-32 md:pl-[120px] lg:pl-[140px] w-full" id="philosophy">
+             <div
+                 className="absolute inset-0 opacity-10 bg-cover bg-fixed bg-center mix-blend-lighten grayscale"
+                 style={{ backgroundImage: "url('/images/laco.webp')" }}
+             />
+ 
+             <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center justify-center text-center md:items-start md:text-left pb-20 border-b border-primary/10 px-4 md:pl-0 md:pr-4">
+                <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-8 font-bold">Professional Summary</h3>
                 <p className="font-sans font-bold text-xl sm:text-2xl md:text-3xl leading-[1.6] text-dark tracking-tight" style={{ wordBreak: 'break-word' }}>
                     {description.split(" ").map((word, wordIndex) => (
                         <span key={`word-${wordIndex}`} className="inline-flex mr-[0.35em]">

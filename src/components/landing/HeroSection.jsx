@@ -14,36 +14,45 @@ const HeroSection = () => {
             // Entrance animation for the hero text
             const tl = gsap.timeline({ delay: 0.5 });
 
-            // Initial fade for the intro
-            tl.to(".hero-intro", {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                ease: "power3.out"
-            });
-
-            // UI/UX Typing to gradient fade effect
-            tl.fromTo(".uiux-char",
-                { opacity: 0, y: 10 },
+            // 1. First, the introduction "Hey, I'm Juneco"
+            const isMobile = window.innerWidth < 768;
+            tl.fromTo(".hero-intro",
+                {
+                    opacity: 0,
+                    y: 20,
+                    scale: isMobile ? 1.5 : 1,
+                    transformOrigin: isMobile ? "center center" : "left center"
+                },
                 {
                     opacity: 1,
                     y: 0,
-                    duration: 0.05,
-                    stagger: 0.05,
-                    ease: "power2.out"
-                },
-                "-=0.4"
+                    scale: 1,
+                    duration: 1.0, // Slightly faster (Original was 1.2, previous fix 0.8)
+                    ease: "power4.out"
+                }
             );
 
-            // Warming fade in for Graphic Designer with displacement map
+            // 2. Then, the UI/UX typing (Sequential but snappy)
+            tl.fromTo(".uiux-char",
+                { opacity: 0, y: 15 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.07, // Just a tiny bit faster (Original was 0.08)
+                    stagger: 0.04,
+                    ease: "back.out(1.7)"
+                },
+                "-=0.1" // Very slight overlap so it feels continuous
+            );
+
+            // 3. Finally, the Graphic Designer reveal with displacement
+            const filterVars = { scale: 50, freq: 0.05 };
             tl.fromTo(graphicRef.current,
                 { opacity: 0, scale: 0.95 },
                 { opacity: 1, scale: 1, duration: 1.5, ease: "power2.inOut" },
-                "-=0.2"
+                "-=0.4"
             );
 
-            // Animate displacement filter
-            const filterVars = { scale: 50, freq: 0.05 };
             tl.to(filterVars, {
                 scale: 0,
                 freq: 0,
@@ -146,7 +155,7 @@ const HeroSection = () => {
             {/* Content wrapper */}
             <div className="relative z-10 w-full text-primary flex flex-col items-center md:items-start text-center md:text-left">
                 <h1 className="font-sans font-black text-6xl md:text-8xl tracking-tighter leading-[0.85] flex flex-col justify-center md:justify-start uppercase">
-                    <span className="text-primary font-mono font-bold not-italic text-[12px] sm:text-[14px] md:text-2xl tracking-[0.3em] mb-4 hero-intro opacity-0 translate-y-10 whitespace-nowrap">Hey, I'm Juneco,</span>
+                    <span className="text-primary font-mono font-bold not-italic text-[12px] sm:text-[14px] md:text-2xl tracking-[0.3em] mb-4 hero-intro opacity-0 translate-y-10 whitespace-nowrap">Hey, I'm Juneco</span>
                     <span className="text-accent italic leading-[0.85]">
                         {uiuxText.split("").map((char, i) => (char === " " ? <span key={i}>&nbsp;</span> : <span key={i} className="uiux-char inline-block">{char}</span>))}
                     </span>

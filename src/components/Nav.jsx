@@ -163,12 +163,9 @@ export default function Nav({ activePage, setActivePage }) {
               setIsMobileMenuOpen(false);
               if (setActivePage) setActivePage("contact");
               if (location.pathname !== "/") {
-                navigate("/");
-                setTimeout(() => {
-                  gsap.to(window, { duration: 1.2, scrollTo: "#contact", ease: "power3.inOut" });
-                }, 500);
+                navigate("/#contact");
               } else {
-                gsap.to(window, { duration: 1.2, scrollTo: "#contact", ease: "power3.inOut" });
+                document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
               }
             }}
             className="w-full bg-primary text-dark py-6 rounded-3xl font-sans font-bold uppercase tracking-widest text-lg flex items-center justify-center gap-4 hover:bg-accent hover:text-primary transition-colors duration-300"
@@ -247,12 +244,9 @@ export default function Nav({ activePage, setActivePage }) {
               onClick={() => {
                 if (setActivePage) setActivePage("contact");
                 if (location.pathname !== "/") {
-                  navigate("/");
-                  setTimeout(() => {
-                    gsap.to(window, { duration: 1.2, scrollTo: "#contact", ease: "power3.inOut" });
-                  }, 500);
+                  navigate("/#contact");
                 } else {
-                  gsap.to(window, { duration: 1.2, scrollTo: "#contact", ease: "power3.inOut" });
+                  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
                 }
               }}
               className="group relative flex items-center w-full h-[40px] rounded-full bg-primary text-dark hover:bg-accent hover:text-primary transition-colors duration-300 overflow-hidden"

@@ -96,7 +96,7 @@ export default function UIUX({ setActivePage }) {
 
   return (
     <section
-      className="min-h-screen pt-[140px] px-4 sm:px-8 md:px-12 md:pl-[120px] lg:px-24 lg:pl-[140px] pb-16 bg-background text-dark"
+      className="min-h-screen pt-12 sm:pt-16 px-4 sm:px-8 md:px-12 md:pl-[120px] lg:px-24 lg:pl-[140px] pb-16 bg-background text-dark"
     >
       <button
         onClick={() => { setActivePage("home"); navigate("/"); window.scrollTo(0, 0); }}
@@ -122,7 +122,7 @@ export default function UIUX({ setActivePage }) {
               src={item.thumbnail}
               alt={item.title}
               onLoad={() => setImagesLoaded(prev => ({ ...prev, [item.thumbnail]: true }))}
-              className={`w-full h-full object-cover transition-all duration-[800ms] ease-out group-hover:scale-105 opacity-80 mix-blend-luminosity grayscale group-hover:grayscale-0 group-hover:mix-blend-normal group-hover:opacity-100 ${imagesLoaded[item.thumbnail] ? 'opacity-100' : 'opacity-0'}`}
+              className={`w-full h-full object-cover transition-all duration-[800ms] ease-out group-hover:scale-105 lg:opacity-80 lg:mix-blend-luminosity lg:grayscale lg:group-hover:grayscale-0 lg:group-hover:mix-blend-normal group-hover:opacity-100 ${imagesLoaded[item.thumbnail] ? 'opacity-100' : 'opacity-0'}`}
             />
 
             {/* Title */}
@@ -140,9 +140,9 @@ export default function UIUX({ setActivePage }) {
               {item.tools.map((tool, toolIndex) => (
                 <div
                   key={toolIndex}
-                  className="w-10 h-10 bg-dark/80 rounded-full flex items-center justify-center backdrop-blur-md border border-primary/20"
+                  className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-md border border-primary/20"
                 >
-                  <img src={tool} alt="Tool icon" className="w-5 h-5 object-contain filter invert" />
+                  <img src={tool} alt="Tool icon" className="w-5 h-5 object-contain" />
                 </div>
               ))}
             </div>
