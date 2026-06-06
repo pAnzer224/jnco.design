@@ -9,7 +9,8 @@ import {
   PenNib,
   EnvelopeSimple,
   List,
-  X
+  X,
+  Code
 } from "@phosphor-icons/react";
 
 const navLinks = [
@@ -17,6 +18,7 @@ const navLinks = [
   { id: "graphic", path: "/graphics", label: "GRAPHICS", icon: PaintBrush },
   { id: "mockups", path: "/mockups", label: "MOCKUPS", icon: Devices },
   { id: "uiux", path: "/uiux", label: "UI / UX", icon: PenNib },
+  { id: "webdev", path: "/webdev", label: "WEB DEV", icon: Code },
 ];
 
 export default function Nav({ activePage, setActivePage }) {

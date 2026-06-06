@@ -157,7 +157,7 @@ const HeroSection = () => {
                 <h1 className="font-sans font-black text-6xl md:text-8xl tracking-tighter leading-[0.85] flex flex-col justify-center md:justify-start uppercase">
                     <span className="text-primary font-mono font-bold not-italic text-[12px] sm:text-[14px] md:text-2xl tracking-[0.3em] mb-4 hero-intro opacity-0 translate-y-10 whitespace-nowrap">Hey, I'm Juneco</span>
                     <span className="text-accent italic leading-[0.85]">
-                        {uiuxText.split("").map((char, i) => (char === " " ? <span key={i}>&nbsp;</span> : <span key={i} className="uiux-char inline-block">{char}</span>))}
+                        {uiuxText.split("").map((char, i) => (char === " " ? <span key={i}>&nbsp;</span> : <span key={i} className="uiux-char inline-block opacity-0">{char}</span>))}
                     </span>
                     <span ref={graphicRef} className="text-gradient-graphic text-4xl sm:text-5xl md:text-7xl -mt-[0.1em] displacement-text opacity-0 italic leading-[1] py-2 pr-6">
                         Graphic Designer

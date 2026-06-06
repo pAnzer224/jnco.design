@@ -8,6 +8,7 @@ import Home from "./components/Home";
 import Graphics from "./components/Graphic";
 import Mockups from "./components/Mockups";
 import UIUX from "./components/UIUX";
+import WebDev from "./components/WebDev";
 
 export default function App() {
   const [activePage, setActivePage] = useState("home");
@@ -23,6 +24,7 @@ export default function App() {
     else if (path === "/graphics") setActivePage("graphic");
     else if (path === "/mockups") setActivePage("mockups");
     else if (path === "/uiux") setActivePage("uiux");
+    else if (path === "/webdev") setActivePage("webdev");
     else if (path.includes("#contact") || activePage === "contact")
       setActivePage("contact");
   }, [location.pathname, activePage]);
@@ -90,7 +92,7 @@ export default function App() {
       {/* Custom Phosphor Cursor */}
       <div
         ref={cursorRef}
-        className="fixed top-0 left-0 pointer-events-none z-[10000] hidden md:block mix-blend-difference"
+        className="custom-cursor fixed top-0 left-0 pointer-events-none z-[10000] hidden md:block mix-blend-difference"
       >
         <div className="text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)] relative">
           {cursorState === "click" ? (
@@ -110,6 +112,7 @@ export default function App() {
         <Route path="/graphics" element={<Graphics setActivePage={setActivePage} />} />
         <Route path="/mockups" element={<Mockups setActivePage={setActivePage} />} />
         <Route path="/uiux" element={<UIUX setActivePage={setActivePage} />} />
+        <Route path="/webdev" element={<WebDev setActivePage={setActivePage} />} />
       </Routes>
     </div>
   );

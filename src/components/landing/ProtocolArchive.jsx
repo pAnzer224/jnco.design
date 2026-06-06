@@ -12,7 +12,7 @@ const protocols = [
         step: "001",
         title: "Graphic Design",
         desc: "Branding, Marketing & Visual Identity",
-        bg: "/images/neue/logo.webp",
+        bg: "/images/simulatedsanctuarythumb.webp",
         path: "/graphics",
     },
     {
@@ -28,6 +28,13 @@ const protocols = [
         desc: "Product Design & Brand Presentations",
         bg: "/images/artifythumb.webp",
         path: "/mockups",
+    },
+    {
+        step: "004",
+        title: "Web Dev",
+        desc: "Full-Stack Applications & Code",
+        bg: "/images/drjas.webp",
+        path: "/webdev",
     },
 ];
 

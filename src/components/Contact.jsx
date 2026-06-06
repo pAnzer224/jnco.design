@@ -1,41 +1,44 @@
 import React, { useEffect, useRef } from "react";
-import { EnvelopeSimple, InstagramLogo, FigmaLogo, DribbbleLogo, MapPin } from "@phosphor-icons/react";
+import { EnvelopeSimple, LinkedinLogo, MapPin } from "@phosphor-icons/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Contact() {
-    const sectionRef = useRef(null);
+  const sectionRef = useRef(null);
 
-    useEffect(() => {
-        const ctx = gsap.context(() => {
-            gsap.from(".contact-item", {
-                scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: "top 90%",
-                },
-                y: 20,
-                opacity: 0,
-                duration: 1.2,
-                stagger: 0.1,
-                ease: "power3.out"
-            });
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(".contact-item", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 90%",
+        },
+        y: 20,
+        opacity: 0,
+        duration: 1.2,
+        stagger: 0.1,
+        ease: "power3.out"
+      });
 
-            gsap.from(".contact-social", {
-                scrollTrigger: {
-                    trigger: ".contact-social-wrap",
-                    start: "top 95%",
-                },
-                scale: 0.8,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.1,
-                ease: "back.out(1.7)"
-            });
-        }, sectionRef);
-        return () => ctx.revert();
-    }, []);
+      gsap.fromTo(".contact-social",
+        { scale: 0.8, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: ".contact-social-wrap",
+            start: "top 99%",
+          },
+          scale: 1,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "back.out(1.7)"
+        }
+      );
+    }, sectionRef);
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section ref={sectionRef} className="relative w-full py-20 px-8 sm:px-16 container mx-auto" id="contact">
@@ -76,9 +79,7 @@ export default function Contact() {
             </div>
             <div className="contact-social-wrap flex gap-4 justify-center sm:justify-end mt-4 sm:mt-0 w-full sm:w-auto">
               {[
-                { icon: InstagramLogo, href: "https://instagram.com" },
-                { icon: FigmaLogo, href: "https://figma.com/@jnco" },
-                { icon: DribbbleLogo, href: "https://dribbble.com/jnco" }
+                { icon: LinkedinLogo, href: "https://www.linkedin.com/in/juneco-mirande-59a940390/" }
               ].map(({ icon: Icon, href }, idx) => (
                 <a key={idx} href={href} className="contact-social w-16 h-16 rounded-full border border-primary/20 backdrop-blur-sm flex items-center justify-center text-primary hover:bg-accent hover:border-accent hover:text-background transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] transform hover:-translate-y-2 hover:shadow-xl hover:shadow-accent/20">
                   <Icon size={28} />

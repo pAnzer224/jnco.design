@@ -86,3 +86,19 @@ html {
     clip-path: inset(0 round 3rem 3rem 0 0);
   }
 }
+
+body.iframe-modal-open .custom-cursor {
+  display: none !important;
+}
+
+body.iframe-modal-open,
+body.iframe-modal-open * {
+  cursor: auto !important;
+}
+
+body.iframe-modal-open button,
+body.iframe-modal-open a,
+body.iframe-modal-open button *,
+body.iframe-modal-open a * {
+  cursor: pointer !important;
+}

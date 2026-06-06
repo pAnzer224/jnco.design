@@ -6,36 +6,36 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const Experience = () => {
-    const sectionRef = useRef(null);
+  const sectionRef = useRef(null);
 
-    useEffect(() => {
-        const ctx = gsap.context(() => {
-            gsap.to(".exp-header-anim", {
-                scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: "top 85%",
-                },
-                x: 0,
-                opacity: 1,
-                duration: 1,
-                stagger: 0.2,
-                ease: "power3.out"
-            });
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.to(".exp-header-anim", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 85%",
+        },
+        x: 0,
+        opacity: 1,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power3.out"
+      });
 
-            gsap.to(".exp-item", {
-                scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: "top 80%",
-                },
-                y: 0,
-                opacity: 1,
-                duration: 1.2,
-                stagger: 0.3,
-                ease: "power4.out"
-            });
-        }, sectionRef);
-        return () => ctx.revert();
-    }, []);
+      gsap.to(".exp-item", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
+        y: 0,
+        opacity: 1,
+        duration: 1.2,
+        stagger: 0.3,
+        ease: "power4.out"
+      });
+    }, sectionRef);
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section ref={sectionRef} className="bg-background py-24 px-4 sm:px-8 md:pl-[120px] lg:pl-[140px] xl:pr-16" id="experience">
@@ -56,7 +56,7 @@ const Experience = () => {
           <div className="exp-item opacity-0 translate-y-10 relative pl-8 md:pl-16 border-l-2 border-dark/5 pb-8 group">
             {/* Timeline Dot */}
             <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-background border-2 border-accent group-hover:bg-accent group-hover:scale-125 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]" />
-            
+
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
               <div>
                 <h3 className="font-sans font-bold text-2xl text-dark uppercase tracking-tight">
@@ -93,7 +93,7 @@ const Experience = () => {
                 ))}
               </div>
             </div>
-            
+
             {/* Decorative background number */}
             <span className="absolute -right-4 -bottom-4 font-sans font-black text-[12rem] text-dark/[0.02] pointer-events-none select-none">
               01
@@ -101,9 +101,15 @@ const Experience = () => {
           </div>
 
           {/* Past Experience Hint or Placeholder for more */}
-          <div className="pt-8 border-t border-dark/5">
-            <p className="font-mono text-[10px] text-dark/30 uppercase tracking-[0.3em]">
-              Earlier roles in Graphic Design & Digital Media (2015 - 2023) available upon request.
+          <div className="pt-8 border-t border-dark/5 flex items-center gap-6">
+            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-dark/10 shrink-0">
+              <img src="/images/avatar.webp" alt="Juneco" className="w-full h-full object-cover grayscale hover:grayscale-0" />
+            </div>
+            <p className="font-sans text-sm font-semibold text-dark/80 tracking-wide uppercase">
+              La Consolacion College Bacolod Graduate, 2026.<br />
+              <span className="font-mono text-[10px] font-normal text-dark/50 tracking-widest mt-1 block">
+                Earlier roles in Graphic Design & Digital Media (2015 - 2023) available upon request.
+              </span>
             </p>
           </div>
         </div>
