@@ -9,6 +9,7 @@ import Graphics from "./components/Graphic";
 import Mockups from "./components/Mockups";
 import UIUX from "./components/UIUX";
 import WebDev from "./components/WebDev";
+import NotFound from "./components/NotFound";
 
 export default function App() {
   const [activePage, setActivePage] = useState("home");
@@ -113,6 +114,7 @@ export default function App() {
         <Route path="/mockups" element={<Mockups setActivePage={setActivePage} />} />
         <Route path="/uiux" element={<UIUX setActivePage={setActivePage} />} />
         <Route path="/webdev" element={<WebDev setActivePage={setActivePage} />} />
+        <Route path="*" element={<NotFound setActivePage={setActivePage} />} />
       </Routes>
     </div>
   );

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-
 import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -7,30 +6,30 @@ import { ArrowUpRight } from "@phosphor-icons/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const protocols = [
+const categories = [
     {
-        step: "001",
+        step: "01",
         title: "Graphic Design",
         desc: "Branding, Marketing & Visual Identity",
         bg: "/images/simulatedsanctuarythumb.webp",
         path: "/graphics",
     },
     {
-        step: "002",
+        step: "02",
         title: "UI/UX",
         desc: "Interface Design & User Experience",
         bg: "/images/laco.webp",
         path: "/uiux",
     },
     {
-        step: "003",
+        step: "03",
         title: "Mockups",
         desc: "Product Design & Brand Presentations",
         bg: "/images/artifythumb.webp",
         path: "/mockups",
     },
     {
-        step: "004",
+        step: "04",
         title: "Web Dev",
         desc: "Full-Stack Applications & Code",
         bg: "/images/drjas.webp",
@@ -38,12 +37,11 @@ const protocols = [
     },
 ];
 
-const ProtocolArchive = () => {
+const ProjectsArchive = () => {
     const containerRef = useRef(null);
     const cardsRef = useRef([]);
     const navigate = useNavigate();
     const [loadedImages, setLoadedImages] = useState({});
-
 
     useEffect(() => {
         let ctx = gsap.context(() => {
@@ -61,7 +59,7 @@ const ProtocolArchive = () => {
                     pinSpacing: false,
                 });
 
-                // Scale and fade it out as the next one comes
+            // Scale and fade it out as the next one comes
                 if (index < cardsRef.current.length - 1) {
                     gsap.to(card.querySelector('.card-inner'), {
                         scrollTrigger: {
@@ -77,6 +75,19 @@ const ProtocolArchive = () => {
                     });
                 }
             });
+
+            // Fade out sticky header as the last card exits and contact section slides up
+            gsap.to(".projects-sticky-header", {
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: "bottom 95%",
+                    end: "bottom 80%",
+                    scrub: true,
+                },
+                opacity: 0,
+                y: -30,
+                ease: "none"
+            });
         }, containerRef);
         return () => ctx.revert();
     }, []);
@@ -84,13 +95,13 @@ const ProtocolArchive = () => {
     return (
         <section ref={containerRef} id="work-archive" className="relative w-full bg-background mt-32 min-h-screen md:pl-[120px] lg:pl-[140px]">
 
-            <div className="text-center sticky top-0 py-16 z-0 pointer-events-none">
-                <h2 className="font-sans font-bold text-lg md:text-2xl tracking-[0.2em] uppercase text-dark">Work Archive</h2>
+            <div className="projects-sticky-header text-center sticky top-0 py-16 z-0 pointer-events-none">
+                <h2 className="font-sans font-bold text-lg md:text-2xl tracking-[0.2em] uppercase text-dark">Projects</h2>
             </div>
 
             <div className="relative pb-32 z-10">
 
-                {protocols.map((card, idx) => (
+                {categories.map((card, idx) => (
                     <div
                         key={idx}
                         ref={el => cardsRef.current[idx] = el}
@@ -119,12 +130,11 @@ const ProtocolArchive = () => {
                             {/* Dark Overlay gradient */}
                             <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent" />
 
-
                             <div className="absolute inset-0 flex flex-col justify-between p-8 sm:p-12 z-10 text-primary">
 
                                 <div className="flex justify-between items-start">
                                     <span className="font-mono text-xs sm:text-sm font-bold tracking-widest text-accent border border-accent px-4 py-1 rounded-full uppercase">
-                                        Phase {card.step}
+                                        {card.step}
                                     </span>
                                     <div className="w-12 h-12 rounded-full border border-primary/20 flex items-center justify-center bg-dark/40 backdrop-blur-md group-hover:bg-accent group-hover:border-accent transition-colors duration-300">
                                         <ArrowUpRight size={24} weight="bold" />
@@ -149,4 +159,4 @@ const ProtocolArchive = () => {
     );
 };
 
-export default ProtocolArchive;
+export default ProjectsArchive;

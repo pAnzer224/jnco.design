@@ -5,7 +5,7 @@ import FeatureCards from "./landing/FeatureCards";
 import TechStack from "./landing/TechStack";
 import Experience from "./landing/Experience";
 import Philosophy from "./landing/Philosophy";
-import ProtocolArchive from "./landing/ProtocolArchive";
+import ProjectsArchive from "./landing/ProjectsArchive";
 import Contact from "./Contact";
 
 export default function Home({ setActivePage }) {
@@ -34,7 +34,7 @@ export default function Home({ setActivePage }) {
 
         <Philosophy />
 
-        <ProtocolArchive />
+        <ProjectsArchive />
 
         <div className="footer-clip-transition pb-20 pt-40 -mt-20 relative z-10">
           <Contact />

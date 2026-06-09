@@ -72,6 +72,37 @@ export default function Graphics({ setActivePage }) {
     []
   );
 
+  const chorosGfxWorks = useMemo(
+    () => [
+      {
+        type: "gallery",
+        thumbnail: "/images/choros-gfx/sailing-pass-1.webp",
+        images: [
+          "/images/choros-gfx/sailing-pass-1.webp",
+          "/images/choros-gfx/sailing-pass-2.webp",
+        ],
+        title: "Sailing Pass",
+        category: "Graphic Design",
+        tools: ["/images/photoshop.svg", "/images/illustrator.svg"],
+      },
+      {
+        type: "gallery",
+        thumbnail: "/images/choros-gfx/shane-bowden-1.webp",
+        images: [
+          "/images/choros-gfx/shane-bowden-1.webp",
+          "/images/choros-gfx/shane-bowden-2.webp",
+        ],
+        title: "Shane Bowden",
+        category: "Graphic Design",
+        tools: ["/images/photoshop.svg", "/images/illustrator.svg"],
+      },
+    ],
+    []
+  );
+
+  // allWorks = personal works + choros works, indexed together for the modal
+  const allWorks = useMemo(() => [...works, ...chorosGfxWorks], [works, chorosGfxWorks]);
+
   const videoRefs = useRef({});
 
   const handleClick = (index) => {
@@ -82,7 +113,7 @@ export default function Graphics({ setActivePage }) {
   useEffect(() => {
     if (
       openModal !== null &&
-      works[openModal].type === "gallery" &&
+      allWorks[openModal].type === "gallery" &&
       imageRefs.current.length > 0
     ) {
       const images = imageRefs.current;
@@ -106,7 +137,7 @@ export default function Graphics({ setActivePage }) {
           });
 
           // Play video if current item is video
-          const currentItem = works[openModal].images[index];
+          const currentItem = allWorks[openModal].images[index];
           if (
             currentItem.toLowerCase().endsWith(".mp4") &&
             videoRefs.current[index]
@@ -127,24 +158,24 @@ export default function Graphics({ setActivePage }) {
           });
 
           // Pause video if not current
-          const item = works[openModal].images[index];
+          const item = allWorks[openModal].images[index];
           if (item.toLowerCase().endsWith(".mp4") && videoRefs.current[index]) {
             videoRefs.current[index].pause();
           }
         }
       });
     }
-  }, [currentIndex, openModal, works]);
+  }, [currentIndex, openModal, allWorks]);
 
   const handlePrev = () => {
     setCurrentIndex((prev) =>
-      prev > 0 ? prev - 1 : works[openModal].images.length - 1
+      prev > 0 ? prev - 1 : allWorks[openModal].images.length - 1
     );
   };
 
   const handleNext = () => {
     setCurrentIndex((prev) =>
-      prev < works[openModal].images.length - 1 ? prev + 1 : 0
+      prev < allWorks[openModal].images.length - 1 ? prev + 1 : 0
     );
   };
 
@@ -204,6 +235,79 @@ export default function Graphics({ setActivePage }) {
         ))}
       </div>
 
+      {/* OJT @ Choros Section */}
+      <div className="mt-32 pt-16 border-t-4 border-dark">
+        <div className="flex flex-col md:flex-row gap-8 justify-between items-start mb-16">
+          <div>
+            <h3 className="font-sans font-black text-3xl sm:text-5xl uppercase tracking-tighter text-dark mb-2 flex items-center gap-3 flex-wrap">
+              OJT @
+              <a
+                href="https://choros.io"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center hover:opacity-70 transition-opacity duration-300"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <img
+                  src="/images/choros-logo.webp"
+                  alt="Choros.io"
+                  className="h-10 sm:h-14 w-auto object-contain"
+                />
+              </a>
+            </h3>
+            <div className="font-mono text-xs sm:text-sm text-dark/70 uppercase tracking-widest font-bold">
+              Graphic Designer
+            </div>
+          </div>
+          <div className="max-w-md font-mono text-sm leading-relaxed text-dark/80 bg-primary/20 p-6 rounded-[2rem] border-2 border-dark/10">
+            Produced graphic design assets for client projects at{" "}
+            <a
+              href="https://choros.io"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent font-bold hover:underline"
+              onClick={(e) => e.stopPropagation()}
+            >
+              Choros.io
+            </a>
+            , a UK-based IT company — marketing materials, event passes, and branded collateral.
+          </div>
+        </div>
+
+        {/* Choros GFX Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full border-t border-dark/10 pt-10">
+          {chorosGfxWorks.map((item, index) => (
+            <div
+              key={`choros-${index}`}
+              onClick={() => { handleClick(works.length + index); }}
+              className="flex flex-col cursor-pointer group rounded-[2rem] border border-dark/10 shadow-sm bg-primary p-3 transition-all duration-300 ease-out hover:border-dark/20"
+            >
+              <div className="flex items-center justify-between mb-3 px-2 pt-1">
+                <div className="min-w-0">
+                  <div className="font-sans font-bold text-base uppercase tracking-tight text-dark leading-tight truncate">{item.title}</div>
+                  <div className="font-mono text-[10px] text-accent tracking-[2px] uppercase font-bold mt-0.5">{item.category}</div>
+                </div>
+                <div className="flex gap-1.5 flex-shrink-0 ml-2">
+                  {item.tools.map((tool, toolIndex) => (
+                    <div key={toolIndex} className="w-7 h-7 rounded-full bg-background flex items-center justify-center border border-dark/10">
+                      <img src={tool} alt={`${tool.split('/').pop().replace('.svg','').replace('.png','')} icon`} className="w-4 h-4 object-contain" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className={`relative w-full aspect-[4/3] rounded-[1.4rem] overflow-hidden transition-all duration-300 ease-out group-hover:scale-[1.03] group-hover:shadow-[0_15px_30px_-5px_rgba(0,0,0,0.15)] ${!imagesLoaded[item.thumbnail] ? 'skeleton' : 'bg-dark/5'}`}>
+                <img
+                  src={item.thumbnail}
+                  alt={`${item.title} — ${item.category} by Juneco Mirande at Choros.io`}
+                  onLoad={() => setImagesLoaded(prev => ({ ...prev, [item.thumbnail]: true }))}
+                  className={`w-full h-full object-cover transition-all duration-[700ms] ease-out lg:grayscale lg:group-hover:grayscale-0 ${imagesLoaded[item.thumbnail] ? 'opacity-100' : 'opacity-0'}`}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Modal */}
       {openModal !== null && (
         <div
@@ -219,7 +323,7 @@ export default function Graphics({ setActivePage }) {
 
 
           {/* Gallery Type - Next/Previous Navigation (Neue & TI) */}
-          {works[openModal].type === "gallery" ? (
+          {allWorks[openModal].type === "gallery" ? (
             <div
               ref={containerRef}
               className="relative w-full max-w-7xl h-[80vh] flex items-center justify-center"
@@ -227,7 +331,7 @@ export default function Graphics({ setActivePage }) {
             >
               {/* Image Gallery Container */}
               <div className="relative w-full h-full flex items-center justify-center overflow-hidden rounded-[2rem] bg-black border border-primary/10 shadow-2xl">
-                {works[openModal].images.map((item, imgIndex) => {
+                {allWorks[openModal].images.map((item, imgIndex) => {
                   const isVideo = item.toLowerCase().endsWith(".mp4");
                   return (
                     <div
@@ -253,7 +357,7 @@ export default function Graphics({ setActivePage }) {
                       ) : (
                         <img
                           src={item}
-                          alt={`${works[openModal].title} ${imgIndex + 1}`}
+                          alt={`${allWorks[openModal].title} ${imgIndex + 1}`}
                           className="max-w-full max-h-full object-contain"
                           style={{ pointerEvents: imgIndex === currentIndex ? "auto" : "none" }}
                         />
@@ -264,7 +368,7 @@ export default function Graphics({ setActivePage }) {
               </div>
 
               {/* Navigation Buttons */}
-              {works[openModal].images.length > 1 && (
+              {allWorks[openModal].images.length > 1 && (
                 <>
                   <button
                     onClick={handlePrev}
@@ -285,7 +389,7 @@ export default function Graphics({ setActivePage }) {
               {/* Image Counter */}
               <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-primary/50 tracking-[3px] font-mono text-xs z-20 font-bold uppercase flex items-center gap-4">
                 <span className="w-8 h-[1px] bg-accent" />
-                {currentIndex + 1} / {works[openModal].images.length}
+                {currentIndex + 1} / {allWorks[openModal].images.length}
                 <span className="w-8 h-[1px] bg-accent" />
               </div>
             </div>
@@ -298,8 +402,8 @@ export default function Graphics({ setActivePage }) {
               <div className="flex flex-col items-center py-8 px-4">
                 <div className="w-full max-w-[1400px]">
                   <img
-                    src={works[openModal].image}
-                    alt={works[openModal].title}
+                    src={allWorks[openModal].image}
+                    alt={allWorks[openModal].title}
                     className="w-full h-auto rounded-xl"
                   />
                 </div>

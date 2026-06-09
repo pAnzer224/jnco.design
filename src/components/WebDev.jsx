@@ -40,6 +40,7 @@ export default function WebDev({ setActivePage }) {
       title: "Your Event Cover",
       category: "Front-end & UI/UX Design",
       tools: ["/images/figma.svg", "/images/laravel.svg", "/images/tailwind.svg"],
+      disableIframe: true,
     },
     {
       type: "link",
@@ -48,6 +49,7 @@ export default function WebDev({ setActivePage }) {
       title: "Good Plumbing",
       category: "Front-end & UI/UX Design",
       tools: ["/images/figma.svg", "/images/laravel.svg", "/images/tailwind.svg"],
+      disableIframe: true,
     },
     {
       type: "link",
@@ -56,6 +58,7 @@ export default function WebDev({ setActivePage }) {
       title: "Manorvale",
       category: "Front-end & UI/UX Design",
       tools: ["/images/figma.svg", "/images/laravel.svg", "/images/tailwind.svg"],
+      disableIframe: true,
     },
     {
       type: "link",
@@ -64,6 +67,7 @@ export default function WebDev({ setActivePage }) {
       title: "Mould Damp",
       category: "Front-end & UI/UX Design",
       tools: ["/images/figma.svg", "/images/laravel.svg", "/images/tailwind.svg"],
+      disableIframe: true,
     },
     {
       type: "link",
@@ -72,6 +76,7 @@ export default function WebDev({ setActivePage }) {
       title: "We Fit",
       category: "Front-end & UI/UX Design",
       tools: ["/images/figma.svg", "/images/laravel.svg", "/images/tailwind.svg"],
+      disableIframe: true,
     },
   ];
 
@@ -237,7 +242,7 @@ export default function WebDev({ setActivePage }) {
           className="fixed inset-0 bg-dark/95 backdrop-blur-xl z-[2000] flex items-center justify-center p-4 sm:p-8"
           onClick={() => setOpenModalItem(null)}
         >
-          {openModalItem.type === "link" && openModalItem.url && (
+          {openModalItem.type === "link" && openModalItem.url && !openModalItem.disableIframe && (
             <a
               href={openModalItem.url}
               target="_blank"
@@ -259,12 +264,76 @@ export default function WebDev({ setActivePage }) {
 
           {/* Vercel links and Desktop prototypes - fullscreen iframe */}
           <div className="w-full h-full pt-16" onClick={(e) => e.stopPropagation()}>
-            <iframe
-              title={openModalItem.title}
-              className="w-full h-full rounded-[2rem] border border-primary/20 bg-dark shadow-2xl"
-              src={openModalItem.url}
-              allowFullScreen
-            />
+            {openModalItem.disableIframe ? (
+              <div className="w-full h-full rounded-[2rem] border border-primary/20 bg-dark shadow-2xl flex flex-col overflow-hidden relative">
+                {/* Mock Browser Header */}
+                <div className="w-full h-12 bg-background/5 border-b border-primary/10 flex items-center px-6 gap-3 shrink-0">
+                  <div className="flex gap-1.5">
+                    <span className="w-3 h-3 rounded-full bg-[#FF5F56] inline-block"></span>
+                    <span className="w-3 h-3 rounded-full bg-[#FFBD2E] inline-block"></span>
+                    <span className="w-3 h-3 rounded-full bg-[#27C93F] inline-block"></span>
+                  </div>
+                  <div className="flex-1 max-w-xl mx-auto h-7 bg-dark/45 rounded-md flex items-center px-4 border border-primary/5 select-none justify-center">
+                    <span className="font-mono text-xs text-primary/40 truncate tracking-wide">{openModalItem.url}</span>
+                  </div>
+                  <div className="w-[52px]"></div>
+                </div>
+                
+                {/* Mock Browser Content */}
+                <div className="flex-1 relative w-full overflow-y-auto flex items-center justify-center p-6 sm:p-8">
+                  {/* Background blurred thumbnail */}
+                  <div 
+                    className="absolute inset-0 bg-cover bg-center opacity-30 filter blur-2xl scale-110 pointer-events-none"
+                    style={{ backgroundImage: `url('${openModalItem.thumbnail}')` }}
+                  />
+                  
+                  {/* Glassmorphic presentation card */}
+                  <div className="relative z-10 w-full max-w-xl bg-dark/40 backdrop-blur-xl rounded-[2rem] border border-primary/10 p-6 sm:p-8 text-center flex flex-col items-center shadow-2xl my-auto">
+                    {/* Visual Thumbnail Preview */}
+                    <div className="w-full aspect-[16/9] rounded-[1.2rem] overflow-hidden mb-6 border border-primary/15 bg-dark/20 relative group">
+                      <img 
+                        src={openModalItem.thumbnail} 
+                        alt={openModalItem.title} 
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-dark/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="w-12 h-12 rounded-full bg-accent text-dark flex items-center justify-center shadow-lg">
+                          <ArrowUpRight size={22} weight="bold" />
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <h3 className="font-sans font-bold text-2xl sm:text-3xl text-primary uppercase tracking-tight mb-2 leading-tight">
+                      {openModalItem.title}
+                    </h3>
+                    <p className="font-mono text-xs text-accent tracking-[2px] uppercase font-bold mb-4">
+                      {openModalItem.category}
+                    </p>
+                    
+                    <p className="font-mono text-xs sm:text-sm text-primary/70 leading-relaxed max-w-md mb-6">
+                      This project is hosted on a secure production server. Click below to launch the live site and explore my work in a new tab!
+                    </p>
+                    
+                    <a
+                      href={openModalItem.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-accent hover:bg-accent/90 text-dark font-sans font-bold text-sm uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-accent/25 hover:scale-[1.02]"
+                    >
+                      Launch Live Project
+                      <ArrowUpRight size={18} weight="bold" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <iframe
+                title={openModalItem.title}
+                className="w-full h-full rounded-[2rem] border border-primary/20 bg-dark shadow-2xl"
+                src={openModalItem.url}
+                allowFullScreen
+              />
+            )}
           </div>
         </div>
       )}

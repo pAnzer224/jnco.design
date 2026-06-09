@@ -6,16 +6,16 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const messages = [
-    "ps_core.dll loaded @ 0x7FFA2B3C [12ms]",
-    "Rasterizing layer 'bg_texture' at 300dpi...",
-    "VRAM alloc: 4096MB / scratch disk: OK",
-    "GPU: NVIDIA GTX 1650 — OpenCL 3.0 ready",
-    "Flatten: merged 14 layers → composite.psd",
-    "Export path: /assets/brand/hero_v3.png",
-    "Color profile: sRGB IEC61966-2.1 embedded",
-    "Smart object cache invalidated → rebuilding",
-    "ai.exe: artboard 1/3 rendered [87ms]",
-    "Saving: hero_v3.ai [48.2MB] ✓",
+    "git commit -m \"design(assets): export asset-gen source layers\"",
+    "[Photoshop] Smart Object 'vector-logo.ai' source modified",
+    "[Generator] Exporting asset: hero-banner@2x.png (5120x2880)",
+    "[Photoshop] Layer Comp 'Dark Mode' composite updated successfully",
+    "[Vite] hmr update /src/components/landing/FeatureCards.jsx",
+    "[TypeScript] Initializing compiler options... 0 errors found",
+    "[ExtendScript] Running: 'export-slices.jsx' on active document",
+    "[npm] run build:optimize-assets (compressed 48.2MB -> 12.4MB)",
+    "npm WARN deprecated source-map-url@0.4.1",
+    "[Git] 4 files changed, 84 insertions(+), 12 deletions(-)",
 ];
 
 const FeatureCards = () => {
