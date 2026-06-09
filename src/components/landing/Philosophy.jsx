@@ -51,10 +51,10 @@ const Philosophy = () => {
         return () => ctx.revert();
     }, []);
 
-    const description = "Frontend Developer and UI/UX Designer with 8 years of experience in graphic design and digital media. Proficient in modern web technologies and design tools with a strong foundation in creating responsive, user-centered applications. Demonstrated ability to adapt quickly to new technologies and frameworks while delivering quality results in collaborative environments.";
+    const description = "Frontend Developer and UI/UX Designer with 8 years in graphic design and digital media — now shipping full-stack web apps using React and Laravel. Clinic systems, vet platforms, UI wireframes, motion campaigns, and brand assets. I know what a blank canvas looks like, and I know what it looks like live.";
  
      return (
-        <section ref={containerRef} className="relative bg-dark text-primary min-h-screen flex flex-col justify-center overflow-hidden py-32 md:pl-[120px] lg:pl-[140px] w-full" id="philosophy">
+        <section ref={containerRef} className="relative bg-dark text-primary min-h-screen flex flex-col justify-center py-32 md:pl-[120px] lg:pl-[140px] w-full" id="philosophy">
              <div
                  className="absolute inset-0 opacity-10 bg-cover bg-fixed bg-center mix-blend-lighten grayscale"
                  style={{ backgroundImage: "url('/images/laco.webp')" }}
