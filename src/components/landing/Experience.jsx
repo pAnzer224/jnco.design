@@ -71,11 +71,11 @@ const Experience = () => {
 
           {/* Education: LCCB */}
           <div className="exp-header-anim opacity-0 -translate-x-10 mt-4 p-6 rounded-3xl border border-dark/5 bg-primary/40 backdrop-blur-sm relative overflow-hidden group">
-            <div className="absolute -right-4 -bottom-4 opacity-30 transition-opacity duration-500 pointer-events-none">
+            <div className="absolute -right-4 -bottom-4 opacity-[0.3] group-hover:opacity-[0.5] transition-opacity duration-500 pointer-events-none">
               <img
                 src="/images/lcc-logo.webp"
                 alt="La Consolacion College Bacolod logo"
-                className="w-28 h-28 object-contain"
+                className="w-32 h-32 object-contain group-hover:scale-105 group-hover:-translate-x-1 group-hover:-translate-y-1 transition-transform duration-500"
               />
             </div>
             <div className="relative z-10">
