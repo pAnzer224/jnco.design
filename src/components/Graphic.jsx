@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useMemo } from "react";
 import { gsap } from "gsap";
 import { CaretLeft, CaretRight, X } from "@phosphor-icons/react";
+import { useLocation } from "react-router-dom";
 import CategoryNav from "./shared/CategoryNav";
 
 
@@ -8,6 +9,7 @@ import CategoryNav from "./shared/CategoryNav";
 
 export default function Graphics({ setActivePage }) {
   const [openModal, setOpenModal] = useState(null);
+  const location = useLocation();
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const imageRefs = useRef([]);
@@ -109,6 +111,16 @@ export default function Graphics({ setActivePage }) {
     setOpenModal(index);
     setCurrentIndex(0);
   };
+
+  useEffect(() => {
+    if (location.hash === "#ojt-choros") {
+      setTimeout(() => {
+        document.getElementById("ojt-choros")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+    } else if (!location.hash) {
+      window.scrollTo(0, 0);
+    }
+  }, [location.hash]);
 
   useEffect(() => {
     if (
@@ -236,7 +248,7 @@ export default function Graphics({ setActivePage }) {
       </div>
 
       {/* OJT @ Choros Section */}
-      <div className="mt-32 pt-16 border-t-4 border-dark">
+      <div id="ojt-choros" className="mt-32 pt-16 border-t-4 border-dark">
         <div className="flex flex-col md:flex-row gap-8 justify-between items-start mb-16">
           <div>
             <h3 className="font-sans font-black text-3xl sm:text-5xl uppercase tracking-tighter text-dark mb-2 flex items-center gap-3 flex-wrap">

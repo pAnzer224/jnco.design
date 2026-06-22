@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://jnco.design/</loc>
+    <loc>https://juneco-mirande.web.app/</loc>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://jnco.design/graphics</loc>
+    <loc>https://juneco-mirande.web.app/graphics</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jnco.design/uiux</loc>
+    <loc>https://juneco-mirande.web.app/uiux</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jnco.design/mockups</loc>
+    <loc>https://juneco-mirande.web.app/mockups</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jnco.design/webdev</loc>
+    <loc>https://juneco-mirande.web.app/webdev</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

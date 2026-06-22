@@ -62,7 +62,7 @@ export default function Nav({ activePage, setActivePage }) {
   // Per-frame clip-path calculation for light overlay on dark sections
   useEffect(() => {
     let ticking = false;
-    const darkSelectors = ["#philosophy", ".footer-clip-transition"];
+    const darkSelectors = ["#philosophy", "#work-archive"];
 
     const checkOverlap = () => {
       const nav = navRef.current;
@@ -83,9 +83,14 @@ export default function Nav({ activePage, setActivePage }) {
         const el = document.querySelector(sel);
         if (!el) continue;
         const r = el.getBoundingClientRect();
+        
+        let elBottom = r.bottom;
+        if (sel === "#philosophy") {
+          elBottom -= 80; // Adjust for the -mt-20 overlap of the footer
+        }
 
         const overlapTop = Math.max(navTop, r.top);
-        const overlapBottom = Math.min(navBottom, r.bottom);
+        const overlapBottom = Math.min(navBottom, elBottom);
 
         if (overlapTop < overlapBottom) {
           hasOverlap = true;

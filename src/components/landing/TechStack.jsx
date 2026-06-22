@@ -113,11 +113,6 @@ const TechStack = () => {
             Blending aesthetics with performance.
           </p>
         </div>
-        <div className="hidden md:block tech-header-anim opacity-0 translate-y-10">
-          <span className="font-mono text-[10px] text-dark/30 tracking-[0.3em] uppercase rotate-90 inline-block origin-right">
-            Stack_v2.0
-          </span>
-        </div>
       </div>
 
       <div className="tech-grid grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-6 gap-4 sm:gap-6">
@@ -137,10 +132,10 @@ const TechStack = () => {
             {/* Icon - "Hugging" the bottom and tilted */}
             <div className="absolute -bottom-6 -right-4 w-24 h-24 sm:w-32 sm:h-32 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] transform rotate-12 translate-y-4 group-hover:rotate-[-5deg] group-hover:translate-y-0 group-hover:scale-110">
               <div className={`w-full h-full ${tech.animate || ''}`}>
-                <img 
-                  src={tech.icon} 
-                  alt="" 
-                  className={`w-full h-full object-contain grayscale ${tech.baseOpacity} group-hover:grayscale-0 group-hover:opacity-[0.4] transition-all duration-700`} 
+                <img
+                  src={tech.icon}
+                  alt=""
+                  className={`w-full h-full object-contain grayscale ${tech.baseOpacity} group-hover:grayscale-0 group-hover:opacity-[0.4] transition-all duration-700`}
                 />
               </div>
             </div>

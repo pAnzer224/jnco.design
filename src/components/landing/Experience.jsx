@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { Briefcase, Calendar, CheckCircle } from "@phosphor-icons/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -7,6 +8,31 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Experience = () => {
   const sectionRef = useRef(null);
+  const [hoverImage, setHoverImage] = useState(null);
+  const [lastHoverImage, setLastHoverImage] = useState("/images/drjas.webp");
+  const cursorImgRef = useRef(null);
+
+  useEffect(() => {
+    if (hoverImage) {
+      setLastHoverImage(hoverImage);
+      gsap.to(cursorImgRef.current, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.5)" });
+    } else {
+      gsap.to(cursorImgRef.current, { scale: 0, opacity: 0, duration: 0.2, ease: "power2.in" });
+    }
+  }, [hoverImage]);
+
+  useEffect(() => {
+    const onMouseMove = (e) => {
+      gsap.to(cursorImgRef.current, {
+        x: e.clientX + 15,
+        y: e.clientY + 15,
+        duration: 0.4,
+        ease: "power3.out"
+      });
+    };
+    window.addEventListener("mousemove", onMouseMove);
+    return () => window.removeEventListener("mousemove", onMouseMove);
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -38,7 +64,20 @@ const Experience = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-background py-24 px-4 sm:px-8 md:pl-[120px] lg:pl-[140px] xl:pr-16" id="experience">
+    <>
+      {/* Floating Hover Image */}
+      <div
+        ref={cursorImgRef}
+        className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-xl overflow-hidden shadow-2xl border border-primary/20 bg-dark w-[150px] h-auto flex flex-col"
+        style={{ opacity: 0, transform: "scale(0)", transformOrigin: "top left" }}
+      >
+        <img src={lastHoverImage} alt="Preview" className="w-full h-full object-cover" />
+        <div className="bg-dark text-primary py-1.5 px-2 text-[8px] font-mono uppercase tracking-widest text-center border-t border-primary/10">
+          Click to view
+        </div>
+      </div>
+
+      <section ref={sectionRef} className="bg-background py-24 px-4 sm:px-8 md:pl-[120px] lg:pl-[140px] xl:pr-16" id="experience">
       <div className="flex flex-col md:flex-row gap-16">
         {/* Left Side: Header */}
         <div className="exp-header md:w-1/3 flex flex-col gap-8 md:sticky md:top-32 md:self-start">
@@ -64,7 +103,7 @@ const Experience = () => {
 
           {/* Action */}
           <div className="exp-header-anim opacity-0 -translate-x-10 flex flex-col gap-4">
-            <a href="https://www.linkedin.com/in/juneco-mirande-59a940390/" target="_blank" rel="noopener noreferrer" className="bg-accent/10 rounded-2xl p-4 border border-accent/20 flex items-center justify-center gap-3 hover:bg-accent hover:text-white transition-colors duration-300 group cursor-pointer">
+            <a href="https://www.linkedin.com/in/juneco-mirande/" target="_blank" rel="noopener noreferrer" className="bg-accent/10 rounded-2xl p-4 border border-accent/20 flex items-center justify-center gap-3 hover:bg-accent hover:text-white transition-colors duration-300 group cursor-pointer">
               <p className="font-mono text-[10px] text-accent uppercase tracking-widest font-bold group-hover:text-background transition-colors duration-300">Connect on LinkedIn</p>
             </a>
           </div>
@@ -123,7 +162,7 @@ const Experience = () => {
               </div>
               <div className="space-y-4">
                 {[
-                  "Built a secure clinic records & booking management system using React and Laravel",
+                  "Built a secure clinic records & booking management system using VueJS and Firebase",
                   "Developed a veterinarian clinic web app with custom scheduling and service directory features",
                   "Designed low-fidelity wireframes and user flows for 'RePlate', a food sharing mobile application",
                   "Produced animated campaign videos for digital privacy advocacy and F&B marketing infographics"
@@ -178,14 +217,34 @@ const Experience = () => {
               </div>
               <div className="space-y-4">
                 {[
-                  "UI/UX design and Figma prototyping for live product screens",
-                  "Frontend development using React, Laravel, and Tailwind CSS",
-                  "Mobile responsiveness audits and cross-browser QA testing",
-                  "Adobe Photoshop asset production for digital deliverables"
+                  { hoverText: "UI/UX design and Figma prototyping", restText: "for live product screens", img: "/images/choros-gfx/sailing-pass-1.webp", link: "/graphics#ojt-choros" },
+                  { 
+                    hoverText: "Frontend development using React, Laravel, and Tailwind CSS", 
+                    img: "/images/goodplumbing.webp", 
+                    link: "/webdev#ojt-choros" 
+                  },
+                  { text: "Mobile responsiveness audits and cross-browser QA testing" },
+                  { hoverText: "Adobe Photoshop asset production", restText: "for digital deliverables", img: "/images/choros-gfx/shane-bowden-1.webp", link: "/graphics#ojt-choros" }
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-3">
                     <CheckCircle weight="fill" className="text-accent w-4 h-4 mt-0.5 shrink-0" />
-                    <span className="font-sans text-xs font-medium text-dark/80 uppercase tracking-tight">{item}</span>
+                    <div className="font-sans text-xs font-medium uppercase tracking-tight text-dark/80">
+                      {item.link ? (
+                        <Link to={item.link} 
+                           className="text-dark/80 hover:text-accent transition-all cursor-pointer relative z-20 inline group/link"
+                           onMouseEnter={() => {
+                             setHoverImage(item.img);
+                             setLastHoverImage(item.img);
+                           }}
+                           onMouseLeave={() => setHoverImage(null)}
+                        >
+                          <span className="group-hover/link:font-bold transition-all">{item.hoverText || item.text}</span>
+                          {item.restText && <span> {item.restText}</span>}
+                        </Link>
+                      ) : (
+                        <span>{item.text}</span>
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -243,9 +302,74 @@ const Experience = () => {
             </span>
           </div>
 
+          {/* Experience Item 4: Awards */}
+          <div className="exp-item opacity-0 translate-y-10 relative pl-8 md:pl-16 border-l-2 border-dark/5 pb-8 group">
+            {/* Timeline Dot */}
+            <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-background border-2 border-accent group-hover:bg-accent group-hover:scale-125 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]" />
+
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+              <div>
+                <h3 className="font-sans font-bold text-2xl text-dark uppercase tracking-tight">
+                  Awards & Recognitions
+                </h3>
+                <div className="flex items-center gap-2 mt-1">
+                  <Briefcase size={14} className="text-accent" />
+                  <span className="font-mono text-[10px] text-dark/60 uppercase tracking-widest">LCC Bacolod</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 bg-primary/50 self-start px-4 py-1.5 rounded-full border border-dark/10">
+                <Calendar size={14} className="text-dark/40" />
+                <span className="font-mono text-[10px] font-bold text-dark/70 tracking-widest">2025 – 2026</span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+              <div className="bg-primary/40 backdrop-blur-sm p-6 rounded-[2rem] border border-dark/5 hover:border-accent/30 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-1 hover:shadow-xl hover:shadow-dark/5">
+                <p className="font-mono text-[11px] text-dark/70 leading-relaxed uppercase">
+                  Recognized for excellence in UI/UX design, user flows, and technical proficiency during academic capstone and IT Month events.
+                </p>
+              </div>
+              <div className="space-y-4">
+                {[
+                  { hoverText: "Best Designer", restText: "for Capstone Project (Veterinary Clinic System)", img: "/images/drjas.webp", link: "/webdev", projectState: "Dr. Jas Pet Care" },
+                  { text: "Best Designer Batch 2025-2026" },
+                  { hoverText: "UI/UX Figma Champion", restText: "for IT Month (LACO Innovation Hub)", img: "/images/laco.webp", link: "/uiux", projectState: "LACO Innovation Hub" }
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <CheckCircle weight="fill" className="text-accent w-4 h-4 mt-0.5 shrink-0" />
+                    <div className="font-sans text-xs font-medium uppercase tracking-tight text-dark/80">
+                      {item.link ? (
+                        <Link to={item.link} 
+                           state={item.projectState ? { openProject: item.projectState } : {}}
+                           className="text-dark/80 hover:text-accent transition-all cursor-pointer relative z-20 inline group/link"
+                           onMouseEnter={() => {
+                             setHoverImage(item.img);
+                             setLastHoverImage(item.img);
+                           }}
+                           onMouseLeave={() => setHoverImage(null)}
+                        >
+                          <span className="group-hover/link:font-bold transition-all">{item.hoverText || item.text}</span>
+                          {item.restText && <span> {item.restText}</span>}
+                        </Link>
+                      ) : (
+                        <span>{item.text}</span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Decorative background number */}
+            <span className="absolute -right-4 -bottom-4 font-sans font-black text-[12rem] text-dark/[0.02] pointer-events-none select-none">
+              04
+            </span>
+          </div>
+
         </div>
       </div>
     </section>
+    </>
   );
 };
 

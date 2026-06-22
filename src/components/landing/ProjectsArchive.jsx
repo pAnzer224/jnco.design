@@ -37,7 +37,7 @@ const categories = [
     },
 ];
 
-const ProjectsArchive = () => {
+const ProjectsArchive = ({ setActivePage }) => {
     const containerRef = useRef(null);
     const cardsRef = useRef([]);
     const navigate = useNavigate();
@@ -57,6 +57,8 @@ const ProjectsArchive = () => {
                     end: "bottom bottom",
                     pin: true,
                     pinSpacing: false,
+                    onEnter: () => setActivePage && setActivePage(categories[index].path.substring(1)),
+                    onEnterBack: () => setActivePage && setActivePage(categories[index].path.substring(1)),
                 });
 
             // Scale and fade it out as the next one comes
@@ -88,15 +90,25 @@ const ProjectsArchive = () => {
                 y: -30,
                 ease: "none"
             });
+
+            // Reset to 'home' when leaving the ProjectsArchive section entirely
+            ScrollTrigger.create({
+                trigger: containerRef.current,
+                start: "top center",
+                end: "bottom center",
+                onLeave: () => setActivePage && setActivePage("home"),
+                onLeaveBack: () => setActivePage && setActivePage("home"),
+            });
         }, containerRef);
         return () => ctx.revert();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
-        <section ref={containerRef} id="work-archive" className="relative w-full bg-background mt-32 min-h-screen md:pl-[120px] lg:pl-[140px]">
+        <section ref={containerRef} id="work-archive" className="relative w-full bg-dark mt-32 min-h-screen md:pl-[120px] lg:pl-[140px]">
 
             <div className="projects-sticky-header text-center sticky top-0 py-16 z-0 pointer-events-none">
-                <h2 className="font-sans font-bold text-lg md:text-2xl tracking-[0.2em] uppercase text-dark">Projects</h2>
+                <h2 className="font-sans font-bold text-lg md:text-2xl tracking-[0.2em] uppercase text-primary">Projects</h2>
             </div>
 
             <div className="relative pb-32 z-10">
@@ -136,7 +148,7 @@ const ProjectsArchive = () => {
                                     <span className="font-mono text-xs sm:text-sm font-bold tracking-widest text-accent border border-accent px-4 py-1 rounded-full uppercase">
                                         {card.step}
                                     </span>
-                                    <div className="w-12 h-12 rounded-full border border-primary/20 flex items-center justify-center bg-dark/40 backdrop-blur-md group-hover:bg-accent group-hover:border-accent transition-colors duration-300">
+                                    <div className="w-12 h-12 rounded-full border border-primary/20 flex items-center justify-center bg-dark/40 backdrop-blur-md group-hover:bg-accent group-hover:border-accent group-hover:text-dark transition-colors duration-300">
                                         <ArrowUpRight size={24} weight="bold" />
                                     </div>
                                 </div>

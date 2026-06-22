@@ -1,11 +1,13 @@
-import React, { useEffect, useRef } from "react";
-import { ArrowRight } from "@phosphor-icons/react";
+import React, { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { ArrowRight, LinkedinLogo, X } from "@phosphor-icons/react";
 import gsap from "gsap";
 
 const HeroSection = () => {
     const sectionRef = useRef(null);
     const glowRef = useRef(null);
     const graphicRef = useRef(null);
+    const [showLinkedIn, setShowLinkedIn] = useState(false);
 
     useEffect(() => {
         let ctx = gsap.context(() => {
@@ -124,10 +126,20 @@ const HeroSection = () => {
         return () => ctx.revert();
     }, []);
 
+    // Lock body scroll when LinkedIn tooltip is open
+    useEffect(() => {
+        if (showLinkedIn) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+        }
+        return () => { document.body.style.overflow = "unset"; };
+    }, [showLinkedIn]);
+
     const uiuxText = "UI/UX &";
 
     return (
-        <section ref={sectionRef} className="relative w-full h-[100dvh] flex items-end justify-center md:justify-start pb-20 md:pb-32 px-4 sm:px-8 md:px-16 md:pl-[120px] lg:pl-[140px] overflow-hidden bg-dark">
+        <section ref={sectionRef} className="relative w-full h-[100dvh] flex items-end justify-center md:justify-start pb-20 md:pb-32 px-4 sm:px-8 md:px-16 md:pl-[120px] lg:pl-[140px] overflow-hidden bg-dark transition-all duration-300">
             {/* SVG Displacement Filter */}
             <svg style={{ position: 'absolute', width: 0, height: 0, pointerEvents: 'none' }}>
                 <filter id="displacementFilter">
@@ -153,7 +165,7 @@ const HeroSection = () => {
             <div className="absolute inset-0 z-1 bg-gradient-to-t from-dark via-dark/40 to-transparent pointer-events-none" />
 
             {/* Content wrapper */}
-            <div className="relative z-10 w-full text-primary flex flex-col items-center md:items-start text-center md:text-left">
+            <div className="relative w-full text-primary flex flex-col items-center md:items-start text-center md:text-left">
                 <h1 className="font-sans font-black text-6xl md:text-8xl tracking-tighter leading-[0.85] flex flex-col justify-center md:justify-start uppercase">
                     <span className="text-primary font-mono font-bold not-italic text-[12px] sm:text-[14px] md:text-2xl tracking-[0.3em] mb-4 hero-intro opacity-0 translate-y-10 whitespace-nowrap">Hey, I'm Juneco</span>
                     <span className="text-accent italic leading-[0.85]">
@@ -164,18 +176,96 @@ const HeroSection = () => {
                     </span>
                 </h1>
                 <p className="mt-8 font-mono text-[10px] sm:text-xs tracking-[0.15em] text-primary/60 max-w-xl border-l-2 border-accent pl-4 hero-desc opacity-0 translate-y-10 uppercase">
-                    I CREATE INTUITIVE INTERFACES AND STRIKING VISUALS THAT HELP BRANDS TELL THEIR STORY. LET'S BUILD SOMETHING MEANINGFUL TOGETHER.
+                    AN AWARD-WINNING DESIGNER CREATING INTUITIVE INTERFACES AND STRIKING VISUALS THAT HELP BRANDS TELL THEIR STORY. LET'S BUILD SOMETHING MEANINGFUL TOGETHER.
                 </p>
-                <button
-                    onClick={() => {
-                        document.getElementById("work-archive")?.scrollIntoView({ behavior: "smooth" });
-                    }}
-                    className="mt-12 group relative overflow-hidden bg-primary text-dark font-sans font-bold uppercase tracking-widest text-xs px-8 py-4 rounded-full flex items-center gap-4 hover:scale-[1.03] transition-transform duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] hero-btn opacity-0 translate-y-10 focus:outline-none"
-                >
-                    <span className="absolute inset-0 bg-accent translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-in-out" />
-                    <span className="relative z-10 group-hover:text-primary transition-colors duration-300">View Archive</span>
-                    <ArrowRight weight="bold" className="relative z-10 w-4 h-4 group-hover:text-primary transition-colors duration-300 group-hover:translate-x-1" />
-                </button>
+                <div className="flex items-center gap-3 mt-12">
+                    <div className="hero-btn opacity-0 translate-y-10">
+                        <button
+                            onClick={() => {
+                                document.getElementById("work-archive")?.scrollIntoView({ behavior: "smooth" });
+                            }}
+                            className="group relative overflow-hidden bg-primary text-dark font-sans font-bold uppercase tracking-widest text-xs px-8 py-4 rounded-full flex items-center gap-4 hover:scale-[1.03] transition-transform duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] focus:outline-none"
+                        >
+                            <span className="absolute inset-0 bg-accent translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-in-out" />
+                            <span className="relative z-10 group-hover:text-primary transition-colors duration-300">View Archive</span>
+                            <ArrowRight weight="bold" className="relative z-10 w-4 h-4 group-hover:text-primary transition-colors duration-300 group-hover:translate-x-1" />
+                        </button>
+                    </div>
+
+                    {/* LinkedIn Button with Tooltip */}
+                    <div className={`hero-btn opacity-0 translate-y-10 relative ${showLinkedIn ? 'z-[9999]' : ''}`}>
+                        <button
+                            onClick={() => setShowLinkedIn(!showLinkedIn)}
+                            className="group relative overflow-hidden border border-primary/30 text-primary font-sans font-bold uppercase tracking-widest text-xs w-12 h-12 rounded-full flex items-center justify-center hover:scale-[1.03] hover:border-[#0A66C2] hover:text-[#0A66C2] transition-all duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] focus:outline-none"
+                            aria-label="Toggle LinkedIn Profile"
+                            title="View LinkedIn Profile"
+                        >
+                            <LinkedinLogo weight="bold" className="w-5 h-5" />
+                        </button>
+
+                        {/* LinkedIn Tooltip Card */}
+                        {showLinkedIn && (
+                            <>
+                                {/* Subtle blurred overlay */}
+                                {createPortal(
+                                    <div 
+                                        className="fixed inset-0 z-[9998] bg-black/60 backdrop-blur-sm animate-[fadeIn_0.2s_ease-out]"
+                                        onClick={() => setShowLinkedIn(false)}
+                                    />,
+                                    document.body
+                                )}
+                                
+                                {/* Positioning wrapper (handles the translation) */}
+                                <div className="absolute bottom-full mb-4 z-[9999] w-[340px] -left-8 md:left-1/2 md:-translate-x-1/2 pointer-events-none">
+                                    {/* Animation wrapper (handles the scale without conflicting with translation) */}
+                                    <div className="animate-[scaleIn_0.25s_ease-out] origin-bottom pointer-events-auto">
+                                        <div className="relative bg-[#0F0F0F] rounded-xl shadow-2xl overflow-hidden border border-white/10">
+                                            {/* Close button */}
+                                            <button
+                                                onClick={() => setShowLinkedIn(false)}
+                                                className="absolute top-2 right-2 w-7 h-7 rounded-full hover:bg-white/10 flex items-center justify-center transition-colors duration-200 text-white/50 hover:text-white z-10"
+                                                aria-label="Close"
+                                            >
+                                                <X weight="bold" className="w-4 h-4" />
+                                            </button>
+                                            
+                                            {/* Card Header */}
+                                            <div className="bg-[#1C2329] px-5 py-3 border-b border-white/5">
+                                                <img src="/images/LinkedIn_logo.svg" alt="LinkedIn" className="h-4 w-auto brightness-0 invert opacity-90" />
+                                            </div>
+                                            
+                                            {/* Card Body */}
+                                            <div className="p-5">
+                                                <img src="/images/linkedin-avatar.webp" alt="Juneco Mirande" className="w-16 h-16 rounded-full border border-white/10 mb-3 object-cover shadow-sm bg-gray-800" />
+                                                
+                                                <a href="https://www.linkedin.com/in/juneco-mirande/" target="_blank" rel="noopener noreferrer" className="text-white font-sans font-semibold text-[17px] leading-tight hover:text-[#0A66C2] hover:underline transition-colors block w-max">
+                                                    Juneco Mirande
+                                                </a>
+                                                
+                                                <p className="text-white/80 font-sans text-[12px] mt-1.5 leading-relaxed">
+                                                    Frontend Developer & UI/UX Designer · React · Next.js · Figma · Adobe Photoshop
+                                                </p>
+                                                
+                                                <p className="text-white/40 font-sans text-[11px] mt-3 leading-snug">
+                                                    Self-Employed | La Consolacion College - Bacolod
+                                                </p>
+                                                
+                                                <a 
+                                                    href="https://www.linkedin.com/in/juneco-mirande/"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="mt-5 inline-block px-5 py-1.5 rounded-full border border-white/50 text-white/90 font-sans text-[14px] font-medium hover:border-white hover:text-white hover:bg-white/5 transition-all duration-200"
+                                                >
+                                                    View profile
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </>
+                        )}
+                    </div>
+                </div>
             </div>
         </section>
     );

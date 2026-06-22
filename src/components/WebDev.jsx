@@ -1,11 +1,45 @@
-import React, { useState, useEffect } from "react";
-import { X, ArrowUpRight } from "@phosphor-icons/react";
+import React, { useState, useEffect, useMemo } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { X, ArrowUpRight, ArrowsLeftRight } from "@phosphor-icons/react";
 import CategoryNav from "./shared/CategoryNav";
 
 export default function WebDev({ setActivePage }) {
   const [openModalItem, setOpenModalItem] = useState(null);
+  const [iframeWidth, setIframeWidth] = useState(100);
+  const [isDragging, setIsDragging] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const works = [
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (!isDragging) return;
+      const centerX = window.innerWidth / 2;
+      const distanceFromCenter = Math.abs(e.clientX - centerX);
+      const newWidthPx = distanceFromCenter * 2;
+      const percentage = (newWidthPx / window.innerWidth) * 100;
+      setIframeWidth(Math.max(30, Math.min(100, percentage)));
+    };
+    
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    if (isDragging) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+      document.body.style.cursor = 'col-resize';
+      document.body.style.userSelect = 'none';
+    }
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+    };
+  }, [isDragging]);
+
+  const works = useMemo(() => [
     {
       type: "link",
       url: "https://trekkorentals.web.app/",
@@ -30,9 +64,9 @@ export default function WebDev({ setActivePage }) {
         "/images/supabase.svg",
       ],
     },
-  ];
+  ], []);
 
-  const chorosWorks = [
+  const chorosWorks = useMemo(() => [
     {
       type: "link",
       url: "https://youreventcover.co.uk/",
@@ -78,7 +112,7 @@ export default function WebDev({ setActivePage }) {
       tools: ["/images/figma.svg", "/images/laravel.svg", "/images/tailwind.svg"],
       disableIframe: true,
     },
-  ];
+  ], []);
 
   const handleClick = (item) => {
     setOpenModalItem(item);
@@ -86,6 +120,7 @@ export default function WebDev({ setActivePage }) {
 
   useEffect(() => {
     if (openModalItem !== null) {
+      setIframeWidth(100); // Reset width when opening a new project
       document.body.classList.add("modal-open");
       if (openModalItem.type !== "scrollable-image") {
         document.body.classList.add("iframe-modal-open");
@@ -95,6 +130,26 @@ export default function WebDev({ setActivePage }) {
     }
     return () => document.body.classList.remove("modal-open", "iframe-modal-open");
   }, [openModalItem]);
+
+  useEffect(() => {
+    if (location.state?.openProject) {
+      const project = works.find(w => w.title === location.state.openProject) || chorosWorks.find(w => w.title === location.state.openProject);
+      if (project) {
+        setOpenModalItem(project);
+        navigate(location.pathname, { replace: true, state: {} });
+      }
+    }
+  }, [location.state, works, chorosWorks, navigate, location.pathname]);
+
+  useEffect(() => {
+    if (location.hash === "#ojt-choros") {
+      setTimeout(() => {
+        document.getElementById("ojt-choros")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+    } else if (!location.hash) {
+      window.scrollTo(0, 0);
+    }
+  }, [location.hash]);
 
   const [imagesLoaded, setImagesLoaded] = useState({});
 
@@ -153,7 +208,7 @@ export default function WebDev({ setActivePage }) {
       </div>
 
       {/* OJT Section */}
-      <div className="mt-32 pt-16 border-t-4 border-dark">
+      <div id="ojt-choros" className="mt-32 pt-16 border-t-4 border-dark">
         <div className="flex flex-col md:flex-row gap-8 justify-between items-start mb-16">
           <div>
             <h3 className="font-sans font-black text-3xl sm:text-5xl uppercase tracking-tighter text-dark mb-2 flex items-center gap-3 flex-wrap">
@@ -327,12 +382,39 @@ export default function WebDev({ setActivePage }) {
                 </div>
               </div>
             ) : (
-              <iframe
-                title={openModalItem.title}
-                className="w-full h-full rounded-[2rem] border border-primary/20 bg-dark shadow-2xl"
-                src={openModalItem.url}
-                allowFullScreen
-              />
+              <div className="flex items-center justify-center w-full h-full pb-4 sm:pb-8">
+                {/* Iframe Container */}
+                <div className={`h-full relative flex-shrink-0 ${isDragging ? '' : 'transition-all duration-300 ease-out'}`} style={{ width: `${iframeWidth}%` }}>
+                  
+                  {/* The actual iframe */}
+                  <iframe
+                    title={openModalItem.title}
+                    className="w-full h-full rounded-[2rem] border border-primary/20 bg-dark shadow-2xl"
+                    src={openModalItem.url}
+                    allowFullScreen
+                    style={{ pointerEvents: isDragging ? 'none' : 'auto' }}
+                  />
+                  
+                  {/* Draggable vertical bar on the right (Hidden on mobile) */}
+                  <div 
+                    className="absolute -right-3 sm:-right-4 top-1/2 -translate-y-1/2 w-6 sm:w-8 h-32 cursor-col-resize hidden sm:flex items-center justify-center group z-[2005]"
+                    onMouseDown={(e) => {
+                      e.preventDefault();
+                      setIsDragging(true);
+                    }}
+                    title="Drag to resize screen"
+                  >
+                    {/* Visual handle */}
+                    <div className={`relative h-full rounded-full border shadow-lg transition-all duration-300 flex items-center justify-center overflow-hidden ${isDragging ? 'w-5 bg-accent border-accent text-dark' : 'w-1.5 bg-primary/30 backdrop-blur-md border-primary/20 group-hover:w-5 group-hover:bg-accent/80 group-hover:border-accent group-hover:text-dark text-transparent'}`}>
+                      {/* Inner grip line (fades out on hover) */}
+                      <div className={`absolute w-0.5 h-8 bg-dark/40 rounded-full transition-opacity duration-300 ${isDragging ? 'opacity-0' : 'group-hover:opacity-0'}`} />
+                      
+                      {/* Left-Right Arrows Icon (fades in on hover) */}
+                      <ArrowsLeftRight size={14} weight="bold" className={`absolute transition-opacity duration-300 ${isDragging ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
+                    </div>
+                  </div>
+                </div>
+              </div>
             )}
           </div>
         </div>
