@@ -62,7 +62,7 @@ export default function useBookingDraft({ formData, setFormData, step, setStep, 
         };
         window.addEventListener('beforeunload', handleBeforeUnload);
         return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-    }, [formData, step, status, showResumeModal]);
+    }, [formData, step, status, showResumeModal, hasInteracted]);
 
     const clearDraft = () => {
         try {

@@ -175,8 +175,8 @@ const HeroSection = () => {
                         Graphic Designer
                     </span>
                 </h1>
-                <p className="mt-8 font-mono text-[10px] sm:text-xs tracking-[0.15em] text-primary/60 max-w-xl border-l-2 border-accent pl-4 hero-desc opacity-0 translate-y-10 uppercase">
-                    AN AWARD-WINNING DESIGNER CREATING INTUITIVE INTERFACES AND STRIKING VISUALS THAT HELP BRANDS TELL THEIR STORY. LET'S BUILD SOMETHING MEANINGFUL TOGETHER.
+                <p className="mt-8 font-mono text-[10px] sm:text-xs tracking-[0.15em] text-primary/60 max-w-xl border-l-2 border-accent pl-4 hero-desc opacity-0 translate-y-10">
+                    An award-winning designer creating intuitive interfaces and striking visuals that help brands tell their story. Let's build something meaningful together.
                 </p>
                 <div className="flex items-center gap-3 mt-12">
                     <div className="hero-btn opacity-0 translate-y-10">

@@ -70,7 +70,7 @@ export const TIMELINE_OPTIONS = [
     { id: 'flexible', label: 'Flexible' },
 ];
 
-export const HOW_FOUND_OPTIONS = ['Referral', , 'LinkedIn', 'Instagram', 'Google', 'Other'];
+export const HOW_FOUND_OPTIONS = ['Referral', 'LinkedIn', 'Instagram', 'Google', 'Other'];
 
 export const HOW_FOUND_ICONS = {
     Referral: Megaphone,

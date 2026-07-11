@@ -1,23 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowLeft, EnvelopeSimple, LinkedinLogo, Check } from '@phosphor-icons/react';
+import { ArrowLeft, EnvelopeSimple, LinkedinLogo } from '@phosphor-icons/react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import BookingForm from './shared/booking/BookingForm';
-import RichTextField from './shared/booking/RichTextField';
 
 export default function Booking({ setActivePage }) {
   const containerRef = useRef(null);
   const [formStep, setFormStep] = useState(1);
-  const [emailCopied, setEmailCopied] = useState(false);
-
-  const handleEmailClick = (e) => {
-    const timeout = setTimeout(() => {
-      navigator.clipboard.writeText('juneco.mirande@gmail.com');
-      setEmailCopied(true);
-      setTimeout(() => setEmailCopied(false), 2000);
-    }, 300);
-    window.addEventListener('blur', () => clearTimeout(timeout), { once: true });
-  };
 
   useEffect(() => {
     if (setActivePage) setActivePage('booking');

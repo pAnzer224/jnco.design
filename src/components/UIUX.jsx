@@ -8,7 +8,6 @@ import ReadyToBuild from "./shared/ReadyToBuild";
 
 export default function UIUX({ setActivePage }) {
   const [openModal, setOpenModal] = useState(null);
-  const [showFigmaNotice, setShowFigmaNotice] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -22,6 +21,10 @@ export default function UIUX({ setActivePage }) {
         title: "LACO Innovation Hub",
         category: "UI/UX Figma Champion (1st Place)",
         tools: ["/images/figma.svg"],
+        role: "Lead UI/UX Designer",
+        challenge: "Design a collaborative workspace for students and innovators to pitch projects, collaborate on team boards, and share IT Month resources.",
+        solution: "Designed a clean dashboard layout in Figma featuring modular project overview widgets, gamified user statuses, and dark-themed interface states.",
+        images: ["/images/laco.webp", "/images/laco.webp"]
       },
 
       {
@@ -31,6 +34,10 @@ export default function UIUX({ setActivePage }) {
         title: "Negros Delights",
         category: "Mobile Application",
         tools: ["/images/figma.svg"],
+        role: "Product Designer & Researcher",
+        challenge: "Create a mobile ordering experience that highlights regional delicacies of Negros, solving poor local search visibility.",
+        solution: "Designed a user-friendly shopping checkout flow, rich localized food cards, and trackable map-delivery flows in Figma.",
+        images: ["/images/negrosdelight.webp", "/images/negrosdelight.webp"]
       },
 
       {
@@ -40,14 +47,22 @@ export default function UIUX({ setActivePage }) {
         title: "Maestro Solutions",
         category: "Software Engineering Project",
         tools: ["/images/figma.svg"],
+        role: "Lead UI/UX Designer",
+        challenge: "Design a robust software management suite for academic developer teams to track project backlogs and milestones.",
+        solution: "Created task boards, progress tracking widgets, and resource management states to bridge design-to-development collaboration.",
+        images: ["/images/maestro.webp", "/images/maestro.webp"]
       },
       {
         type: "figma",
-        src: "https://embed.figma.com/proto/QONWszrkRHmMBeWeHepbgp/Task-3---Vertical-and-Horizontal-Scrolling?node-id=5-505&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=5%3A505&show-proto-sidebar=1&embed-host=share",
+        src: "https://embed.figma.com/proto/QONWszrkRHmMBeWeHepbgp/Task-3---Vertical-and-Horizontal-Scrolling?node-id=5-505&scaling=scale-down-width&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=5%3A505&embed-host=share",
         thumbnail: "/images/smartcart.webp",
         title: "SmartCart",
         category: "Mobile App Design",
         tools: ["/images/figma.svg"],
+        role: "Interface Designer",
+        challenge: "Design an optimized mobile checkout interface to simplify offline-to-online item scanning and purchase confirmation.",
+        solution: "Implemented horizontal product scrolling layouts, rapid checkout sheets, and high-contrast total breakdown tables.",
+        images: ["/images/smartcart.webp", "/images/smartcart.webp"]
       },
       {
         type: "scrollable-image",
@@ -56,6 +71,9 @@ export default function UIUX({ setActivePage }) {
         title: "CW4A",
         category: "Web Design",
         tools: ["/images/photoshop.svg"],
+        role: "Web Graphic Designer",
+        challenge: "Design modern, advocacy-driven web pages for community wellness programs.",
+        solution: "Produced visual assets, Photoshop photo-composites, and coordinated typography styles to increase visitor engagement.",
       },
       {
         type: "scrollable-image",
@@ -69,6 +87,9 @@ export default function UIUX({ setActivePage }) {
         title: "Oracle UI/UX Redesign",
         category: "Interface Redesign",
         tools: ["/images/photoshop.svg"],
+        role: "Visual UI Designer",
+        challenge: "Redesign complex legacy database tables and widgets to fit a clean visual identity.",
+        solution: "Designed modernized dashboard graphs, search states, and tables using high contrast colors and balanced paddings.",
       },
     ],
     []
@@ -83,6 +104,10 @@ export default function UIUX({ setActivePage }) {
         title: "Choros.io Redesign",
         category: "Skills Display",
         tools: ["/images/figma.svg"],
+        role: "OJT UI/UX Designer",
+        challenge: "Assist in redesigning the core business service platform layout to enhance usability and feature discovery.",
+        solution: "Drafted grid structures, interactive wireframes, and component states under senior oversight.",
+        images: ["/images/choros-figma.webp", "/images/choros-figma.webp"]
       },
       {
         type: "figma",
@@ -91,6 +116,10 @@ export default function UIUX({ setActivePage }) {
         title: "Y-Commerce",
         category: "Figma Prototype",
         tools: ["/images/figma.svg"],
+        role: "OJT UI/UX Designer",
+        challenge: "Build a responsive mobile e-commerce mockup to present feature capabilities during client pitches.",
+        solution: "Designed checkout sheets, cart views, and catalog navigations using unified Figma design components.",
+        images: ["/images/y-commerce.webp", "/images/y-commerce.webp"]
       },
     ],
     []
@@ -115,16 +144,6 @@ export default function UIUX({ setActivePage }) {
   }, [openModal, allWorks]);
 
   useEffect(() => {
-    if (openModal !== null && allWorks[openModal].type === "figma") {
-      setShowFigmaNotice(true);
-      const timer = setTimeout(() => setShowFigmaNotice(false), 3000);
-      return () => clearTimeout(timer);
-    } else {
-      setShowFigmaNotice(false);
-    }
-  }, [openModal, allWorks]);
-
-  useEffect(() => {
     if (location.state?.openProject) {
       const index = works.findIndex(w => w.title === location.state.openProject);
       if (index !== -1) {
@@ -143,9 +162,6 @@ export default function UIUX({ setActivePage }) {
       window.scrollTo(0, 0);
     }
   }, [location.hash]);
-
-  const isMobilePrototype = (work) =>
-    work.title === "SmartCart" || work.title === "Negros Delights";
 
   const [imagesLoaded, setImagesLoaded] = useState({});
 
@@ -279,84 +295,106 @@ export default function UIUX({ setActivePage }) {
       {/* Modal for all content types */}
       {openModal !== null && (
         <div
-          className="fixed inset-0 bg-dark/95 backdrop-blur-xl z-[2000] flex items-center justify-center p-4 sm:p-8"
+          className="fixed inset-0 bg-dark/95 backdrop-blur-xl z-[2000] flex items-center justify-center p-4 md:p-8"
           onClick={() => setOpenModal(null)}
         >
-          {(allWorks[openModal].type === "link" || allWorks[openModal].type === "figma") && (
-            <a
-              href={allWorks[openModal].type === "link" ? allWorks[openModal].url : allWorks[openModal].src}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="absolute top-8 left-8 text-primary/50 hover:text-primary transition-all duration-300 z-[2001] flex items-center gap-3 px-6 py-3 rounded-full border border-primary/20 hover:border-primary/40 bg-dark hover:bg-dark/80 group"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <span className="font-mono text-xs uppercase tracking-widest font-bold">{allWorks[openModal].type === "figma" ? "Open in Figma" : "Visit Website"}</span>
-              <ArrowUpRight size={18} weight="bold" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </a>
-          )}
-
-          {showFigmaNotice && allWorks[openModal].type === "figma" && (
-            <div className="absolute top-8 left-1/2 -translate-x-1/2 bg-accent/20 backdrop-blur-md border border-accent/30 text-accent px-6 py-3 rounded-full font-mono text-xs uppercase tracking-widest font-bold z-[2001] shadow-xl animate-pulse flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-accent animate-ping"></span>
-              Please wait, Figma prototype is loading...
-            </div>
-          )}
-
-          <button
-            onClick={() => setOpenModal(null)}
-            className="absolute top-8 right-8 text-primary/50 hover:text-accent transition-colors duration-300 z-[2001] flex items-center justify-center w-12 h-12 rounded-full border border-primary/20 hover:border-accent bg-dark"
+          {/* Main Split Layout Container */}
+          <div 
+            className="w-full max-w-7xl h-[85vh] bg-[#161616]/90 border border-primary/10 rounded-[2.5rem] overflow-hidden flex flex-col md:flex-row shadow-2xl relative"
+            onClick={(e) => e.stopPropagation()}
           >
-            <X size={24} weight="bold" />
-          </button>
-
-
-          {/* Scrollable Images (CW4A and Oracle) */}
-          {allWorks[openModal].type === "scrollable-image" ? (
-            <div
-              className="w-full h-full overflow-y-auto overflow-x-hidden mt-16 rounded-[2rem] border border-primary/10 bg-black/50"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex flex-col items-center py-8 px-4">
-                {allWorks[openModal].images.map((img, imgIndex) => (
-                  <div key={imgIndex} className="w-full max-w-5xl mb-4">
-                    <img src={img} alt={`${allWorks[openModal].title} ${imgIndex + 1}`} className="w-full h-auto rounded-xl" />
-                  </div>
-                ))}
-              </div>
-            </div>
-          ) : /* Mobile app prototypes */
-            isMobilePrototype(allWorks[openModal]) && allWorks[openModal].type === "figma" ? (
-              <div
-                className="relative w-full h-full flex items-center justify-center rounded-[2rem] overflow-hidden bg-black"
-                style={{
-                  backgroundImage: `url(${allWorks[openModal].thumbnail})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              >
-                <div className="absolute inset-0 backdrop-blur-3xl bg-dark/80"></div>
-                <div className="relative z-10 w-[400px] h-[85vh] max-h-[800px] rounded-[40px] overflow-hidden shadow-2xl border border-primary/20" onClick={(e) => e.stopPropagation()}>
-                  <iframe
-                    title={allWorks[openModal].title}
-                    style={{ border: "none" }}
-                    width="100%"
-                    height="100%"
-                    src={allWorks[openModal].src}
-                    allowFullScreen
-                  />
+            {/* 1. Left Context Sidebar (30% Width on Desktop) */}
+            <div className="w-full md:w-[320px] lg:w-[380px] shrink-0 border-b md:border-b-0 md:border-r border-primary/10 p-6 sm:p-8 flex flex-col justify-between overflow-y-auto text-primary">
+              <div>
+                {/* Header */}
+                <span className="font-mono text-[9px] text-accent tracking-[3px] uppercase font-bold">
+                  {allWorks[openModal].category}
+                </span>
+                <h3 className="font-sans font-black text-2xl uppercase tracking-tight text-white mt-1 leading-tight">
+                  {allWorks[openModal].title}
+                </h3>
+                
+                <div className="mt-6 space-y-5">
+                  {/* Role */}
+                  {allWorks[openModal].role && (
+                    <div>
+                      <span className="font-mono text-[10px] text-primary/40 uppercase tracking-wider block font-bold">My Role</span>
+                      <span className="text-sm font-semibold text-primary/95">{allWorks[openModal].role}</span>
+                    </div>
+                  )}
+                  
+                  {/* Challenge */}
+                  {allWorks[openModal].challenge && (
+                    <div>
+                      <span className="font-mono text-[10px] text-primary/40 uppercase tracking-wider block font-bold">The Challenge</span>
+                      <p className="text-xs sm:text-sm text-primary/70 leading-relaxed mt-1 font-sans">
+                        {allWorks[openModal].challenge}
+                      </p>
+                    </div>
+                  )}
+                  
+                  {/* Solution */}
+                  {allWorks[openModal].solution && (
+                    <div>
+                      <span className="font-mono text-[10px] text-primary/40 uppercase tracking-wider block font-bold">The Solution</span>
+                      <p className="text-xs sm:text-sm text-primary/70 leading-relaxed mt-1 font-sans">
+                        {allWorks[openModal].solution}
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
-            ) : (
-              /* Vercel links and Desktop prototypes - fullscreen iframe */
-              <div className="w-full h-full pt-16" onClick={(e) => e.stopPropagation()}>
-                <iframe
-                  title={allWorks[openModal].title}
-                  className="w-full h-full rounded-[2rem] border border-primary/20 bg-dark shadow-2xl"
-                  src={allWorks[openModal].type === "link" ? allWorks[openModal].url : allWorks[openModal].src}
-                  allowFullScreen
-                />
+
+              {/* Bottom CTA / Action Link */}
+              <div className="mt-8 pt-4 border-t border-primary/5 flex items-center justify-between gap-4">
+                <div className="flex gap-2">
+                  {allWorks[openModal].tools.map((tool, idx) => (
+                    <img key={idx} src={tool} className="w-5 h-5 object-contain opacity-70" alt="tool logo" />
+                  ))}
+                </div>
+                {(allWorks[openModal].type === "link" || allWorks[openModal].type === "figma") && (
+                  <a
+                    href={allWorks[openModal].type === "link" ? allWorks[openModal].url : allWorks[openModal].src}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded-full font-mono text-[10px] uppercase font-bold tracking-widest transition-all"
+                  >
+                    Open Live <ArrowUpRight size={12} weight="bold" />
+                  </a>
+                )}
               </div>
-            )}
+            </div>
+
+            {/* 2. Right Interactive / Image View */}
+            <div className="flex-1 bg-black/40 relative flex items-center justify-center p-4 overflow-hidden">
+              <button
+                onClick={() => setOpenModal(null)}
+                className="absolute top-4 right-4 text-primary/50 hover:text-accent transition-colors duration-300 z-[2010] flex items-center justify-center w-10 h-10 rounded-full border border-primary/10 bg-dark/80"
+              >
+                <X size={20} weight="bold" />
+              </button>
+
+              <div className="w-full h-full">
+                {allWorks[openModal].type === "scrollable-image" || allWorks[openModal].images ? (
+                  <div className="w-full h-full overflow-y-auto py-8 select-none">
+                    <div className="flex flex-col items-center gap-4 max-w-3xl mx-auto">
+                      {(allWorks[openModal].images || allWorks[openModal].images).map((img, imgIndex) => (
+                        <img key={imgIndex} src={img} className="w-full h-auto rounded-xl border border-primary/5 shadow-lg" alt="work frame" />
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <iframe
+                    title={allWorks[openModal].title}
+                    className="w-full h-full border-0 bg-dark shadow-2xl"
+                    src={allWorks[openModal].type === "link" ? allWorks[openModal].url : allWorks[openModal].src}
+                    allowFullScreen
+                  />
+                )}
+              </div>
+            </div>
+            
+          </div>
         </div>
       )}
       {/* Shared Ready to Build CTA */}

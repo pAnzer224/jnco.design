@@ -52,6 +52,9 @@ export default function WebDev({ setActivePage }) {
         "/images/tailwind.svg",
         "/images/firebase.svg",
       ],
+      role: "Full-Stack Developer",
+      challenge: "Develop a car rental web platform with user authentication, dynamic search filters, and an interactive reservation system.",
+      solution: "Built a fully responsive Next.js application using Firebase Firestore for persistent data storage and Firebase Auth for secure customer logins."
     },
     {
       type: "link",
@@ -64,6 +67,9 @@ export default function WebDev({ setActivePage }) {
         "/images/tailwind.svg",
         "/images/supabase.svg",
       ],
+      role: "Full-Stack Developer (Best Capstone Designer)",
+      challenge: "Build a secure patient portal and appointment booker for a local veterinary clinic to replace manual entry workflows.",
+      solution: "Engineered a Next.js frontend with Supabase backend tables, integrating real-time scheduling widgets and patient health histories."
     },
   ], []);
 
@@ -76,6 +82,9 @@ export default function WebDev({ setActivePage }) {
       category: "Front-end & UI/UX Design",
       tools: ["/images/figma.svg", "/images/laravel.svg", "/images/tailwind.svg"],
       disableIframe: true,
+      role: "OJT Frontend Developer & QA",
+      challenge: "Develop and test responsive agency-designed interface elements for a UK event insurance platform.",
+      solution: "Optimized Blade template rendering, styled card grids with Tailwind CSS, and verified mobile interface responsiveness."
     },
     {
       type: "link",
@@ -85,6 +94,9 @@ export default function WebDev({ setActivePage }) {
       category: "Front-end & UI/UX Design",
       tools: ["/images/figma.svg", "/images/laravel.svg", "/images/tailwind.svg"],
       disableIframe: true,
+      role: "OJT Frontend Developer & QA",
+      challenge: "Collaborate on a clean frontend build to showcase plumbing services and simplify local service bookings.",
+      solution: "Designed and implemented CSS layouts, aligned assets with visual guidelines, and ran cross-browser compatibility tests."
     },
     {
       type: "link",
@@ -94,6 +106,9 @@ export default function WebDev({ setActivePage }) {
       category: "Front-end & UI/UX Design",
       tools: ["/images/figma.svg", "/images/laravel.svg", "/images/tailwind.svg"],
       disableIframe: true,
+      role: "OJT Frontend Developer & QA",
+      challenge: "Translate approved Figma desktop designs into a responsive, component-driven Laravel build.",
+      solution: "Built custom cards and headers, styled interactive client components, and fixed mobile alignment bugs."
     },
     {
       type: "link",
@@ -103,6 +118,9 @@ export default function WebDev({ setActivePage }) {
       category: "Front-end & UI/UX Design",
       tools: ["/images/figma.svg", "/images/laravel.svg", "/images/tailwind.svg"],
       disableIframe: true,
+      role: "OJT Frontend Developer & QA",
+      challenge: "Develop a content-heavy service directory focusing on clean readability and quick loading speeds.",
+      solution: "Refactored template stylesheets, optimized layout structures, and audited site files to improve overall page weight."
     },
     {
       type: "link",
@@ -112,6 +130,9 @@ export default function WebDev({ setActivePage }) {
       category: "Front-end & UI/UX Design",
       tools: ["/images/figma.svg", "/images/laravel.svg", "/images/tailwind.svg"],
       disableIframe: true,
+      role: "OJT Frontend Developer & QA",
+      challenge: "Deploy interactive frontend components for a fitness installation landing page.",
+      solution: "Developed contact request forms, styled high-fidelity hero grids, and audited interactive page elements."
     },
   ], []);
 
@@ -295,128 +316,171 @@ export default function WebDev({ setActivePage }) {
       {/* Modal for all content types */}
       {openModalItem !== null && (
         <div
-          className="fixed inset-0 bg-dark/95 backdrop-blur-xl z-[2000] flex items-center justify-center p-4 sm:p-8"
+          className="fixed inset-0 bg-dark/95 backdrop-blur-xl z-[2000] flex items-center justify-center p-4 md:p-8"
           onClick={() => setOpenModalItem(null)}
         >
-          {openModalItem.type === "link" && openModalItem.url && !openModalItem.disableIframe && (
-            <a
-              href={openModalItem.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="absolute top-8 left-8 text-primary/50 hover:text-primary transition-all duration-300 z-[2001] flex items-center gap-3 px-6 py-3 rounded-full border border-primary/20 hover:border-primary/40 bg-dark hover:bg-dark/80 group"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <span className="font-mono text-xs uppercase tracking-widest font-bold">Visit Website</span>
-              <ArrowUpRight size={18} weight="bold" className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </a>
-          )}
-
-          <button
-            onClick={() => setOpenModalItem(null)}
-            className="absolute top-8 right-8 text-primary/50 hover:text-accent transition-colors duration-300 z-[2001] flex items-center justify-center w-12 h-12 rounded-full border border-primary/20 hover:border-accent bg-dark"
+          {/* Main Split Layout Container */}
+          <div 
+            className="w-full max-w-7xl h-[85vh] bg-[#161616]/90 border border-primary/10 rounded-[2.5rem] overflow-hidden flex flex-col md:flex-row shadow-2xl relative"
+            onClick={(e) => e.stopPropagation()}
           >
-            <X size={24} weight="bold" />
-          </button>
-
-          {/* Vercel links and Desktop prototypes - fullscreen iframe */}
-          <div className="w-full h-full pt-16" onClick={(e) => e.stopPropagation()}>
-            {openModalItem.disableIframe ? (
-              <div className="w-full h-full rounded-[2rem] border border-primary/20 bg-dark shadow-2xl flex flex-col overflow-hidden relative">
-                {/* Mock Browser Header */}
-                <div className="w-full h-12 bg-background/5 border-b border-primary/10 flex items-center px-6 gap-3 shrink-0">
-                  <div className="flex gap-1.5">
-                    <span className="w-3 h-3 rounded-full bg-[#FF5F56] inline-block"></span>
-                    <span className="w-3 h-3 rounded-full bg-[#FFBD2E] inline-block"></span>
-                    <span className="w-3 h-3 rounded-full bg-[#27C93F] inline-block"></span>
-                  </div>
-                  <div className="flex-1 max-w-xl mx-auto h-7 bg-dark/45 rounded-md flex items-center px-4 border border-primary/5 select-none justify-center">
-                    <span className="font-mono text-xs text-primary/40 truncate tracking-wide">{openModalItem.url}</span>
-                  </div>
-                  <div className="w-[52px]"></div>
-                </div>
+            {/* 1. Left Context Sidebar (30% Width on Desktop) */}
+            <div className="w-full md:w-[320px] lg:w-[380px] shrink-0 border-b md:border-b-0 md:border-r border-primary/10 p-6 sm:p-8 flex flex-col justify-between overflow-y-auto text-primary">
+              <div>
+                {/* Header */}
+                <span className="font-mono text-[9px] text-accent tracking-[3px] uppercase font-bold">
+                  {openModalItem.category}
+                </span>
+                <h3 className="font-sans font-black text-2xl uppercase tracking-tight text-white mt-1 leading-tight">
+                  {openModalItem.title}
+                </h3>
                 
-                {/* Mock Browser Content */}
-                <div className="flex-1 relative w-full overflow-y-auto flex items-center justify-center p-6 sm:p-8">
-                  {/* Background blurred thumbnail */}
-                  <div 
-                    className="absolute inset-0 bg-cover bg-center opacity-30 filter blur-2xl scale-110 pointer-events-none"
-                    style={{ backgroundImage: `url('${openModalItem.thumbnail}')` }}
-                  />
+                <div className="mt-6 space-y-5">
+                  {/* Role */}
+                  {openModalItem.role && (
+                    <div>
+                      <span className="font-mono text-[10px] text-primary/40 uppercase tracking-wider block font-bold">My Role</span>
+                      <span className="text-sm font-semibold text-primary/95">{openModalItem.role}</span>
+                    </div>
+                  )}
                   
-                  {/* Glassmorphic presentation card */}
-                  <div className="relative z-10 w-full max-w-xl bg-dark/40 backdrop-blur-xl rounded-[2rem] border border-primary/10 p-6 sm:p-8 text-center flex flex-col items-center shadow-2xl my-auto">
-                    {/* Visual Thumbnail Preview */}
-                    <div className="w-full aspect-[16/9] rounded-[1.2rem] overflow-hidden mb-6 border border-primary/15 bg-dark/20 relative group">
-                      <img 
-                        src={openModalItem.thumbnail} 
-                        alt={openModalItem.title} 
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-dark/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div className="w-12 h-12 rounded-full bg-accent text-dark flex items-center justify-center shadow-lg">
-                          <ArrowUpRight size={22} weight="bold" />
-                        </div>
+                  {/* Challenge */}
+                  {openModalItem.challenge && (
+                    <div>
+                      <span className="font-mono text-[10px] text-primary/40 uppercase tracking-wider block font-bold">The Challenge</span>
+                      <p className="text-xs sm:text-sm text-primary/70 leading-relaxed mt-1 font-sans">
+                        {openModalItem.challenge}
+                      </p>
+                    </div>
+                  )}
+                  
+                  {/* Solution */}
+                  {openModalItem.solution && (
+                    <div>
+                      <span className="font-mono text-[10px] text-primary/40 uppercase tracking-wider block font-bold">The Solution</span>
+                      <p className="text-xs sm:text-sm text-primary/70 leading-relaxed mt-1 font-sans">
+                        {openModalItem.solution}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Bottom CTA / Action Link */}
+              <div className="mt-8 pt-4 border-t border-primary/5 flex items-center justify-between gap-4">
+                <div className="flex gap-2">
+                  {openModalItem.tools.map((tool, idx) => (
+                    <img key={idx} src={tool} className="w-5 h-5 object-contain opacity-70" alt="tool logo" />
+                  ))}
+                </div>
+                {openModalItem.url && (
+                  <a
+                    href={openModalItem.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded-full font-mono text-[10px] uppercase font-bold tracking-widest transition-all animate-pulse"
+                  >
+                    Open Live <ArrowUpRight size={12} weight="bold" />
+                  </a>
+                )}
+              </div>
+            </div>
+
+            {/* 2. Right Interactive Canvas (70% Width) */}
+            <div className="flex-1 bg-black/40 relative flex items-center justify-center p-4 overflow-hidden">
+              <button
+                onClick={() => setOpenModalItem(null)}
+                className="absolute top-4 right-4 text-primary/50 hover:text-accent transition-colors duration-300 z-[2010] flex items-center justify-center w-10 h-10 rounded-full border border-primary/10 bg-dark/80"
+              >
+                <X size={20} weight="bold" />
+              </button>
+
+              <div className="w-full h-full">
+                {openModalItem.disableIframe ? (
+                  <div className="w-full h-full flex flex-col overflow-hidden relative">
+                    {/* Mock Browser Header */}
+                    <div className="w-full h-10 bg-background/5 border-b border-primary/10 flex items-center px-4 gap-2 shrink-0">
+                      <div className="flex gap-1">
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F56] inline-block"></span>
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E] inline-block"></span>
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#27C93F] inline-block"></span>
+                      </div>
+                      <div className="flex-1 max-w-sm mx-auto h-6 bg-dark/45 rounded flex items-center px-3 border border-primary/5 select-none justify-center">
+                        <span className="font-mono text-[10px] text-primary/40 truncate tracking-wide">{openModalItem.url}</span>
                       </div>
                     </div>
                     
-                    <h3 className="font-sans font-bold text-2xl sm:text-3xl text-primary uppercase tracking-tight mb-2 leading-tight">
-                      {openModalItem.title}
-                    </h3>
-                    <p className="font-mono text-xs text-accent tracking-[2px] uppercase font-bold mb-4">
-                      {openModalItem.category}
-                    </p>
-                    
-                    <p className="font-mono text-xs sm:text-sm text-primary/70 leading-relaxed max-w-md mb-6">
-                      This project is hosted on a secure production server. Click below to launch the live site and explore my work in a new tab!
-                    </p>
-                    
-                    <a
-                      href={openModalItem.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-accent hover:bg-accent/90 text-dark font-sans font-bold text-sm uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-accent/25 hover:scale-[1.02]"
-                    >
-                      Launch Live Project
-                      <ArrowUpRight size={18} weight="bold" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="flex items-center justify-center w-full h-full pb-4 sm:pb-8">
-                {/* Iframe Container */}
-                <div className={`h-full relative flex-shrink-0 ${isDragging ? '' : 'transition-all duration-300 ease-out'}`} style={{ width: `${iframeWidth}%` }}>
-                  
-                  {/* The actual iframe */}
-                  <iframe
-                    title={openModalItem.title}
-                    className="w-full h-full rounded-[2rem] border border-primary/20 bg-dark shadow-2xl"
-                    src={openModalItem.url}
-                    allowFullScreen
-                    style={{ pointerEvents: isDragging ? 'none' : 'auto' }}
-                  />
-                  
-                  {/* Draggable vertical bar on the right (Hidden on mobile) */}
-                  <div 
-                    className="absolute -right-3 sm:-right-4 top-1/2 -translate-y-1/2 w-6 sm:w-8 h-32 cursor-col-resize hidden sm:flex items-center justify-center group z-[2005]"
-                    onMouseDown={(e) => {
-                      e.preventDefault();
-                      setIsDragging(true);
-                    }}
-                    title="Drag to resize screen"
-                  >
-                    {/* Visual handle */}
-                    <div className={`relative h-full rounded-full border shadow-lg transition-all duration-300 flex items-center justify-center overflow-hidden ${isDragging ? 'w-5 bg-accent border-accent text-dark' : 'w-1.5 bg-primary/30 backdrop-blur-md border-primary/20 group-hover:w-5 group-hover:bg-accent/80 group-hover:border-accent group-hover:text-dark text-transparent'}`}>
-                      {/* Inner grip line (fades out on hover) */}
-                      <div className={`absolute w-0.5 h-8 bg-dark/40 rounded-full transition-opacity duration-300 ${isDragging ? 'opacity-0' : 'group-hover:opacity-0'}`} />
+                    {/* Mock Browser Content */}
+                    <div className="flex-1 relative w-full overflow-y-auto flex items-center justify-center p-4 sm:p-6">
+                      <div 
+                        className="absolute inset-0 bg-cover bg-center opacity-25 filter blur-2xl scale-110 pointer-events-none"
+                        style={{ backgroundImage: `url('${openModalItem.thumbnail}')` }}
+                      />
                       
-                      {/* Left-Right Arrows Icon (fades in on hover) */}
-                      <ArrowsLeftRight size={14} weight="bold" className={`absolute transition-opacity duration-300 ${isDragging ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
+                      {/* Glassmorphic presentation card */}
+                      <div className="relative z-10 w-full max-w-md bg-dark/40 backdrop-blur-xl rounded-[2rem] border border-primary/10 p-5 text-center flex flex-col items-center shadow-2xl my-auto">
+                        <div className="w-full aspect-[16/9] rounded-[1rem] overflow-hidden mb-4 border border-primary/15 bg-dark/20 relative group">
+                          <img 
+                            src={openModalItem.thumbnail} 
+                            alt={openModalItem.title} 
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          />
+                        </div>
+                        
+                        <p className="font-mono text-[11px] text-primary/70 leading-relaxed max-w-xs mb-4">
+                          This project is hosted on a secure production server. Click below to launch the live site in a new tab!
+                        </p>
+                        
+                        <a
+                          href={openModalItem.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-accent hover:bg-accent/90 text-white font-sans font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-accent/25 hover:scale-[1.02]"
+                        >
+                          Launch Live Project
+                          <ArrowUpRight size={14} weight="bold" />
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="flex items-center justify-center w-full h-full pb-4 sm:pb-8">
+                    {/* Iframe Container */}
+                    <div className={`h-full relative flex-shrink-0 ${isDragging ? '' : 'transition-all duration-300 ease-out'}`} style={{ width: `${iframeWidth}%` }}>
+                      
+                      {/* The actual iframe */}
+                      <iframe
+                        title={openModalItem.title}
+                        className="w-full h-full rounded-[1.5rem] border border-primary/20 bg-dark shadow-2xl"
+                        src={openModalItem.url}
+                        allowFullScreen
+                        style={{ pointerEvents: isDragging ? 'none' : 'auto' }}
+                      />
+                      
+                      {/* Draggable vertical bar on the right (Hidden on mobile) */}
+                      <div 
+                        className="absolute -right-3 sm:-right-4 top-1/2 -translate-y-1/2 w-6 sm:w-8 h-32 cursor-col-resize hidden sm:flex items-center justify-center group z-[2005]"
+                        onMouseDown={(e) => {
+                          e.preventDefault();
+                          setIsDragging(true);
+                        }}
+                        title="Drag to resize screen"
+                      >
+                        {/* Visual handle */}
+                        <div className={`relative h-full rounded-full border shadow-lg transition-all duration-300 flex items-center justify-center overflow-hidden ${isDragging ? 'w-5 bg-accent border-accent text-dark' : 'w-1.5 bg-primary/30 backdrop-blur-md border-primary/20 group-hover:w-5 group-hover:bg-accent/80 group-hover:border-accent group-hover:text-dark text-transparent'}`}>
+                          {/* Inner grip line (fades out on hover) */}
+                          <div className={`absolute w-0.5 h-8 bg-dark/40 rounded-full transition-opacity duration-300 ${isDragging ? 'opacity-0' : 'group-hover:opacity-0'}`} />
+                          
+                          {/* Left-Right Arrows Icon (fades in on hover) */}
+                          <ArrowsLeftRight size={14} weight="bold" className={`absolute transition-opacity duration-300 ${isDragging ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
+            </div>
+            
           </div>
         </div>
       )}
