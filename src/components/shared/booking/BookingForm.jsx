@@ -269,7 +269,7 @@ export default function BookingForm({ onStepChange } = {}) {
           }}
         />
       )}
-      <div className="w-full max-w-[calc(100vw-2rem)] sm:max-w-2xl mx-auto overflow-visible relative">
+      <div className="w-full sm:max-w-2xl mx-auto overflow-visible relative">
         <div
           className="flex items-start transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] gap-8"
           style={{
@@ -324,7 +324,7 @@ export default function BookingForm({ onStepChange } = {}) {
                 >
                   <div
                     ref={stepNum === 1 ? step1CardRef : null}
-                    className="bg-primary text-dark border border-dark/10 rounded-[2rem] p-6 md:p-10 shadow-2xl relative overflow-hidden flex flex-col"
+                    className="bg-primary text-dark border border-dark/10 rounded-t-[2rem] sm:rounded-[2rem] p-6 md:p-10 shadow-2xl relative overflow-hidden flex flex-col"
                     style={cardHeight ? { height: `${cardHeight}px` } : undefined}
                   >
                     <form

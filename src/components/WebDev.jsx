@@ -20,7 +20,7 @@ export default function WebDev({ setActivePage }) {
       const percentage = (newWidthPx / window.innerWidth) * 100;
       setIframeWidth(Math.max(30, Math.min(100, percentage)));
     };
-    
+
     const handleMouseUp = () => {
       setIsDragging(false);
     };
@@ -320,7 +320,7 @@ export default function WebDev({ setActivePage }) {
           onClick={() => setOpenModalItem(null)}
         >
           {/* Main Split Layout Container */}
-          <div 
+          <div
             className="w-full max-w-7xl h-[85vh] bg-[#161616]/90 border border-primary/10 rounded-[2.5rem] overflow-hidden flex flex-col md:flex-row shadow-2xl relative"
             onClick={(e) => e.stopPropagation()}
           >
@@ -334,7 +334,7 @@ export default function WebDev({ setActivePage }) {
                 <h3 className="font-sans font-black text-2xl uppercase tracking-tight text-white mt-1 leading-tight">
                   {openModalItem.title}
                 </h3>
-                
+
                 <div className="mt-6 space-y-5">
                   {/* Role */}
                   {openModalItem.role && (
@@ -343,7 +343,7 @@ export default function WebDev({ setActivePage }) {
                       <span className="text-sm font-semibold text-primary/95">{openModalItem.role}</span>
                     </div>
                   )}
-                  
+
                   {/* Challenge */}
                   {openModalItem.challenge && (
                     <div>
@@ -353,7 +353,7 @@ export default function WebDev({ setActivePage }) {
                       </p>
                     </div>
                   )}
-                  
+
                   {/* Solution */}
                   {openModalItem.solution && (
                     <div>
@@ -409,28 +409,28 @@ export default function WebDev({ setActivePage }) {
                         <span className="font-mono text-[10px] text-primary/40 truncate tracking-wide">{openModalItem.url}</span>
                       </div>
                     </div>
-                    
+
                     {/* Mock Browser Content */}
                     <div className="flex-1 relative w-full overflow-y-auto flex items-center justify-center p-4 sm:p-6">
-                      <div 
+                      <div
                         className="absolute inset-0 bg-cover bg-center opacity-25 filter blur-2xl scale-110 pointer-events-none"
                         style={{ backgroundImage: `url('${openModalItem.thumbnail}')` }}
                       />
-                      
+
                       {/* Glassmorphic presentation card */}
                       <div className="relative z-10 w-full max-w-md bg-dark/40 backdrop-blur-xl rounded-[2rem] border border-primary/10 p-5 text-center flex flex-col items-center shadow-2xl my-auto">
                         <div className="w-full aspect-[16/9] rounded-[1rem] overflow-hidden mb-4 border border-primary/15 bg-dark/20 relative group">
-                          <img 
-                            src={openModalItem.thumbnail} 
-                            alt={openModalItem.title} 
+                          <img
+                            src={openModalItem.thumbnail}
+                            alt={openModalItem.title}
                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                           />
                         </div>
-                        
+
                         <p className="font-mono text-[11px] text-primary/70 leading-relaxed max-w-xs mb-4">
                           This project is hosted on a secure production server. Click below to launch the live site in a new tab!
                         </p>
-                        
+
                         <a
                           href={openModalItem.url}
                           target="_blank"
@@ -447,7 +447,7 @@ export default function WebDev({ setActivePage }) {
                   <div className="flex items-center justify-center w-full h-full pb-4 sm:pb-8">
                     {/* Iframe Container */}
                     <div className={`h-full relative flex-shrink-0 ${isDragging ? '' : 'transition-all duration-300 ease-out'}`} style={{ width: `${iframeWidth}%` }}>
-                      
+
                       {/* The actual iframe */}
                       <iframe
                         title={openModalItem.title}
@@ -456,9 +456,9 @@ export default function WebDev({ setActivePage }) {
                         allowFullScreen
                         style={{ pointerEvents: isDragging ? 'none' : 'auto' }}
                       />
-                      
+
                       {/* Draggable vertical bar on the right (Hidden on mobile) */}
-                      <div 
+                      <div
                         className="absolute -right-3 sm:-right-4 top-1/2 -translate-y-1/2 w-6 sm:w-8 h-32 cursor-col-resize hidden sm:flex items-center justify-center group z-[2005]"
                         onMouseDown={(e) => {
                           e.preventDefault();
@@ -470,7 +470,7 @@ export default function WebDev({ setActivePage }) {
                         <div className={`relative h-full rounded-full border shadow-lg transition-all duration-300 flex items-center justify-center overflow-hidden ${isDragging ? 'w-5 bg-accent border-accent text-dark' : 'w-1.5 bg-primary/30 backdrop-blur-md border-primary/20 group-hover:w-5 group-hover:bg-accent/80 group-hover:border-accent group-hover:text-dark text-transparent'}`}>
                           {/* Inner grip line (fades out on hover) */}
                           <div className={`absolute w-0.5 h-8 bg-dark/40 rounded-full transition-opacity duration-300 ${isDragging ? 'opacity-0' : 'group-hover:opacity-0'}`} />
-                          
+
                           {/* Left-Right Arrows Icon (fades in on hover) */}
                           <ArrowsLeftRight size={14} weight="bold" className={`absolute transition-opacity duration-300 ${isDragging ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
                         </div>
@@ -480,12 +480,12 @@ export default function WebDev({ setActivePage }) {
                 )}
               </div>
             </div>
-            
+
           </div>
         </div>
       )}
       {/* Shared Ready to Build CTA */}
-      <div className="max-w-4xl mx-auto mt-20">
+      <div className="w-full mt-20">
         <ReadyToBuild />
       </div>
     </section>

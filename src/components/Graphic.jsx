@@ -754,7 +754,7 @@ export default function Graphics({ setActivePage }) {
         </div>
       )}
       {/* Shared Ready to Build CTA */}
-      <div className="max-w-4xl mx-auto mt-20">
+      <div className="w-full mt-20">
         <ReadyToBuild />
       </div>
     </section>

@@ -63,12 +63,27 @@ export default function Nav({ activePage, setActivePage }) {
   useEffect(() => {
     let ticking = false;
     const darkSelectors = ["#philosophy", "#work-archive"];
+    const isResumePage = location.pathname === "/resume";
 
     const checkOverlap = () => {
       const nav = navRef.current;
       const lBg = lightBgRef.current;
       const lContent = lightContentRef.current;
       if (!nav || !lBg || !lContent) { ticking = false; return; }
+
+      if (isResumePage) {
+        const fullMask = "linear-gradient(to bottom, black 0%, black 100%)";
+        lBg.style.clipPath = "none";
+        lBg.style.WebkitMaskImage = fullMask;
+        lBg.style.maskImage = fullMask;
+
+        lContent.style.clipPath = "none";
+        lContent.style.WebkitMaskImage = fullMask;
+        lContent.style.maskImage = fullMask;
+
+        ticking = false;
+        return;
+      }
 
       const navRect = nav.getBoundingClientRect();
       const navTop = navRect.top;
@@ -139,7 +154,7 @@ export default function Nav({ activePage, setActivePage }) {
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [location.pathname]);
 
   // Handle GSAP animations for expanded/collapsed state elements
   useEffect(() => {
@@ -209,8 +224,34 @@ export default function Nav({ activePage, setActivePage }) {
     }
   };
 
+  // Listen for nav requests coming from a resume popup tab
+  useEffect(() => {
+    const handleMessage = (e) => {
+      if (e.origin !== window.location.origin) return;
+      if (e.data?.type === "PORTFOLIO_NAV" && e.data.path) {
+        navigate(e.data.path);
+      }
+    };
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, [navigate]);
+
   const isBookingPage = location.pathname === "/booking";
   if (isBookingPage) return null;
+
+  // If this tab was opened as a popup (resume tab), clicking any nav
+  // link tells the original portfolio tab to navigate there instead,
+  // then closes this tab.
+  const handleNavLinkClick = (e, path, id) => {
+    if (window.opener && !window.opener.closed) {
+      e.preventDefault();
+      window.opener.postMessage({ type: "PORTFOLIO_NAV", path }, window.location.origin);
+      window.opener.focus();
+      window.close();
+    } else {
+      if (setActivePage) setActivePage(id);
+    }
+  };
 
   return (
     <>
@@ -239,7 +280,14 @@ export default function Nav({ activePage, setActivePage }) {
               <Link
                 key={link.id}
                 to={link.path}
-                onClick={() => {
+                onClick={(e) => {
+                  if (window.opener && !window.opener.closed) {
+                    e.preventDefault();
+                    window.opener.postMessage({ type: "PORTFOLIO_NAV", path: link.path }, window.location.origin);
+                    window.opener.focus();
+                    window.close();
+                    return;
+                  }
                   if (setActivePage) setActivePage(link.id);
                   setIsMobileMenuOpen(false);
                 }}
@@ -334,7 +382,7 @@ export default function Nav({ activePage, setActivePage }) {
                   key={link.id}
                   to={link.path}
                   className="group relative flex items-center w-full px-6 h-10 cursor-pointer overflow-hidden"
-                  onClick={() => setActivePage && setActivePage(link.id)}
+                  onClick={(e) => handleNavLinkClick(e, link.path, link.id)}
                 >
                   <div className={`w-[24px] flex justify-center shrink-0 transition-colors duration-300 ${isActive ? "text-accent" : "text-primary/70 group-hover:text-accent"}`}>
                     <link.icon size={24} weight="duotone" />

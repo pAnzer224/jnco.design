@@ -1,13 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { ArrowRight, LinkedinLogo, X, CalendarBlank } from "@phosphor-icons/react";
+import { ArrowRight, LinkedinLogo, X, FigmaLogo, PaintBrush, TerminalWindow, Cube } from "@phosphor-icons/react";
 import gsap from "gsap";
 import { useNavigate } from "react-router-dom";
+import CardSwap, { Card } from "./CardSwap";
 
 const HeroSection = () => {
     const sectionRef = useRef(null);
     const glowRef = useRef(null);
     const graphicRef = useRef(null);
+    const cardSwapRef = useRef(null);
     const [showLinkedIn, setShowLinkedIn] = useState(false);
     const [isMobileView, setIsMobileView] = useState(false);
     const navigate = useNavigate();
@@ -56,10 +58,17 @@ const HeroSection = () => {
             );
 
             const filterVars = { scale: 50, freq: 0.05 };
+            tl.addLabel("graphicIn", "-=0.4");
             tl.fromTo(graphicRef.current,
                 { opacity: 0, scale: 0.95 },
                 { opacity: 1, scale: 1, duration: 1.5, ease: "power2.inOut" },
-                "-=0.4"
+                "graphicIn"
+            );
+
+            tl.fromTo(cardSwapRef.current,
+                { opacity: 0, y: 40 },
+                { opacity: 1, y: 0, duration: 1.5, ease: "power2.inOut" },
+                "graphicIn"
             );
 
             tl.to(filterVars, {
@@ -165,20 +174,20 @@ const HeroSection = () => {
             />
             <div className="absolute inset-0 z-1 bg-gradient-to-t from-dark via-dark/40 to-transparent pointer-events-none" />
 
-            <div className="relative w-full text-primary flex flex-col items-center md:items-start text-center md:text-left">
+            <div className="relative z-10 w-full text-primary flex flex-col items-center md:items-start text-center md:text-left">
                 <h1 className="font-sans font-black text-6xl md:text-8xl tracking-tighter leading-[0.85] flex flex-col justify-center md:justify-start uppercase">
                     <span className="text-primary font-mono font-bold not-italic text-[12px] sm:text-[14px] md:text-2xl tracking-[0.3em] mb-4 hero-intro opacity-0 translate-y-10 whitespace-nowrap">Hey, I'm Juneco</span>
                     <span className="text-accent italic leading-[0.85]">
                         {uiuxText.split("").map((char, i) => (char === " " ? <span key={i}>&nbsp;</span> : <span key={i} className="uiux-char inline-block opacity-0">{char}</span>))}
                     </span>
                     <span ref={graphicRef} className="text-gradient-graphic text-4xl sm:text-5xl md:text-7xl -mt-[0.1em] displacement-text opacity-0 italic leading-[1] py-2 pr-6">
-                        Graphic Designer
+                        Graphic <br className="hidden min-[1045px]:block min-[1301px]:hidden" />Designer
                     </span>
                 </h1>
                 <p className="mt-8 font-mono text-[10px] sm:text-xs tracking-[0.15em] text-primary/60 max-w-xl border-l-2 border-accent pl-4 hero-desc opacity-0 translate-y-10">
-                    An award-winning designer creating intuitive interfaces and striking visuals that help brands tell their story. Let's build something meaningful together.
+                    An award-winning designer creating intuitive <br className="hidden min-[1045px]:block min-[1301px]:hidden" />interfaces and striking visuals <br className="hidden min-[1045px]:block min-[1301px]:hidden" />that help brands tell their story. <br className="hidden min-[1045px]:block min-[1301px]:hidden" />Let's build something meaningful together.
                 </p>
-                <div className="flex items-center gap-3 mt-12">
+                <div className="flex items-center flex-wrap gap-3 mt-8 sm:mt-12">
                     <div className="hero-btn opacity-0 translate-y-10">
                         <button
                             onClick={() => {
@@ -189,17 +198,6 @@ const HeroSection = () => {
                             <span className="absolute inset-0 bg-accent translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-in-out" />
                             <span className="relative z-10 group-hover:text-primary transition-colors duration-300">View Archive</span>
                             <ArrowRight weight="bold" className="relative z-10 w-4 h-4 group-hover:text-primary transition-colors duration-300 group-hover:translate-x-1" />
-                        </button>
-                    </div>
-
-                    <div className="hero-btn opacity-0 translate-y-10">
-                        <button
-                            id="hero-book-project"
-                            onClick={() => navigate('/booking')}
-                            className="group relative overflow-hidden border border-primary/30 text-primary font-sans font-bold uppercase tracking-widest text-xs px-8 py-4 rounded-full flex items-center gap-3 hover:scale-[1.03] hover:border-accent hover:text-accent transition-all duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] focus:outline-none"
-                        >
-                            <CalendarBlank weight="duotone" className="w-4 h-4" />
-                            Book a Project
                         </button>
                     </div>
 
@@ -304,6 +302,65 @@ const HeroSection = () => {
                             </>
                         )}
                     </div>
+                </div>
+            </div>
+
+            <div className="hidden min-[1045px]:block absolute z-0 bottom-10 right-10">
+                <div ref={cardSwapRef} className="opacity-0 translate-y-10">
+                    <CardSwap
+                        width={480}
+                        height={540}
+                        cardDistance={70}
+                        verticalDistance={80}
+                        delay={2800}
+                        pauseOnHover={true}
+                        skewAmount={5}
+                    >
+                        <Card onClick={() => navigate('/graphics')} className="cursor-pointer overflow-hidden">
+                            <div className="absolute inset-0 bg-cover bg-center opacity-50" style={{ backgroundImage: "url('/images/simulatedsanctuarythumb.webp')" }} />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+                            <div className="relative z-10 h-full p-6 flex flex-col">
+                                <span className="absolute top-4 left-6 font-mono text-[10px] text-primary/40 tracking-widest font-bold">01</span>
+                                <div className="flex items-center justify-center gap-3 mt-1">
+                                    <PaintBrush size={28} weight="duotone" className="text-accent" />
+                                    <h4 className="font-sans font-bold text-xl text-primary uppercase tracking-tight">Graphic Design</h4>
+                                </div>
+                            </div>
+                        </Card>
+                        <Card onClick={() => navigate('/uiux')} className="cursor-pointer overflow-hidden">
+                            <div className="absolute inset-0 bg-cover bg-center opacity-50" style={{ backgroundImage: "url('/images/laco.webp')" }} />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+                            <div className="relative z-10 h-full p-6 flex flex-col">
+                                <span className="absolute top-4 left-6 font-mono text-[10px] text-primary/40 tracking-widest font-bold">02</span>
+                                <div className="flex items-center justify-center gap-3 mt-1">
+                                    <FigmaLogo size={28} weight="duotone" className="text-accent" />
+                                    <h4 className="font-sans font-bold text-xl text-primary uppercase tracking-tight">UI/UX</h4>
+                                </div>
+                            </div>
+                        </Card>
+                        <Card onClick={() => navigate('/mockups')} className="cursor-pointer overflow-hidden">
+                            <div className="absolute inset-0 bg-cover bg-center opacity-50" style={{ backgroundImage: "url('/images/artifythumb.webp')" }} />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+                            <div className="relative z-10 h-full p-6 flex flex-col">
+                                <span className="absolute top-4 left-6 font-mono text-[10px] text-primary/40 tracking-widest font-bold">03</span>
+                                <div className="flex items-center justify-center gap-3 mt-1">
+                                    <Cube size={28} weight="duotone" className="text-accent" />
+                                    <h4 className="font-sans font-bold text-xl text-primary uppercase tracking-tight">Mockups</h4>
+                                </div>
+                            </div>
+                        </Card>
+                        <Card onClick={() => navigate('/webdev')} className="cursor-pointer overflow-hidden">
+                            <div className="absolute inset-0 bg-cover bg-center opacity-50" style={{ backgroundImage: "url('/images/drjas.webp')" }} />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+                            <div className="relative z-10 h-full p-6 flex flex-col">
+                                <span className="absolute top-4 left-6 font-mono text-[10px] text-primary/40 tracking-widest font-bold">04</span>
+                                <div className="flex items-center justify-center gap-3 mt-1">
+                                    <TerminalWindow size={28} weight="duotone" className="text-accent" />
+                                    <h4 className="font-sans font-bold text-xl text-primary uppercase tracking-tight">Web Dev</h4>
+                                </div>
+                            </div>
+                        </Card>
+                    </CardSwap>
                 </div>
             </div>
         </section>

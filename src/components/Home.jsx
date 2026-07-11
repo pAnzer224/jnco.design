@@ -39,7 +39,7 @@ export default function Home({ setActivePage }) {
         <div className="footer-clip-transition pb-20 pt-40 -mt-20 relative z-10">
           <Contact />
           {/* Footer extension */}
-          <div className="max-w-7xl mx-auto px-8 md:pl-[120px] lg:pl-[140px] mt-16 flex flex-col md:flex-row justify-center md:justify-between items-center text-dark/50 font-mono text-xs text-center md:text-left gap-4 md:gap-0 border-t border-dark/5 pt-8">
+          <div className="px-4 sm:px-8 md:px-16 md:pl-[120px] lg:pl-[140px] mt-16 flex flex-col md:flex-row justify-center md:justify-between items-center text-dark/50 font-mono text-xs text-center md:text-left gap-4 md:gap-0 border-t border-dark/5 pt-8">
             <div>
               Currently available for freelance projects.
             </div>

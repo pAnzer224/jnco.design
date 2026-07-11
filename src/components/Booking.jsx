@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowLeft, EnvelopeSimple, LinkedinLogo } from '@phosphor-icons/react';
+import { ArrowLeft, EnvelopeSimple, LinkedinLogo, FileText } from '@phosphor-icons/react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import BookingForm from './shared/booking/BookingForm';
@@ -55,7 +55,7 @@ export default function Booking({ setActivePage }) {
 
       {/* ── Two Column Layout (Step 1) → Centered Single Column (Step 2+) ── */}
       <div
-        className={`w-full px-6 md:px-12 grid grid-cols-1 gap-12 xl:gap-16 items-start relative z-10 transition-all duration-500 ease-out mx-auto ${formStep === 1
+        className={`w-full grid grid-cols-1 gap-12 xl:gap-16 items-start relative z-10 transition-all duration-500 ease-out mx-auto ${formStep === 1
           ? 'max-w-7xl xl:grid-cols-[22rem_1fr]'
           : 'max-w-3xl xl:grid-cols-1'
           }`}
@@ -63,7 +63,7 @@ export default function Booking({ setActivePage }) {
 
         {/* Left Column: Top details & branding — step 1 only */}
         {formStep === 1 && (
-          <section className="flex flex-col items-center xl:items-start text-center xl:text-left pt-6 xl:pt-16 xl:sticky xl:top-16">
+          <section className="flex flex-col items-center xl:items-start text-center xl:text-left px-6 md:px-12 pt-6 xl:pt-16 xl:sticky xl:top-16">
             {/* Breadcrumb */}
             <Link
               to="/"
@@ -90,6 +90,14 @@ export default function Booking({ setActivePage }) {
               <a href="https://www.linkedin.com/in/juneco-mirande/" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full border border-primary/20 flex items-center justify-center text-primary/50 hover:text-accent hover:border-accent transition-colors duration-200">
                 <LinkedinLogo size={16} />
               </a>
+              <button
+                type="button"
+                onClick={() => window.open("/resume", "_blank")}
+                className="w-9 h-9 rounded-full border border-primary/20 flex items-center justify-center text-primary/50 hover:text-accent hover:border-accent transition-colors duration-200"
+                aria-label="View Resume"
+              >
+                <FileText size={16} />
+              </button>
             </div>
           </section>
         )}
@@ -100,7 +108,7 @@ export default function Booking({ setActivePage }) {
             <Link
               to="/"
               id="booking-breadcrumb-compact"
-              className="inline-flex items-center gap-2 font-mono text-[10px] text-primary/45 uppercase tracking-widest hover:text-accent transition-colors duration-200 group w-fit"
+              className="inline-flex items-center gap-2 font-mono text-[10px] text-primary/45 uppercase tracking-widest hover:text-accent transition-colors duration-200 group w-fit px-6 md:px-12"
             >
               <ArrowLeft
                 size={12}

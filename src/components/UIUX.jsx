@@ -299,7 +299,7 @@ export default function UIUX({ setActivePage }) {
           onClick={() => setOpenModal(null)}
         >
           {/* Main Split Layout Container */}
-          <div 
+          <div
             className="w-full max-w-7xl h-[85vh] bg-[#161616]/90 border border-primary/10 rounded-[2.5rem] overflow-hidden flex flex-col md:flex-row shadow-2xl relative"
             onClick={(e) => e.stopPropagation()}
           >
@@ -313,7 +313,7 @@ export default function UIUX({ setActivePage }) {
                 <h3 className="font-sans font-black text-2xl uppercase tracking-tight text-white mt-1 leading-tight">
                   {allWorks[openModal].title}
                 </h3>
-                
+
                 <div className="mt-6 space-y-5">
                   {/* Role */}
                   {allWorks[openModal].role && (
@@ -322,7 +322,7 @@ export default function UIUX({ setActivePage }) {
                       <span className="text-sm font-semibold text-primary/95">{allWorks[openModal].role}</span>
                     </div>
                   )}
-                  
+
                   {/* Challenge */}
                   {allWorks[openModal].challenge && (
                     <div>
@@ -332,7 +332,7 @@ export default function UIUX({ setActivePage }) {
                       </p>
                     </div>
                   )}
-                  
+
                   {/* Solution */}
                   {allWorks[openModal].solution && (
                     <div>
@@ -393,12 +393,12 @@ export default function UIUX({ setActivePage }) {
                 )}
               </div>
             </div>
-            
+
           </div>
         </div>
       )}
       {/* Shared Ready to Build CTA */}
-      <div className="max-w-4xl mx-auto mt-20">
+      <div className="w-full mt-20">
         <ReadyToBuild />
       </div>
     </section>

@@ -52,8 +52,8 @@ export default function Contact() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative w-full py-20 px-8 sm:px-16 container mx-auto" id="contact">
-      <div className="max-w-4xl mx-auto flex flex-col items-center md:items-start">
+    <section ref={sectionRef} className="relative w-full py-20 px-4 sm:px-8 md:px-16 md:pl-[120px] lg:pl-[140px]" id="contact">
+      <div className="w-full flex flex-col items-center md:items-start">
         <div className="contact-item flex justify-center md:justify-start items-center gap-4 mb-20 text-dark uppercase font-mono text-xs font-bold tracking-widest text-center md:text-left w-full">
           <span className="hidden md:block w-12 h-[1px] bg-accent" />
           Get In Touch

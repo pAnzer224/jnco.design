@@ -140,7 +140,7 @@ export default function Mockups({ setActivePage }) {
                     key={toolIndex}
                     className="w-7 h-7 rounded-full bg-background flex items-center justify-center border border-dark/10"
                   >
-                    <img src={tool} alt={`${tool.split('/').pop().replace('.svg','').replace('.png','')} icon`} className="w-4 h-4 object-contain" />
+                    <img src={tool} alt={`${tool.split('/').pop().replace('.svg', '').replace('.png', '')} icon`} className="w-4 h-4 object-contain" />
                   </div>
                 ))}
               </div>
@@ -221,8 +221,9 @@ export default function Mockups({ setActivePage }) {
           </div>
         </div>
       )}
+
       {/* Shared Ready to Build CTA */}
-      <div className="max-w-4xl mx-auto mt-20">
+      <div className="w-full mt-20">
         <ReadyToBuild />
       </div>
     </section>

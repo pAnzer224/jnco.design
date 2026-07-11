@@ -11,6 +11,7 @@ import UIUX from "./components/UIUX";
 import WebDev from "./components/WebDev";
 import NotFound from "./components/NotFound";
 import Booking from "./components/Booking";
+import Resume from "./components/Resume";
 
 export default function App() {
   const [activePage, setActivePage] = useState("home");
@@ -123,6 +124,7 @@ export default function App() {
         <Route path="/uiux" element={<UIUX setActivePage={setActivePage} />} />
         <Route path="/webdev" element={<WebDev setActivePage={setActivePage} />} />
         <Route path="/booking" element={<Booking setActivePage={setActivePage} />} />
+        <Route path="/resume" element={<Resume setActivePage={setActivePage} />} />
         <Route path="*" element={<NotFound setActivePage={setActivePage} />} />
       </Routes>
     </div>

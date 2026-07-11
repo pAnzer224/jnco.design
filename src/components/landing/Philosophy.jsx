@@ -51,16 +51,16 @@ const Philosophy = () => {
         return () => ctx.revert();
     }, []);
 
-    const description = "Frontend Developer and UI/UX Designer with 8 years in graphic design and digital media — now shipping full-stack web apps using React and Laravel. Clinic systems, vet platforms, UI wireframes, motion campaigns, and brand assets. I know what a blank canvas looks like, and I know what it looks like live.";
- 
-     return (
+    const description = "UI/UX Designer with frontend development experience, designing intuitive digital products from concept to production. I combine visual design, user experience, and modern web development to create interfaces that are as functional as they are memorable. Whether collaborating with a team or working independently, I approach every project with a balance of creativity, structure, and technical understanding.";
+
+    return (
         <section ref={containerRef} className="relative bg-dark text-primary min-h-screen flex flex-col justify-center py-32 md:pl-[120px] lg:pl-[140px] w-full" id="philosophy">
-             <div
-                 className="absolute inset-0 opacity-10 bg-cover bg-fixed bg-center mix-blend-lighten grayscale"
-                 style={{ backgroundImage: "url('/images/laco.webp')" }}
-             />
- 
-             <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center justify-center text-center md:items-start md:text-left pb-20 border-b border-primary/10 px-4 md:pl-0 md:pr-4">
+            <div
+                className="absolute inset-0 opacity-10 bg-cover bg-fixed bg-center mix-blend-lighten grayscale"
+                style={{ backgroundImage: "url('/images/laco.webp')" }}
+            />
+
+            <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center justify-center text-center md:items-start md:text-left pb-20 border-b border-primary/10 px-4 md:pl-0 md:pr-4">
                 <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-8 font-bold">Professional Summary</h3>
                 <p className="font-sans font-bold text-xl sm:text-2xl md:text-3xl leading-[1.6] text-dark tracking-tight" style={{ wordBreak: 'break-word' }}>
                     {description.split(" ").map((word, wordIndex) => (
