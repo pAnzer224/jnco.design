@@ -1,12 +1,23 @@
-import React, { useEffect, useRef } from "react";
-import { EnvelopeSimple, LinkedinLogo, MapPin } from "@phosphor-icons/react";
+import React, { useEffect, useRef, useState } from "react";
+import { EnvelopeSimple, LinkedinLogo, MapPin, Check } from "@phosphor-icons/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ReadyToBuild from "./shared/ReadyToBuild";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Contact() {
   const sectionRef = useRef(null);
+  const [emailCopied, setEmailCopied] = useState(false);
+
+  const handleEmailClick = () => {
+    const timeout = setTimeout(() => {
+      navigator.clipboard.writeText('juneco.mirande@gmail.com');
+      setEmailCopied(true);
+      setTimeout(() => setEmailCopied(false), 2000);
+    }, 300);
+    window.addEventListener('blur', () => clearTimeout(timeout), { once: true });
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -58,8 +69,16 @@ export default function Contact() {
               <EnvelopeSimple size={24} className="group-hover:text-accent transition-colors" />
               Email
             </div>
-            <a href="mailto:juneco.mirande@gmail.com" className="font-sans font-bold text-2xl sm:text-4xl text-dark hover:text-accent transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] transform group-hover:-translate-y-1 mt-4 sm:mt-0">
+            <a href="mailto:juneco.mirande@gmail.com"
+              onClick={handleEmailClick}
+              className="relative font-sans font-bold text-2xl sm:text-4xl text-dark hover:text-accent transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] transform group-hover:-translate-y-1 mt-4 sm:mt-0"
+            >
               juneco.mirande@gmail.com
+              {emailCopied && (
+                <span className="absolute -top-8 left-0 whitespace-nowrap font-mono text-[9px] text-dark/70 bg-primary border border-dark/20 px-2 py-1 rounded-full flex items-center gap-1">
+                  <Check size={10} /> Copied!
+                </span>
+              )}
             </a>
           </div>
 
@@ -88,6 +107,10 @@ export default function Contact() {
 
             </div>
           </div>
+        </div>
+
+        <div className="w-full mt-24">
+          <ReadyToBuild />
         </div>
       </div>
     </section>

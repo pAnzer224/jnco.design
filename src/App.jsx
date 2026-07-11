@@ -10,6 +10,7 @@ import Mockups from "./components/Mockups";
 import UIUX from "./components/UIUX";
 import WebDev from "./components/WebDev";
 import NotFound from "./components/NotFound";
+import Booking from "./components/Booking";
 
 export default function App() {
   const [activePage, setActivePage] = useState("home");
@@ -26,6 +27,7 @@ export default function App() {
     else if (path === "/mockups") setActivePage("mockups");
     else if (path === "/uiux") setActivePage("uiux");
     else if (path === "/webdev") setActivePage("webdev");
+    else if (path === "/booking") setActivePage("booking");
     else if (path.includes("#contact") || activePage === "contact")
       setActivePage("contact");
   }, [location.pathname, activePage]);
@@ -34,43 +36,49 @@ export default function App() {
   useEffect(() => {
     const $cursor = cursorRef.current;
 
-    const onMouseMove = (e) => {
-      gsap.to($cursor, { duration: 0.1, x: e.clientX, y: e.clientY });
+    const xTo = gsap.quickTo($cursor, "x", {
+      duration: 0.12,
+      ease: "power3.out",
+    });
+
+    const yTo = gsap.quickTo($cursor, "y", {
+      duration: 0.12,
+      ease: "power3.out",
+    });
+
+    const handleMouseMove = (e) => {
+      xTo(e.clientX);
+      yTo(e.clientY);
     };
 
     const onMouseDown = () => setCursorState("click");
     const onMouseUp = () => setCursorState("default");
 
     const handleMouseOver = (e) => {
-      // Don't show text cursor if hovering over a button or link
-      if (e.target.closest('button') || e.target.closest('a')) {
+      if (e.target.closest("button") || e.target.closest("a")) {
         setCursorState("default");
         return;
       }
 
-      if (
-        e.target.tagName.toLowerCase() === "p" ||
-        e.target.tagName.toLowerCase() === "h1" ||
-        e.target.tagName.toLowerCase() === "h2" ||
-        e.target.tagName.toLowerCase() === "h3" ||
-        e.target.tagName.toLowerCase() === "span"
-      ) {
+      const tag = e.target.tagName.toLowerCase();
+
+      if (["p", "h1", "h2", "h3", "span"].includes(tag)) {
         setCursorState("text");
       }
     };
 
-    const handleMouseOut = (e) => {
+    const handleMouseOut = () => {
       setCursorState("default");
     };
 
-    document.body.addEventListener("mousemove", onMouseMove);
+    document.body.addEventListener("mousemove", handleMouseMove);
     document.body.addEventListener("mousedown", onMouseDown);
     document.body.addEventListener("mouseup", onMouseUp);
     document.body.addEventListener("mouseover", handleMouseOver);
     document.body.addEventListener("mouseout", handleMouseOut);
 
     return () => {
-      document.body.removeEventListener("mousemove", onMouseMove);
+      document.body.removeEventListener("mousemove", handleMouseMove);
       document.body.removeEventListener("mousedown", onMouseDown);
       document.body.removeEventListener("mouseup", onMouseUp);
       document.body.removeEventListener("mouseover", handleMouseOver);
@@ -114,6 +122,7 @@ export default function App() {
         <Route path="/mockups" element={<Mockups setActivePage={setActivePage} />} />
         <Route path="/uiux" element={<UIUX setActivePage={setActivePage} />} />
         <Route path="/webdev" element={<WebDev setActivePage={setActivePage} />} />
+        <Route path="/booking" element={<Booking setActivePage={setActivePage} />} />
         <Route path="*" element={<NotFound setActivePage={setActivePage} />} />
       </Routes>
     </div>

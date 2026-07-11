@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { CaretLeft, CaretRight, X } from "@phosphor-icons/react";
 import CategoryNav from "./shared/CategoryNav";
+import ReadyToBuild from "./shared/ReadyToBuild";
 
 
 export default function Mockups({ setActivePage }) {
@@ -220,6 +221,10 @@ export default function Mockups({ setActivePage }) {
           </div>
         </div>
       )}
+      {/* Shared Ready to Build CTA */}
+      <div className="max-w-4xl mx-auto mt-20">
+        <ReadyToBuild />
+      </div>
     </section>
   );
 }

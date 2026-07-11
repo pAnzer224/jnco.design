@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { X, ArrowUpRight, ArrowsLeftRight } from "@phosphor-icons/react";
 import CategoryNav from "./shared/CategoryNav";
+import ReadyToBuild from "./shared/ReadyToBuild";
 
 export default function WebDev({ setActivePage }) {
   const [openModalItem, setOpenModalItem] = useState(null);
@@ -419,6 +420,10 @@ export default function WebDev({ setActivePage }) {
           </div>
         </div>
       )}
+      {/* Shared Ready to Build CTA */}
+      <div className="max-w-4xl mx-auto mt-20">
+        <ReadyToBuild />
+      </div>
     </section>
   );
 }

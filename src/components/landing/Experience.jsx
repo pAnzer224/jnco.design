@@ -11,28 +11,84 @@ const Experience = () => {
   const [hoverImage, setHoverImage] = useState(null);
   const [lastHoverImage, setLastHoverImage] = useState("/images/drjas.webp");
   const cursorImgRef = useRef(null);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  // Check if device is desktop and supports hover
+  useEffect(() => {
+    const checkDevice = () => {
+      const hasHover = window.matchMedia("(hover: hover)").matches;
+      setIsDesktop(window.innerWidth >= 1024 && hasHover);
+    };
+    checkDevice();
+    window.addEventListener("resize", checkDevice);
+    return () => window.removeEventListener("resize", checkDevice);
+  }, []);
 
   useEffect(() => {
+    if (!isDesktop) return;
+
     if (hoverImage) {
       setLastHoverImage(hoverImage);
-      gsap.to(cursorImgRef.current, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.5)" });
+      gsap.to(cursorImgRef.current, { 
+        scale: 1, 
+        opacity: 1, 
+        autoAlpha: 1, 
+        duration: 0.3, 
+        ease: "back.out(1.5)",
+        overwrite: "auto"
+      });
     } else {
-      gsap.to(cursorImgRef.current, { scale: 0, opacity: 0, duration: 0.2, ease: "power2.in" });
+      gsap.to(cursorImgRef.current, { 
+        scale: 0, 
+        opacity: 0, 
+        autoAlpha: 0, 
+        duration: 0.2, 
+        ease: "power2.in",
+        overwrite: "auto"
+      });
     }
-  }, [hoverImage]);
+  }, [hoverImage, isDesktop]);
 
   useEffect(() => {
+    if (!isDesktop) {
+      setHoverImage(null);
+      return;
+    }
+
     const onMouseMove = (e) => {
-      gsap.to(cursorImgRef.current, {
-        x: e.clientX + 15,
-        y: e.clientY + 15,
-        duration: 0.4,
-        ease: "power3.out"
-      });
+      if (cursorImgRef.current) {
+        gsap.to(cursorImgRef.current, {
+          x: e.clientX + 15,
+          y: e.clientY + 15,
+          duration: 0.4,
+          ease: "power3.out",
+          overwrite: "auto"
+        });
+      }
+
+      if (!e.target.closest('.exp-hover-link')) {
+        setHoverImage(null);
+      }
     };
+
+    const onScroll = () => {
+      setHoverImage(null);
+    };
+
+    const onMouseLeaveWindow = () => {
+      setHoverImage(null);
+    };
+
     window.addEventListener("mousemove", onMouseMove);
-    return () => window.removeEventListener("mousemove", onMouseMove);
-  }, []);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    document.addEventListener("mouseleave", onMouseLeaveWindow);
+    
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("scroll", onScroll);
+      document.removeEventListener("mouseleave", onMouseLeaveWindow);
+    };
+  }, [isDesktop]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -66,21 +122,23 @@ const Experience = () => {
   return (
     <>
       {/* Floating Hover Image */}
-      <div
-        ref={cursorImgRef}
-        className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-xl overflow-hidden shadow-2xl border border-primary/20 bg-dark w-[150px] h-auto flex flex-col"
-        style={{ opacity: 0, transform: "scale(0)", transformOrigin: "top left" }}
-      >
-        <img src={lastHoverImage} alt="Preview" className="w-full h-full object-cover" />
-        <div className="bg-dark text-primary py-1.5 px-2 text-[8px] font-mono uppercase tracking-widest text-center border-t border-primary/10">
-          Click to view
+      {isDesktop && (
+        <div
+          ref={cursorImgRef}
+          className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-xl overflow-hidden shadow-2xl border border-primary/20 bg-dark w-[150px] h-auto flex flex-col"
+          style={{ opacity: 0, transform: "scale(0)", transformOrigin: "top left" }}
+        >
+          <img src={lastHoverImage} alt="Preview" className="w-full h-full object-cover" />
+          <div className="bg-dark text-primary py-1.5 px-2 text-[8px] font-mono uppercase tracking-widest text-center border-t border-primary/10">
+            Click to view
+          </div>
         </div>
-      </div>
+      )}
 
       <section ref={sectionRef} className="bg-background py-24 px-4 sm:px-8 md:pl-[120px] lg:pl-[140px] xl:pr-16" id="experience">
-      <div className="flex flex-col md:flex-row gap-16">
+      <div className="flex flex-col lg:flex-row gap-16">
         {/* Left Side: Header */}
-        <div className="exp-header md:w-1/3 flex flex-col gap-8 md:sticky md:top-32 md:self-start">
+        <div className="exp-header lg:w-1/3 flex flex-col gap-8 lg:sticky lg:top-32 lg:self-start">
           <div>
             <h2 className="exp-header-anim opacity-0 -translate-x-10 font-sans font-black text-4xl sm:text-6xl text-dark tracking-tighter uppercase mb-6 leading-none">
               Career <br /> <span className="text-accent underline decoration-4 underline-offset-8">History</span>
@@ -132,7 +190,7 @@ const Experience = () => {
         </div>
 
         {/* Right Side: Timeline/Cards */}
-        <div className="md:w-2/3 space-y-12">
+        <div className="lg:w-2/3 space-y-12">
           {/* Experience Item 1: 2023 - Present */}
           <div className="exp-item opacity-0 translate-y-10 relative pl-8 md:pl-16 border-l-2 border-dark/5 pb-12 group">
             {/* Timeline Dot */}
@@ -154,7 +212,7 @@ const Experience = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="bg-primary/40 backdrop-blur-sm p-6 rounded-[2rem] border border-dark/5 hover:border-accent/30 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-1 hover:shadow-xl hover:shadow-dark/5">
                 <p className="font-mono text-[11px] text-dark/70 leading-relaxed uppercase">
                   Designing and building end-to-end web applications, interactive wireframes, and digital media campaigns for client portfolios.
@@ -209,7 +267,7 @@ const Experience = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="bg-primary/40 backdrop-blur-sm p-6 rounded-[2rem] border border-dark/5 hover:border-accent/30 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-1 hover:shadow-xl hover:shadow-dark/5">
                 <p className="font-mono text-[11px] text-dark/70 leading-relaxed uppercase">
                   Completed 486-hour OJT with a UK-based IT company. Worked across UI/UX design, frontend development, and QA in a fully remote setup.
@@ -231,7 +289,7 @@ const Experience = () => {
                     <div className="font-sans text-xs font-medium uppercase tracking-tight text-dark/80">
                       {item.link ? (
                         <Link to={item.link} 
-                           className="text-dark/80 hover:text-accent transition-all cursor-pointer relative z-20 inline group/link"
+                           className="exp-hover-link text-dark/80 hover:text-accent transition-all cursor-pointer relative z-20 inline group/link"
                            onMouseEnter={() => {
                              setHoverImage(item.img);
                              setLastHoverImage(item.img);
@@ -277,7 +335,7 @@ const Experience = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="bg-primary/40 backdrop-blur-sm p-6 rounded-[2rem] border border-dark/5 hover:border-accent/30 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-1 hover:shadow-xl hover:shadow-dark/5">
                 <p className="font-mono text-[11px] text-dark/70 leading-relaxed uppercase">
                   Eight years of visual communication — photo manipulation, compositing, and brand identity work across print and digital.
@@ -323,7 +381,7 @@ const Experience = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="bg-primary/40 backdrop-blur-sm p-6 rounded-[2rem] border border-dark/5 hover:border-accent/30 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-1 hover:shadow-xl hover:shadow-dark/5">
                 <p className="font-mono text-[11px] text-dark/70 leading-relaxed uppercase">
                   Recognized for excellence in UI/UX design, user flows, and technical proficiency during academic capstone and IT Month events.
@@ -341,7 +399,7 @@ const Experience = () => {
                       {item.link ? (
                         <Link to={item.link} 
                            state={item.projectState ? { openProject: item.projectState } : {}}
-                           className="text-dark/80 hover:text-accent transition-all cursor-pointer relative z-20 inline group/link"
+                           className="exp-hover-link text-dark/80 hover:text-accent transition-all cursor-pointer relative z-20 inline group/link"
                            onMouseEnter={() => {
                              setHoverImage(item.img);
                              setLastHoverImage(item.img);

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { X, ArrowUpRight } from "@phosphor-icons/react";
 import CategoryNav from "./shared/CategoryNav";
+import ReadyToBuild from "./shared/ReadyToBuild";
 
 
 
@@ -358,6 +359,10 @@ export default function UIUX({ setActivePage }) {
             )}
         </div>
       )}
+      {/* Shared Ready to Build CTA */}
+      <div className="max-w-4xl mx-auto mt-20">
+        <ReadyToBuild />
+      </div>
     </section>
   );
 }

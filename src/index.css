@@ -102,3 +102,50 @@ body.iframe-modal-open button *,
 body.iframe-modal-open a * {
   cursor: pointer !important;
 }
+
+/* Booking form dropdown origin-top animation */
+@keyframes dropdownIn {
+  from {
+    opacity: 0;
+    transform: scaleY(0.92) translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleY(1) translateY(0);
+  }
+}
+
+.booking-dropdown-enter {
+  animation: dropdownIn 0.18s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  transform-origin: top;
+}
+
+/* Custom scrollbar for booking textarea on dark bg */
+.booking-scrollbar::-webkit-scrollbar {
+  display: block;
+  width: 4px;
+}
+
+.booking-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 4px;
+}
+
+.booking-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+}
+
+.booking-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: rgba(26, 26, 26, 0.35);
+  /* matches your dark/35 placeholder color elsewhere */
+  float: left;
+  height: 0;
+  pointer-events: none;
+}

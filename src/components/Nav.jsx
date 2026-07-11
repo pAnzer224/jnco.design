@@ -83,7 +83,7 @@ export default function Nav({ activePage, setActivePage }) {
         const el = document.querySelector(sel);
         if (!el) continue;
         const r = el.getBoundingClientRect();
-        
+
         let elBottom = r.bottom;
         if (sel === "#philosophy") {
           elBottom -= 80; // Adjust for the -mt-20 overlap of the footer
@@ -208,6 +208,9 @@ export default function Nav({ activePage, setActivePage }) {
       document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  const isBookingPage = location.pathname === "/booking";
+  if (isBookingPage) return null;
 
   return (
     <>

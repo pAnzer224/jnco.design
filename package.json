@@ -4,6 +4,12 @@
   "private": true,
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
+    "@tiptap/extension-link": "^3.27.3",
+    "@tiptap/extension-placeholder": "^3.27.3",
+    "@tiptap/pm": "^3.27.3",
+    "@tiptap/react": "^3.27.3",
+    "@tiptap/starter-kit": "^3.27.3",
+    "firebase": "^12.15.0",
     "gsap": "^3.14.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
