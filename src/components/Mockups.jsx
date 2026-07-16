@@ -3,7 +3,7 @@ import { gsap } from "gsap";
 import { CaretLeft, CaretRight, X } from "@phosphor-icons/react";
 import CategoryNav from "./shared/CategoryNav";
 import ReadyToBuild from "./shared/ReadyToBuild";
-
+import GlareHover from "./GlareHover";
 
 export default function Mockups({ setActivePage }) {
   const [openModal, setOpenModal] = useState(null);
@@ -93,22 +93,20 @@ export default function Mockups({ setActivePage }) {
 
   const handlePrev = () => {
     setCurrentIndex((prev) =>
-      prev > 0 ? prev - 1 : works[openModal].images.length - 1
+      prev > 0 ? prev - 1 : works[openModal].images.length - 1,
     );
   };
 
   const handleNext = () => {
     setCurrentIndex((prev) =>
-      prev < works[openModal].images.length - 1 ? prev + 1 : 0
+      prev < works[openModal].images.length - 1 ? prev + 1 : 0,
     );
   };
 
   const [imagesLoaded, setImagesLoaded] = useState({});
 
   return (
-    <section
-      className="min-h-screen pt-12 sm:pt-16 px-4 sm:px-8 md:px-12 md:pl-[120px] lg:px-24 lg:pl-[140px] pb-16 bg-background text-dark"
-    >
+    <section className="min-h-screen pt-12 sm:pt-16 px-4 sm:px-8 md:px-12 md:pl-[120px] lg:px-24 lg:pl-[140px] pb-16 bg-background text-dark">
       <div className="font-sans font-bold text-5xl sm:text-7xl tracking-tighter uppercase text-dark mb-4">
         Mockups
       </div>
@@ -121,40 +119,64 @@ export default function Mockups({ setActivePage }) {
           <div
             key={index}
             onClick={() => handleClick(index)}
-            className={`flex flex-col cursor-pointer group rounded-[2rem] border border-dark/10 shadow-sm bg-primary p-3 transition-all duration-300 ease-out hover:border-dark/20`}
+            data-cursor-text="View"
+            className={`flex flex-col cursor-pointer group rounded-[2rem] border border-dark/10 shadow-sm bg-primary transition-all duration-300 ease-out hover:border-dark/20`}
           >
-            {/* Text + Tools above thumbnail */}
-            <div className="flex items-center justify-between mb-3 px-2 pt-1">
-              <div className="min-w-0">
-                <div className="font-sans font-bold text-base uppercase tracking-tight text-dark leading-tight truncate">
-                  {item.title}
-                </div>
-                <div className="font-mono text-[10px] text-accent tracking-[2px] uppercase font-bold mt-0.5">
-                  {item.category}
-                </div>
-              </div>
-              {/* Tool icons */}
-              <div className="flex gap-1.5 flex-shrink-0 ml-2">
-                {item.tools.map((tool, toolIndex) => (
-                  <div
-                    key={toolIndex}
-                    className="w-7 h-7 rounded-full bg-background flex items-center justify-center border border-dark/10"
-                  >
-                    <img src={tool} alt={`${tool.split('/').pop().replace('.svg', '').replace('.png', '')} icon`} className="w-4 h-4 object-contain" />
+            <GlareHover
+              width="100%"
+              height="100%"
+              borderRadius="2rem"
+              glareColor="#ffffff"
+              glareOpacity={0.15}
+              glareAngle={-30}
+              glareSize={220}
+              transitionDuration={900}
+              className="flex flex-col p-3"
+            >
+              {/* Text + Tools above thumbnail */}
+              <div className="flex items-center justify-between mb-3 px-2 pt-1">
+                <div className="min-w-0">
+                  <div className="font-sans font-bold text-base uppercase tracking-tight text-dark leading-tight truncate">
+                    {item.title}
                   </div>
-                ))}
+                  <div className="font-mono text-[10px] text-accent tracking-[2px] uppercase font-bold mt-0.5">
+                    {item.category}
+                  </div>
+                </div>
+                {/* Tool icons */}
+                <div className="flex gap-1.5 flex-shrink-0 ml-2">
+                  {item.tools.map((tool, toolIndex) => (
+                    <div
+                      key={toolIndex}
+                      className="w-7 h-7 rounded-full bg-background flex items-center justify-center border border-dark/10"
+                    >
+                      <img
+                        src={tool}
+                        alt={`${tool.split("/").pop().replace(".svg", "").replace(".png", "")} icon`}
+                        className="w-4 h-4 object-contain"
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
 
-            {/* Inner Thumbnail */}
-            <div className={`relative w-full aspect-[4/3] rounded-[1.4rem] overflow-hidden transition-all duration-300 ease-out group-hover:scale-[1.03] group-hover:shadow-[0_15px_30px_-5px_rgba(0,0,0,0.15)] ${!imagesLoaded[item.thumbnail] ? 'skeleton' : 'bg-dark/5'}`}>
-              <img
-                src={item.thumbnail}
-                alt={`${item.title} — ${item.category} by Juneco Mirande`}
-                onLoad={() => setImagesLoaded(prev => ({ ...prev, [item.thumbnail]: true }))}
-                className={`w-full h-full object-cover transition-all duration-[700ms] ease-out lg:grayscale lg:group-hover:grayscale-0 ${imagesLoaded[item.thumbnail] ? 'opacity-100' : 'opacity-0'}`}
-              />
-            </div>
+              {/* Inner Thumbnail */}
+              <div
+                className={`relative w-full aspect-[4/3] rounded-[1.4rem] overflow-hidden transition-all duration-300 ease-out group-hover:scale-[1.03] group-hover:shadow-[0_15px_30px_-5px_rgba(0,0,0,0.15)] ${!imagesLoaded[item.thumbnail] ? "skeleton" : "bg-dark/5"}`}
+              >
+                <img
+                  src={item.thumbnail}
+                  alt={`${item.title} — ${item.category} by Juneco Mirande`}
+                  onLoad={() =>
+                    setImagesLoaded((prev) => ({
+                      ...prev,
+                      [item.thumbnail]: true,
+                    }))
+                  }
+                  className={`w-full h-full object-cover transition-all duration-[700ms] ease-out lg:grayscale lg:group-hover:grayscale-0 ${imagesLoaded[item.thumbnail] ? "opacity-100" : "opacity-0"}`}
+                />
+              </div>
+            </GlareHover>
           </div>
         ))}
       </div>
@@ -172,7 +194,6 @@ export default function Mockups({ setActivePage }) {
             <X size={24} weight="bold" />
           </button>
 
-
           <div
             ref={containerRef}
             className="relative w-full max-w-7xl h-[80vh] flex items-center justify-center"
@@ -186,8 +207,14 @@ export default function Mockups({ setActivePage }) {
                   className="absolute w-full h-full flex items-center justify-center"
                   style={{ willChange: "transform, filter, opacity" }}
                 >
-                  <img src={img} alt={`${works[openModal].title} — Juneco Mirande`} className="max-w-full max-h-full object-contain"
-                    style={{ pointerEvents: imgIndex === currentIndex ? "auto" : "none" }}
+                  <img
+                    src={img}
+                    alt={`${works[openModal].title} — Juneco Mirande`}
+                    className="max-w-full max-h-full object-contain"
+                    style={{
+                      pointerEvents:
+                        imgIndex === currentIndex ? "auto" : "none",
+                    }}
                   />
                 </div>
               ))}
@@ -208,7 +235,6 @@ export default function Mockups({ setActivePage }) {
                 >
                   <CaretRight size={32} weight="bold" />
                 </button>
-
               </>
             )}
 

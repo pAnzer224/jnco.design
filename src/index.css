@@ -87,19 +87,26 @@ html {
   }
 }
 
-body.iframe-modal-open .custom-cursor {
+body.iframe-modal-open .custom-cursor,
+body.native-cursor .custom-cursor {
   display: none !important;
 }
 
 body.iframe-modal-open,
-body.iframe-modal-open * {
+body.iframe-modal-open *,
+body.native-cursor,
+body.native-cursor * {
   cursor: auto !important;
 }
 
 body.iframe-modal-open button,
 body.iframe-modal-open a,
 body.iframe-modal-open button *,
-body.iframe-modal-open a * {
+body.iframe-modal-open a *,
+body.native-cursor button,
+body.native-cursor a,
+body.native-cursor button *,
+body.native-cursor a * {
   cursor: pointer !important;
 }
 

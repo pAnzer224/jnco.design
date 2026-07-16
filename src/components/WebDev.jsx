@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { X, ArrowUpRight, ArrowsLeftRight } from "@phosphor-icons/react";
 import CategoryNav from "./shared/CategoryNav";
 import ReadyToBuild from "./shared/ReadyToBuild";
+import GlareHover from "./GlareHover";
 
 export default function WebDev({ setActivePage }) {
   const [openModalItem, setOpenModalItem] = useState(null);
@@ -26,115 +27,161 @@ export default function WebDev({ setActivePage }) {
     };
 
     if (isDragging) {
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
-      document.body.style.cursor = 'col-resize';
-      document.body.style.userSelect = 'none';
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+      document.body.style.cursor = "col-resize";
+      document.body.style.userSelect = "none";
     }
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-      document.body.style.cursor = '';
-      document.body.style.userSelect = '';
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+      document.body.style.cursor = "";
+      document.body.style.userSelect = "";
     };
   }, [isDragging]);
 
-  const works = useMemo(() => [
-    {
-      type: "link",
-      url: "https://trekkorentals.web.app/",
-      thumbnail: "/images/trekko.webp",
-      title: "Trekko Rentals",
-      category: "Full-Stack Web App",
-      tools: [
-        "/images/nextjs.svg",
-        "/images/tailwind.svg",
-        "/images/firebase.svg",
-      ],
-      role: "Full-Stack Developer",
-      challenge: "Develop a car rental web platform with user authentication, dynamic search filters, and an interactive reservation system.",
-      solution: "Built a fully responsive Next.js application using Firebase Firestore for persistent data storage and Firebase Auth for secure customer logins."
-    },
-    {
-      type: "link",
-      url: "https://drjaspetcare.vercel.app/",
-      thumbnail: "/images/drjas.webp",
-      title: "Dr. Jas Pet Care",
-      category: "Capstone Project",
-      tools: [
-        "/images/nextjs.svg",
-        "/images/tailwind.svg",
-        "/images/supabase.svg",
-      ],
-      role: "Full-Stack Developer (Best Capstone Designer)",
-      challenge: "Build a secure patient portal and appointment booker for a local veterinary clinic to replace manual entry workflows.",
-      solution: "Engineered a Next.js frontend with Supabase backend tables, integrating real-time scheduling widgets and patient health histories."
-    },
-  ], []);
+  const works = useMemo(
+    () => [
+      {
+        type: "link",
+        url: "https://trekkorentals.web.app/",
+        thumbnail: "/images/trekko/trekko-background.webp",
+        thumbnailSubject: "/images/trekko/trekko-subject.webp",
+        subjectHoverScale:
+          "group-hover:scale-[1.18] group-hover:translate-y-[3rem]",
+        title: "Trekko Rentals",
+        category: "Full-Stack Web App",
+        tools: [
+          "/images/nextjs.svg",
+          "/images/tailwind.svg",
+          "/images/firebase.svg",
+        ],
+        role: "Full-Stack Developer",
+        challenge:
+          "Develop a car rental web platform with user authentication, dynamic search filters, and an interactive reservation system.",
+        solution:
+          "Built a fully responsive Next.js application using Firebase Firestore for persistent data storage and Firebase Auth for secure customer logins.",
+      },
+      {
+        type: "link",
+        url: "https://drjaspetcare.vercel.app/",
+        thumbnail: "/images/drjas/drjas-background.webp",
+        thumbnailSubject: "/images/drjas/drjas-subject.webp",
+        subjectHoverScale:
+          "group-hover:scale-[1.18] group-hover:translate-y-[3rem]",
+        title: "Dr. Jas Pet Care",
+        category: "Capstone Project",
+        tools: [
+          "/images/nextjs.svg",
+          "/images/tailwind.svg",
+          "/images/supabase.svg",
+        ],
+        role: "Full-Stack Developer (Best Capstone Designer)",
+        challenge:
+          "Build a secure patient portal and appointment booker for a local veterinary clinic to replace manual entry workflows.",
+        solution:
+          "Engineered a Next.js frontend with Supabase backend tables, integrating real-time scheduling widgets and patient health histories.",
+      },
+    ],
+    [],
+  );
 
-  const chorosWorks = useMemo(() => [
-    {
-      type: "link",
-      url: "https://youreventcover.co.uk/",
-      thumbnail: "/images/youreventcover.webp",
-      title: "Your Event Cover",
-      category: "Front-end & UI/UX Design",
-      tools: ["/images/figma.svg", "/images/laravel.svg", "/images/tailwind.svg"],
-      disableIframe: true,
-      role: "OJT Frontend Developer & QA",
-      challenge: "Develop and test responsive agency-designed interface elements for a UK event insurance platform.",
-      solution: "Optimized Blade template rendering, styled card grids with Tailwind CSS, and verified mobile interface responsiveness."
-    },
-    {
-      type: "link",
-      url: "https://goodplumbing.co.uk/",
-      thumbnail: "/images/goodplumbing.webp",
-      title: "Good Plumbing",
-      category: "Front-end & UI/UX Design",
-      tools: ["/images/figma.svg", "/images/laravel.svg", "/images/tailwind.svg"],
-      disableIframe: true,
-      role: "OJT Frontend Developer & QA",
-      challenge: "Collaborate on a clean frontend build to showcase plumbing services and simplify local service bookings.",
-      solution: "Designed and implemented CSS layouts, aligned assets with visual guidelines, and ran cross-browser compatibility tests."
-    },
-    {
-      type: "link",
-      url: "https://manorvale-main.laravel.cloud/",
-      thumbnail: "/images/manorvale.webp",
-      title: "Manorvale",
-      category: "Front-end & UI/UX Design",
-      tools: ["/images/figma.svg", "/images/laravel.svg", "/images/tailwind.svg"],
-      disableIframe: true,
-      role: "OJT Frontend Developer & QA",
-      challenge: "Translate approved Figma desktop designs into a responsive, component-driven Laravel build.",
-      solution: "Built custom cards and headers, styled interactive client components, and fixed mobile alignment bugs."
-    },
-    {
-      type: "link",
-      url: "https://mould-damp.co.uk/",
-      thumbnail: "/images/mould.webp",
-      title: "Mould Damp",
-      category: "Front-end & UI/UX Design",
-      tools: ["/images/figma.svg", "/images/laravel.svg", "/images/tailwind.svg"],
-      disableIframe: true,
-      role: "OJT Frontend Developer & QA",
-      challenge: "Develop a content-heavy service directory focusing on clean readability and quick loading speeds.",
-      solution: "Refactored template stylesheets, optimized layout structures, and audited site files to improve overall page weight."
-    },
-    {
-      type: "link",
-      url: "https://wefit-main.laravel.cloud/",
-      thumbnail: "/images/wefit.webp",
-      title: "We Fit",
-      category: "Front-end & UI/UX Design",
-      tools: ["/images/figma.svg", "/images/laravel.svg", "/images/tailwind.svg"],
-      disableIframe: true,
-      role: "OJT Frontend Developer & QA",
-      challenge: "Deploy interactive frontend components for a fitness installation landing page.",
-      solution: "Developed contact request forms, styled high-fidelity hero grids, and audited interactive page elements."
-    },
-  ], []);
+  const chorosWorks = useMemo(
+    () => [
+      {
+        type: "link",
+        url: "https://youreventcover.co.uk/",
+        thumbnail: "/images/youreventcover.webp",
+        title: "Your Event Cover",
+        category: "Front-end & UI/UX Design",
+        tools: [
+          "/images/figma.svg",
+          "/images/laravel.svg",
+          "/images/tailwind.svg",
+        ],
+        disableIframe: true,
+        role: "OJT Frontend Developer & QA",
+        challenge:
+          "Develop and test responsive agency-designed interface elements for a UK event insurance platform.",
+        solution:
+          "Optimized Blade template rendering, styled card grids with Tailwind CSS, and verified mobile interface responsiveness.",
+      },
+      {
+        type: "link",
+        url: "https://goodplumbing.co.uk/",
+        thumbnail: "/images/goodplumbing.webp",
+        title: "Good Plumbing",
+        category: "Front-end & UI/UX Design",
+        tools: [
+          "/images/figma.svg",
+          "/images/laravel.svg",
+          "/images/tailwind.svg",
+        ],
+        disableIframe: true,
+        role: "OJT Frontend Developer & QA",
+        challenge:
+          "Collaborate on a clean frontend build to showcase plumbing services and simplify local service bookings.",
+        solution:
+          "Designed and implemented CSS layouts, aligned assets with visual guidelines, and ran cross-browser compatibility tests.",
+      },
+      {
+        type: "link",
+        url: "https://manorvale-main.laravel.cloud/",
+        thumbnail: "/images/manorvale.webp",
+        title: "Manorvale",
+        category: "Front-end & UI/UX Design",
+        tools: [
+          "/images/figma.svg",
+          "/images/laravel.svg",
+          "/images/tailwind.svg",
+        ],
+        disableIframe: true,
+        role: "OJT Frontend Developer & QA",
+        challenge:
+          "Translate approved Figma desktop designs into a responsive, component-driven Laravel build.",
+        solution:
+          "Built custom cards and headers, styled interactive client components, and fixed mobile alignment bugs.",
+      },
+      {
+        type: "link",
+        url: "https://mould-damp.co.uk/",
+        thumbnail: "/images/mould.webp",
+        title: "Mould Damp",
+        category: "Front-end & UI/UX Design",
+        tools: [
+          "/images/figma.svg",
+          "/images/laravel.svg",
+          "/images/tailwind.svg",
+        ],
+        disableIframe: true,
+        role: "OJT Frontend Developer & QA",
+        challenge:
+          "Develop a content-heavy service directory focusing on clean readability and quick loading speeds.",
+        solution:
+          "Refactored template stylesheets, optimized layout structures, and audited site files to improve overall page weight.",
+      },
+      {
+        type: "link",
+        url: "https://wefit-main.laravel.cloud/",
+        thumbnail: "/images/wefit.webp",
+        title: "We Fit",
+        category: "Front-end & UI/UX Design",
+        tools: [
+          "/images/figma.svg",
+          "/images/laravel.svg",
+          "/images/tailwind.svg",
+        ],
+        disableIframe: true,
+        role: "OJT Frontend Developer & QA",
+        challenge:
+          "Deploy interactive frontend components for a fitness installation landing page.",
+        solution:
+          "Developed contact request forms, styled high-fidelity hero grids, and audited interactive page elements.",
+      },
+    ],
+    [],
+  );
 
   const handleClick = (item) => {
     setOpenModalItem(item);
@@ -150,12 +197,15 @@ export default function WebDev({ setActivePage }) {
     } else {
       document.body.classList.remove("modal-open", "iframe-modal-open");
     }
-    return () => document.body.classList.remove("modal-open", "iframe-modal-open");
+    return () =>
+      document.body.classList.remove("modal-open", "iframe-modal-open");
   }, [openModalItem]);
 
   useEffect(() => {
     if (location.state?.openProject) {
-      const project = works.find(w => w.title === location.state.openProject) || chorosWorks.find(w => w.title === location.state.openProject);
+      const project =
+        works.find((w) => w.title === location.state.openProject) ||
+        chorosWorks.find((w) => w.title === location.state.openProject);
       if (project) {
         setOpenModalItem(project);
         navigate(location.pathname, { replace: true, state: {} });
@@ -166,7 +216,9 @@ export default function WebDev({ setActivePage }) {
   useEffect(() => {
     if (location.hash === "#ojt-choros") {
       setTimeout(() => {
-        document.getElementById("ojt-choros")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        document
+          .getElementById("ojt-choros")
+          ?.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 100);
     } else if (!location.hash) {
       window.scrollTo(0, 0);
@@ -176,9 +228,7 @@ export default function WebDev({ setActivePage }) {
   const [imagesLoaded, setImagesLoaded] = useState({});
 
   return (
-    <section
-      className="min-h-screen pt-12 sm:pt-16 px-4 sm:px-8 md:px-12 md:pl-[120px] lg:px-24 lg:pl-[140px] pb-16 bg-background text-dark"
-    >
+    <section className="min-h-screen pt-12 sm:pt-16 px-4 sm:px-8 md:px-12 md:pl-[120px] lg:px-24 lg:pl-[140px] pb-16 bg-background text-dark">
       <div className="font-sans font-bold text-5xl sm:text-7xl tracking-tighter uppercase text-dark mb-4">
         Web Development
       </div>
@@ -191,40 +241,84 @@ export default function WebDev({ setActivePage }) {
           <div
             key={index}
             onClick={() => handleClick(item)}
-            className={`flex flex-col cursor-pointer group rounded-[2rem] border border-dark/10 shadow-sm bg-primary p-3 transition-all duration-300 ease-out hover:border-dark/20`}
+            data-cursor-text="View"
+            className={`flex flex-col cursor-pointer group rounded-[2rem] border border-dark/10 shadow-sm bg-primary transition-all duration-300 ease-out hover:border-dark/20`}
           >
-            {/* Text + Tools above thumbnail */}
-            <div className="flex items-center justify-between mb-3 px-2 pt-1">
-              <div className="min-w-0">
-                <div className="font-sans font-bold text-base uppercase tracking-tight text-dark leading-tight truncate">
-                  {item.title}
-                </div>
-                <div className="font-mono text-[10px] text-accent tracking-[2px] uppercase font-bold mt-0.5">
-                  {item.category}
-                </div>
-              </div>
-              {/* Tool icons */}
-              <div className="flex gap-1.5 flex-shrink-0 ml-2">
-                {item.tools.map((tool, toolIndex) => (
-                  <div
-                    key={toolIndex}
-                    className="w-7 h-7 rounded-full bg-background flex items-center justify-center border border-dark/10"
-                  >
-                    <img src={tool} alt={`${tool.split('/').pop().replace('.svg', '').replace('.png', '')} icon`} className="w-4 h-4 object-contain" />
+            <GlareHover
+              width="100%"
+              height="100%"
+              borderRadius="2rem"
+              glareColor="#ffffff"
+              glareOpacity={0.15}
+              glareAngle={-30}
+              glareSize={220}
+              transitionDuration={900}
+              className="flex flex-col p-3"
+            >
+              {/* Text + Tools above thumbnail */}
+              <div className="flex items-center justify-between mb-3 px-2 pt-1">
+                <div className="min-w-0">
+                  <div className="font-sans font-bold text-base uppercase tracking-tight text-dark leading-tight truncate">
+                    {item.title}
                   </div>
-                ))}
+                  <div className="font-mono text-[10px] text-accent tracking-[2px] uppercase font-bold mt-0.5">
+                    {item.category}
+                  </div>
+                </div>
+                {/* Tool icons */}
+                <div className="flex gap-1.5 flex-shrink-0 ml-2">
+                  {item.tools.map((tool, toolIndex) => (
+                    <div
+                      key={toolIndex}
+                      className="w-7 h-7 rounded-full bg-background flex items-center justify-center border border-dark/10"
+                    >
+                      <img
+                        src={tool}
+                        alt={`${tool.split("/").pop().replace(".svg", "").replace(".png", "")} icon`}
+                        className="w-4 h-4 object-contain"
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
 
-            {/* Inner Thumbnail */}
-            <div className={`relative w-full aspect-[4/3] rounded-[1.4rem] overflow-hidden transition-all duration-300 ease-out group-hover:scale-[1.03] group-hover:shadow-[0_15px_30px_-5px_rgba(0,0,0,0.15)] ${!imagesLoaded[item.thumbnail] ? 'skeleton' : 'bg-dark/5'}`}>
-              <img
-                src={item.thumbnail}
-                alt={`${item.title} — ${item.category} by Juneco Mirande`}
-                onLoad={() => setImagesLoaded(prev => ({ ...prev, [item.thumbnail]: true }))}
-                className={`w-full h-full object-cover transition-all duration-[700ms] ease-out lg:grayscale lg:group-hover:grayscale-0 ${imagesLoaded[item.thumbnail] ? 'opacity-100' : 'opacity-0'}`}
-              />
-            </div>
+              {/* Inner Thumbnail */}
+              <div
+                className={`relative w-full aspect-[4/3] rounded-[1.4rem] overflow-hidden transition-all duration-300 ease-out group-hover:scale-[1.03] group-hover:shadow-[0_15px_30px_-5px_rgba(0,0,0,0.15)] ${!imagesLoaded[item.thumbnail] ? "skeleton" : "bg-dark/5"}`}
+              >
+                <img
+                  src="/images/thumbnail-background.webp"
+                  alt=""
+                  aria-hidden="true"
+                  onLoad={() =>
+                    setImagesLoaded((prev) => ({
+                      ...prev,
+                      [item.thumbnail]: true,
+                    }))
+                  }
+                  className={`hidden lg:block absolute inset-0 w-full h-full object-cover transition-opacity duration-[700ms] ease-out ${imagesLoaded[item.thumbnail] ? "opacity-100" : "opacity-0"} lg:group-hover:opacity-0`}
+                />
+                <img
+                  src={item.thumbnail}
+                  alt={`${item.title} — ${item.category} by Juneco Mirande`}
+                  onLoad={() =>
+                    setImagesLoaded((prev) => ({
+                      ...prev,
+                      [item.thumbnail]: true,
+                    }))
+                  }
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[700ms] ease-out ${imagesLoaded[item.thumbnail] ? "opacity-100" : "opacity-0"} lg:opacity-0 lg:group-hover:opacity-100`}
+                />
+                {item.thumbnailSubject && (
+                  <img
+                    src={item.thumbnailSubject}
+                    alt=""
+                    aria-hidden="true"
+                    className={`absolute inset-0 w-full h-full object-contain scale-100 origin-center transition-all duration-[700ms] ease-out lg:grayscale lg:group-hover:grayscale-0 ${item.subjectHoverScale || "group-hover:scale-110"}`}
+                  />
+                )}
+              </div>
+            </GlareHover>
           </div>
         ))}
       </div>
@@ -264,7 +358,8 @@ export default function WebDev({ setActivePage }) {
             >
               Choros.io
             </a>
-            , a UK-based IT company, on front-end builds and UI design for multiple client websites. Part of a team — not flying solo.
+            , a UK-based IT company, on front-end builds and UI design for
+            multiple client websites. Part of a team — not flying solo.
           </div>
         </div>
 
@@ -274,40 +369,64 @@ export default function WebDev({ setActivePage }) {
             <div
               key={index}
               onClick={() => handleClick(item)}
-              className={`flex flex-col cursor-pointer group rounded-[2rem] border border-dark/10 shadow-sm bg-primary p-3 transition-all duration-300 ease-out hover:border-dark/20`}
+              data-cursor-text="View"
+              className={`flex flex-col cursor-pointer group rounded-[2rem] border border-dark/10 shadow-sm bg-primary transition-all duration-300 ease-out hover:border-dark/20`}
             >
-              {/* Text + Tools above thumbnail */}
-              <div className="flex items-center justify-between mb-3 px-2 pt-1">
-                <div className="min-w-0">
-                  <div className="font-sans font-bold text-base uppercase tracking-tight text-dark leading-tight truncate">
-                    {item.title}
-                  </div>
-                  <div className="font-mono text-[10px] text-accent tracking-[2px] uppercase font-bold mt-0.5">
-                    {item.category}
-                  </div>
-                </div>
-                {/* Tool icons */}
-                <div className="flex gap-1.5 flex-shrink-0 ml-2">
-                  {item.tools.map((tool, toolIndex) => (
-                    <div
-                      key={toolIndex}
-                      className="w-7 h-7 rounded-full bg-background flex items-center justify-center border border-dark/10"
-                    >
-                      <img src={tool} alt={`${tool.split('/').pop().replace('.svg', '').replace('.png', '')} icon`} className="w-4 h-4 object-contain" />
+              <GlareHover
+                width="100%"
+                height="100%"
+                borderRadius="2rem"
+                glareColor="#ffffff"
+                glareOpacity={0.15}
+                glareAngle={-30}
+                glareSize={220}
+                transitionDuration={900}
+                className="flex flex-col p-3"
+              >
+                {/* Text + Tools above thumbnail */}
+                <div className="flex items-center justify-between mb-3 px-2 pt-1">
+                  <div className="min-w-0">
+                    <div className="font-sans font-bold text-base uppercase tracking-tight text-dark leading-tight truncate">
+                      {item.title}
                     </div>
-                  ))}
+                    <div className="font-mono text-[10px] text-accent tracking-[2px] uppercase font-bold mt-0.5">
+                      {item.category}
+                    </div>
+                  </div>
+                  {/* Tool icons */}
+                  <div className="flex gap-1.5 flex-shrink-0 ml-2">
+                    {item.tools.map((tool, toolIndex) => (
+                      <div
+                        key={toolIndex}
+                        className="w-7 h-7 rounded-full bg-background flex items-center justify-center border border-dark/10"
+                      >
+                        <img
+                          src={tool}
+                          alt={`${tool.split("/").pop().replace(".svg", "").replace(".png", "")} icon`}
+                          className="w-4 h-4 object-contain"
+                        />
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              {/* Inner Thumbnail */}
-              <div className={`relative w-full aspect-[4/3] rounded-[1.4rem] overflow-hidden transition-all duration-300 ease-out group-hover:scale-[1.03] group-hover:shadow-[0_15px_30px_-5px_rgba(0,0,0,0.15)] ${!imagesLoaded[item.thumbnail] ? 'skeleton' : 'bg-dark/5'}`}>
-                <img
-                  src={item.thumbnail}
-                  alt={`${item.title} — ${item.category} by Juneco Mirande at Choros.io`}
-                  onLoad={() => setImagesLoaded(prev => ({ ...prev, [item.thumbnail]: true }))}
-                  className={`w-full h-full object-cover transition-all duration-[700ms] ease-out lg:grayscale lg:group-hover:grayscale-0 ${imagesLoaded[item.thumbnail] ? 'opacity-100' : 'opacity-0'}`}
-                />
-              </div>
+                {/* Inner Thumbnail */}
+                <div
+                  className={`relative w-full aspect-[4/3] rounded-[1.4rem] overflow-hidden transition-all duration-300 ease-out group-hover:scale-[1.03] group-hover:shadow-[0_15px_30px_-5px_rgba(0,0,0,0.15)] ${!imagesLoaded[item.thumbnail] ? "skeleton" : "bg-dark/5"}`}
+                >
+                  <img
+                    src={item.thumbnail}
+                    alt={`${item.title} — ${item.category} by Juneco Mirande at Choros.io`}
+                    onLoad={() =>
+                      setImagesLoaded((prev) => ({
+                        ...prev,
+                        [item.thumbnail]: true,
+                      }))
+                    }
+                    className={`w-full h-full object-cover transition-all duration-[700ms] ease-out lg:grayscale lg:group-hover:grayscale-0 ${imagesLoaded[item.thumbnail] ? "opacity-100" : "opacity-0"}`}
+                  />
+                </div>
+              </GlareHover>
             </div>
           ))}
         </div>
@@ -339,15 +458,21 @@ export default function WebDev({ setActivePage }) {
                   {/* Role */}
                   {openModalItem.role && (
                     <div>
-                      <span className="font-mono text-[10px] text-primary/40 uppercase tracking-wider block font-bold">My Role</span>
-                      <span className="text-sm font-semibold text-primary/95">{openModalItem.role}</span>
+                      <span className="font-mono text-[10px] text-primary/40 uppercase tracking-wider block font-bold">
+                        My Role
+                      </span>
+                      <span className="text-sm font-semibold text-primary/95">
+                        {openModalItem.role}
+                      </span>
                     </div>
                   )}
 
                   {/* Challenge */}
                   {openModalItem.challenge && (
                     <div>
-                      <span className="font-mono text-[10px] text-primary/40 uppercase tracking-wider block font-bold">The Challenge</span>
+                      <span className="font-mono text-[10px] text-primary/40 uppercase tracking-wider block font-bold">
+                        The Challenge
+                      </span>
                       <p className="text-xs sm:text-sm text-primary/70 leading-relaxed mt-1 font-sans">
                         {openModalItem.challenge}
                       </p>
@@ -357,7 +482,9 @@ export default function WebDev({ setActivePage }) {
                   {/* Solution */}
                   {openModalItem.solution && (
                     <div>
-                      <span className="font-mono text-[10px] text-primary/40 uppercase tracking-wider block font-bold">The Solution</span>
+                      <span className="font-mono text-[10px] text-primary/40 uppercase tracking-wider block font-bold">
+                        The Solution
+                      </span>
                       <p className="text-xs sm:text-sm text-primary/70 leading-relaxed mt-1 font-sans">
                         {openModalItem.solution}
                       </p>
@@ -370,7 +497,12 @@ export default function WebDev({ setActivePage }) {
               <div className="mt-8 pt-4 border-t border-primary/5 flex items-center justify-between gap-4">
                 <div className="flex gap-2">
                   {openModalItem.tools.map((tool, idx) => (
-                    <img key={idx} src={tool} className="w-5 h-5 object-contain opacity-70" alt="tool logo" />
+                    <img
+                      key={idx}
+                      src={tool}
+                      className="w-5 h-5 object-contain opacity-70"
+                      alt="tool logo"
+                    />
                   ))}
                 </div>
                 {openModalItem.url && (
@@ -406,7 +538,9 @@ export default function WebDev({ setActivePage }) {
                         <span className="w-2.5 h-2.5 rounded-full bg-[#27C93F] inline-block"></span>
                       </div>
                       <div className="flex-1 max-w-sm mx-auto h-6 bg-dark/45 rounded flex items-center px-3 border border-primary/5 select-none justify-center">
-                        <span className="font-mono text-[10px] text-primary/40 truncate tracking-wide">{openModalItem.url}</span>
+                        <span className="font-mono text-[10px] text-primary/40 truncate tracking-wide">
+                          {openModalItem.url}
+                        </span>
                       </div>
                     </div>
 
@@ -414,7 +548,9 @@ export default function WebDev({ setActivePage }) {
                     <div className="flex-1 relative w-full overflow-y-auto flex items-center justify-center p-4 sm:p-6">
                       <div
                         className="absolute inset-0 bg-cover bg-center opacity-25 filter blur-2xl scale-110 pointer-events-none"
-                        style={{ backgroundImage: `url('${openModalItem.thumbnail}')` }}
+                        style={{
+                          backgroundImage: `url('${openModalItem.thumbnail}')`,
+                        }}
                       />
 
                       {/* Glassmorphic presentation card */}
@@ -428,7 +564,8 @@ export default function WebDev({ setActivePage }) {
                         </div>
 
                         <p className="font-mono text-[11px] text-primary/70 leading-relaxed max-w-xs mb-4">
-                          This project is hosted on a secure production server. Click below to launch the live site in a new tab!
+                          This project is hosted on a secure production server.
+                          Click below to launch the live site in a new tab!
                         </p>
 
                         <a
@@ -446,15 +583,17 @@ export default function WebDev({ setActivePage }) {
                 ) : (
                   <div className="flex items-center justify-center w-full h-full pb-4 sm:pb-8">
                     {/* Iframe Container */}
-                    <div className={`h-full relative flex-shrink-0 ${isDragging ? '' : 'transition-all duration-300 ease-out'}`} style={{ width: `${iframeWidth}%` }}>
-
+                    <div
+                      className={`h-full relative flex-shrink-0 ${isDragging ? "" : "transition-all duration-300 ease-out"}`}
+                      style={{ width: `${iframeWidth}%` }}
+                    >
                       {/* The actual iframe */}
                       <iframe
                         title={openModalItem.title}
                         className="w-full h-full rounded-[1.5rem] border border-primary/20 bg-dark shadow-2xl"
                         src={openModalItem.url}
                         allowFullScreen
-                        style={{ pointerEvents: isDragging ? 'none' : 'auto' }}
+                        style={{ pointerEvents: isDragging ? "none" : "auto" }}
                       />
 
                       {/* Draggable vertical bar on the right (Hidden on mobile) */}
@@ -467,12 +606,20 @@ export default function WebDev({ setActivePage }) {
                         title="Drag to resize screen"
                       >
                         {/* Visual handle */}
-                        <div className={`relative h-full rounded-full border shadow-lg transition-all duration-300 flex items-center justify-center overflow-hidden ${isDragging ? 'w-5 bg-accent border-accent text-dark' : 'w-1.5 bg-primary/30 backdrop-blur-md border-primary/20 group-hover:w-5 group-hover:bg-accent/80 group-hover:border-accent group-hover:text-dark text-transparent'}`}>
+                        <div
+                          className={`relative h-full rounded-full border shadow-lg transition-all duration-300 flex items-center justify-center overflow-hidden ${isDragging ? "w-5 bg-accent border-accent text-dark" : "w-1.5 bg-primary/30 backdrop-blur-md border-primary/20 group-hover:w-5 group-hover:bg-accent/80 group-hover:border-accent group-hover:text-dark text-transparent"}`}
+                        >
                           {/* Inner grip line (fades out on hover) */}
-                          <div className={`absolute w-0.5 h-8 bg-dark/40 rounded-full transition-opacity duration-300 ${isDragging ? 'opacity-0' : 'group-hover:opacity-0'}`} />
+                          <div
+                            className={`absolute w-0.5 h-8 bg-dark/40 rounded-full transition-opacity duration-300 ${isDragging ? "opacity-0" : "group-hover:opacity-0"}`}
+                          />
 
                           {/* Left-Right Arrows Icon (fades in on hover) */}
-                          <ArrowsLeftRight size={14} weight="bold" className={`absolute transition-opacity duration-300 ${isDragging ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
+                          <ArrowsLeftRight
+                            size={14}
+                            weight="bold"
+                            className={`absolute transition-opacity duration-300 ${isDragging ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
+                          />
                         </div>
                       </div>
                     </div>
@@ -480,7 +627,6 @@ export default function WebDev({ setActivePage }) {
                 )}
               </div>
             </div>
-
           </div>
         </div>
       )}

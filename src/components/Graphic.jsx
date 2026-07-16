@@ -1,11 +1,28 @@
-import React, { useState, useRef, useEffect, useMemo, useLayoutEffect } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useMemo,
+  useLayoutEffect,
+} from "react";
 import { gsap } from "gsap";
 import { CaretLeft, CaretRight, X } from "@phosphor-icons/react";
 import { useLocation } from "react-router-dom";
 import CategoryNav from "./shared/CategoryNav";
 import ReadyToBuild from "./shared/ReadyToBuild";
+import GlareHover from "./GlareHover";
 
-function ImageComparisonSlider({ before, after, title, aspectClass = "aspect-auto", fit = "cover", fill = true, bare = false, onInteractionStart, onInteractionEnd }) {
+function ImageComparisonSlider({
+  before,
+  after,
+  title,
+  aspectClass = "aspect-auto",
+  fit = "cover",
+  fill = true,
+  bare = false,
+  onInteractionStart,
+  onInteractionEnd,
+}) {
   const [sliderPosition, setSliderPosition] = useState(50);
   const containerRef = useRef(null);
   const isDragging = useRef(false);
@@ -52,7 +69,9 @@ function ImageComparisonSlider({ before, after, title, aspectClass = "aspect-aut
   }, [onInteractionEnd]);
 
   return (
-    <div className={`w-full flex flex-col items-center select-none ${bare ? "h-full" : ""} ${fill ? "md:flex-1 md:min-h-0" : ""}`}>
+    <div
+      className={`w-full flex flex-col items-center select-none ${bare ? "h-full" : ""} ${fill ? "md:flex-1 md:min-h-0" : ""}`}
+    >
       <div
         ref={containerRef}
         className={`relative overflow-hidden bg-black cursor-ew-resize touch-none ${bare ? "" : "w-full"} ${bare ? "" : "rounded-[1.5rem] border border-primary/20 shadow-2xl"} ${fill ? "md:flex-1" : ""} ${aspectClass}`}
@@ -71,7 +90,9 @@ function ImageComparisonSlider({ before, after, title, aspectClass = "aspect-aut
         {/* Before Image (Overlay clipped by clipPath) */}
         <div
           className="absolute inset-0 pointer-events-none"
-          style={{ clipPath: `polygon(0 0, ${sliderPosition}% 0, ${sliderPosition}% 100%, 0 100%)` }}
+          style={{
+            clipPath: `polygon(0 0, ${sliderPosition}% 0, ${sliderPosition}% 100%, 0 100%)`,
+          }}
         >
           <img
             src={before}
@@ -83,12 +104,22 @@ function ImageComparisonSlider({ before, after, title, aspectClass = "aspect-aut
         {/* Divider line */}
         <div
           className="absolute top-0 bottom-0 w-1 bg-accent pointer-events-none"
-          style={{ left: `${sliderPosition}%`, transform: 'translateX(-50%)' }}
+          style={{ left: `${sliderPosition}%`, transform: "translateX(-50%)" }}
         >
           {/* Slider knob */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-accent border-2 border-primary flex items-center justify-center shadow-[0_0_15px_rgba(0,0,0,0.5)]">
-            <svg className="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l-4 4 4 4m8-8l4 4-4 4" />
+            <svg
+              className="w-5 h-5 text-primary"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="3"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M8 9l-4 4 4 4m8-8l4 4-4 4"
+              />
             </svg>
           </div>
         </div>
@@ -148,16 +179,20 @@ export default function Graphics({ setActivePage }) {
       },
       {
         type: "single",
-        thumbnail: "/images/postermakingthumb.webp",
-        image: "/images/postermaking.webp",
-        title: "Poster Making",
-        category: "Photo Manipulation",
+        thumbnail: "/images/fb-meta-ads.webp",
+        image: "/images/fb-meta-ads.webp",
+        title: "Meta Ads Creative",
+        category: "Branding/Marketing Graphics",
         tools: ["/images/photoshop.svg"],
       },
       {
-        type: "single",
+        type: "gallery",
         thumbnail: "/images/graphic1.webp",
-        image: "/images/graphic1.webp",
+        images: [
+          "/images/graphic1.webp",
+          "/images/icecream1.webp",
+          "/images/icecream2.webp",
+        ],
         title: "Infographic",
         category: "Information Design",
         tools: ["/images/photoshop.svg"],
@@ -177,7 +212,7 @@ export default function Graphics({ setActivePage }) {
         tools: ["/images/photoshop.svg"],
       },
     ],
-    []
+    [],
   );
 
   const chorosGfxWorks = useMemo(
@@ -205,11 +240,14 @@ export default function Graphics({ setActivePage }) {
         tools: ["/images/photoshop.svg", "/images/illustrator.svg"],
       },
     ],
-    []
+    [],
   );
 
   // allWorks = personal works + choros works, indexed together for the modal
-  const allWorks = useMemo(() => [...works, ...chorosGfxWorks], [works, chorosGfxWorks]);
+  const allWorks = useMemo(
+    () => [...works, ...chorosGfxWorks],
+    [works, chorosGfxWorks],
+  );
 
   const videoRefs = useRef({});
 
@@ -221,7 +259,9 @@ export default function Graphics({ setActivePage }) {
   useEffect(() => {
     if (location.hash === "#ojt-choros") {
       setTimeout(() => {
-        document.getElementById("ojt-choros")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        document
+          .getElementById("ojt-choros")
+          ?.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 100);
     } else if (!location.hash) {
       window.scrollTo(0, 0);
@@ -287,13 +327,13 @@ export default function Graphics({ setActivePage }) {
 
   const handlePrev = () => {
     setCurrentIndex((prev) =>
-      prev > 0 ? prev - 1 : allWorks[openModal].images.length - 1
+      prev > 0 ? prev - 1 : allWorks[openModal].images.length - 1,
     );
   };
 
   const handleNext = () => {
     setCurrentIndex((prev) =>
-      prev < allWorks[openModal].images.length - 1 ? prev + 1 : 0
+      prev < allWorks[openModal].images.length - 1 ? prev + 1 : 0,
     );
   };
 
@@ -367,14 +407,19 @@ export default function Graphics({ setActivePage }) {
         { left: colW + gap, top: 0, width: colW, height: rowH },
         { left: 2 * colW + 2 * gap, top: 0, width: colW, height: rowH },
         { left: colW + gap, top: rowH + gap, width: colW, height: rowH },
-        { left: 2 * colW + 2 * gap, top: rowH + gap, width: colW, height: rowH }
+        {
+          left: 2 * colW + 2 * gap,
+          top: rowH + gap,
+          width: colW,
+          height: rowH,
+        },
       ];
 
       if (!sliderInteracting) {
         return {
           position: "absolute",
           ...staticPositions[index],
-          transition: "all 500ms cubic-bezier(0.25, 1, 0.5, 1)"
+          transition: "all 500ms cubic-bezier(0.25, 1, 0.5, 1)",
         };
       }
 
@@ -386,15 +431,25 @@ export default function Graphics({ setActivePage }) {
       const interactingPositions = [
         { left: 0, top: 0, width: ssW, height: clusterHeight },
         { left: rightStart, top: 0, width: subColW, height: rowH },
-        { left: rightStart + subColW + gap, top: 0, width: subColW, height: rowH },
+        {
+          left: rightStart + subColW + gap,
+          top: 0,
+          width: subColW,
+          height: rowH,
+        },
         { left: rightStart, top: rowH + gap, width: subColW, height: rowH },
-        { left: rightStart + subColW + gap, top: rowH + gap, width: subColW, height: rowH }
+        {
+          left: rightStart + subColW + gap,
+          top: rowH + gap,
+          width: subColW,
+          height: rowH,
+        },
       ];
 
       return {
         position: "absolute",
         ...interactingPositions[index],
-        transition: "all 500ms cubic-bezier(0.25, 1, 0.5, 1)"
+        transition: "all 500ms cubic-bezier(0.25, 1, 0.5, 1)",
       };
     }
 
@@ -404,14 +459,14 @@ export default function Graphics({ setActivePage }) {
       const staticPositions = [
         { left: 0, top: 0, width: colW, height: clusterHeight },
         { left: colW + gap, top: 0, width: colW, height: rowH },
-        { left: colW + gap, top: rowH + gap, width: colW, height: rowH }
+        { left: colW + gap, top: rowH + gap, width: colW, height: rowH },
       ];
 
       if (!sliderInteracting) {
         return {
           position: "absolute",
           ...staticPositions[index],
-          transition: "all 500ms cubic-bezier(0.25, 1, 0.5, 1)"
+          transition: "all 500ms cubic-bezier(0.25, 1, 0.5, 1)",
         };
       }
 
@@ -420,13 +475,13 @@ export default function Graphics({ setActivePage }) {
       const interactingPositions = [
         { left: 0, top: 0, width: ssW, height: clusterHeight },
         { left: ssW + gap, top: 0, width: rightW, height: rowH },
-        { left: ssW + gap, top: rowH + gap, width: rightW, height: rowH }
+        { left: ssW + gap, top: rowH + gap, width: rightW, height: rowH },
       ];
 
       return {
         position: "absolute",
         ...interactingPositions[index],
-        transition: "all 500ms cubic-bezier(0.25, 1, 0.5, 1)"
+        transition: "all 500ms cubic-bezier(0.25, 1, 0.5, 1)",
       };
     }
 
@@ -441,84 +496,123 @@ export default function Graphics({ setActivePage }) {
         key={index}
         onClick={() => handleClick(index)}
         style={customStyle}
+        data-cursor-text="View"
         onMouseEnter={() => {
           if (isSlider) setSliderInteracting(true);
         }}
         onMouseLeave={() => {
           if (isSlider) setSliderInteracting(false);
         }}
-        className={`flex flex-col cursor-pointer group rounded-[2rem] border shadow-sm p-3 transition-all duration-300 ease-out ${isSlider
-          ? "bg-dark/90 text-primary border-primary/25"
-          : "bg-primary text-dark border-dark/10 hover:border-dark/20"
-          } ${isSlider && breakpoint === "mobile" ? "md:row-span-2 md:self-stretch" : ""}`}
+        className={`flex flex-col cursor-pointer group rounded-[2rem] border shadow-sm transition-all duration-300 ease-out ${
+          isSlider
+            ? "bg-dark/90 text-primary border-primary/25"
+            : "bg-primary text-dark border-dark/10 hover:border-dark/20"
+        } ${isSlider && breakpoint === "mobile" ? "md:row-span-2 md:self-stretch" : ""}`}
       >
-        <div className="flex items-center justify-between mb-3 px-2 pt-1">
-          <div className="min-w-0">
-            <div className={`font-sans font-bold text-base uppercase tracking-tight leading-tight truncate ${isSlider ? "text-primary" : "text-dark"
-              }`}>
-              {item.title}
-            </div>
-            <div className="font-mono text-[10px] text-accent tracking-[2px] uppercase font-bold mt-0.5">
-              {item.category}
-            </div>
-          </div>
-          <div className="flex gap-1.5 flex-shrink-0 ml-2">
-            {item.tools.map((tool, toolIndex) => (
+        <GlareHover
+          width="100%"
+          height="100%"
+          borderRadius="2rem"
+          glareColor="#ffffff"
+          glareOpacity={0.15}
+          glareAngle={-30}
+          glareSize={220}
+          transitionDuration={900}
+          className="flex flex-col flex-1 min-h-0 p-3"
+        >
+          <div className="flex items-center justify-between mb-3 px-2 pt-1">
+            <div className="min-w-0">
               <div
-                key={toolIndex}
-                className={`w-7 h-7 rounded-full flex items-center justify-center border ${isSlider ? "bg-background/25 border-primary/20" : "bg-background border-dark/10"
-                  }`}
+                className={`font-sans font-bold text-base uppercase tracking-tight leading-tight truncate ${
+                  isSlider ? "text-primary" : "text-dark"
+                }`}
               >
-                <img src={tool} alt={`${tool.split('/').pop().replace('.svg', '').replace('.png', '')} icon`} className="w-4 h-4 object-contain" />
+                {item.title}
               </div>
-            ))}
+              <div className="font-mono text-[10px] text-accent tracking-[2px] uppercase font-bold mt-0.5">
+                {item.category}
+              </div>
+            </div>
+            <div className="flex gap-1.5 flex-shrink-0 ml-2">
+              {item.tools.map((tool, toolIndex) => (
+                <div
+                  key={toolIndex}
+                  className={`w-7 h-7 rounded-full flex items-center justify-center border ${
+                    isSlider
+                      ? "bg-background/25 border-primary/20"
+                      : "bg-background border-dark/10"
+                  }`}
+                >
+                  <img
+                    src={tool}
+                    alt={`${tool.split("/").pop().replace(".svg", "").replace(".png", "")} icon`}
+                    className="w-4 h-4 object-contain"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
 
-        {isSlider ? (
-          <div
-            className="relative w-full flex-1 min-h-0 rounded-[1.4rem] overflow-hidden transition-all duration-300 ease-out group-hover:shadow-[0_15px_30px_-5px_rgba(0,0,0,0.15)] bg-dark/5 flex flex-col"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <ImageComparisonSlider
-              before={item.beforeImage}
-              after={item.image}
-              title={item.title}
-              aspectClass="aspect-[3/4] md:aspect-auto md:h-0 md:min-h-full"
-              onInteractionStart={() => setSliderInteracting(true)}
-              onInteractionEnd={() => setSliderInteracting(false)}
-            />
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                handleClick(index);
-              }}
-              className="absolute top-4 right-4 bg-dark/75 hover:bg-accent text-primary p-2.5 rounded-full transition-all duration-300 z-40 border border-primary/20 backdrop-blur-sm shadow-lg hover:scale-110 flex items-center justify-center"
-              title="Open Fullscreen"
+          {isSlider ? (
+            <div
+              className="relative w-full flex-1 min-h-0 rounded-[1.4rem] overflow-hidden transition-all duration-300 ease-out group-hover:shadow-[0_15px_30px_-5px_rgba(0,0,0,0.15)] bg-dark/5 flex flex-col"
+              onClick={(e) => e.stopPropagation()}
             >
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 3h6m0 0v6m0-6L14 10M9 21H3m0 0v-6m0 6l7-7" />
-              </svg>
-            </button>
-          </div>
-        ) : (
-          <div className={`relative w-full rounded-[1.4rem] overflow-hidden transition-all duration-300 ease-out group-hover:scale-[1.03] group-hover:shadow-[0_15px_30px_-5px_rgba(0,0,0,0.15)] ${!imagesLoaded[item.thumbnail] ? 'skeleton' : 'bg-dark/5'} ${isClustered ? 'flex-1 min-h-0' : 'aspect-[4/3]'}`}>
-            <img
-              src={item.thumbnail}
-              alt={`${item.title} — ${item.category} by Juneco Mirande`}
-              onLoad={() => setImagesLoaded(prev => ({ ...prev, [item.thumbnail]: true }))}
-              className={`w-full h-full object-cover transition-all duration-[700ms] ease-out lg:grayscale lg:group-hover:grayscale-0 ${imagesLoaded[item.thumbnail] ? 'opacity-100' : 'opacity-0'}`}
-            />
-          </div>
-        )}
+              <ImageComparisonSlider
+                before={item.beforeImage}
+                after={item.image}
+                title={item.title}
+                aspectClass="aspect-[3/4] md:aspect-auto md:h-0 md:min-h-full"
+                onInteractionStart={() => setSliderInteracting(true)}
+                onInteractionEnd={() => setSliderInteracting(false)}
+              />
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleClick(index);
+                }}
+                className="absolute top-4 right-4 bg-dark/75 hover:bg-accent text-primary p-2.5 rounded-full transition-all duration-300 z-40 border border-primary/20 backdrop-blur-sm shadow-lg hover:scale-110 flex items-center justify-center"
+                title="Open Fullscreen"
+              >
+                <svg
+                  className="w-4 h-4"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15 3h6m0 0v6m0-6L14 10M9 21H3m0 0v-6m0 6l7-7"
+                  />
+                </svg>
+              </button>
+            </div>
+          ) : (
+            <div
+              className={`relative w-full rounded-[1.4rem] overflow-hidden transition-all duration-300 ease-out group-hover:scale-[1.03] group-hover:shadow-[0_15px_30px_-5px_rgba(0,0,0,0.15)] ${!imagesLoaded[item.thumbnail] ? "skeleton" : "bg-dark/5"} ${isClustered ? "flex-1 min-h-0" : "aspect-[4/3]"}`}
+            >
+              <img
+                src={item.thumbnail}
+                alt={`${item.title} — ${item.category} by Juneco Mirande`}
+                onLoad={() =>
+                  setImagesLoaded((prev) => ({
+                    ...prev,
+                    [item.thumbnail]: true,
+                  }))
+                }
+                className={`w-full h-full object-cover transition-all duration-[700ms] ease-out lg:grayscale lg:group-hover:grayscale-0 ${imagesLoaded[item.thumbnail] ? "opacity-100" : "opacity-0"}`}
+              />
+            </div>
+          )}
+        </GlareHover>
       </div>
     );
   };
 
   return (
-    <section
-      className="min-h-screen pt-12 sm:pt-16 px-4 sm:px-8 md:px-12 md:pl-[120px] lg:px-24 lg:pl-[140px] pb-16 bg-background text-dark"
-    >
+    <section className="min-h-screen pt-12 sm:pt-16 px-4 sm:px-8 md:px-12 md:pl-[120px] lg:px-24 lg:pl-[140px] pb-16 bg-background text-dark">
       <div className="font-sans font-bold text-5xl sm:text-7xl tracking-tighter uppercase text-dark mb-4">
         Graphic Design
       </div>
@@ -538,16 +632,20 @@ export default function Graphics({ setActivePage }) {
             style={{
               position: "relative",
               height: clusterHeight ? `${clusterHeight}px` : "auto",
-              minHeight: clusterHeight ? `${clusterHeight}px` : "500px"
+              minHeight: clusterHeight ? `${clusterHeight}px` : "500px",
             }}
             className="w-full transition-all duration-300"
           >
-            {breakpoint === "desktop" ? (
-              works.map((item, index) => renderCard(item, index, getCardStyle(index), true))
-            ) : (
-              // Tablet: Simulated Sanctuary (index 0), TI (index 1), and Poster Making (index 2) are in the cluster
-              works.slice(0, 3).map((item, index) => renderCard(item, index, getCardStyle(index), true))
-            )}
+            {breakpoint === "desktop"
+              ? works.map((item, index) =>
+                  renderCard(item, index, getCardStyle(index), true),
+                )
+              : // Tablet: Simulated Sanctuary (index 0), TI (index 1), and Poster Making (index 2) are in the cluster
+                works
+                  .slice(0, 3)
+                  .map((item, index) =>
+                    renderCard(item, index, getCardStyle(index), true),
+                  )}
           </div>
 
           {/* Tablet Overflow Grid: Infographic (3), Neue Dept (4) */}
@@ -594,7 +692,8 @@ export default function Graphics({ setActivePage }) {
             >
               Choros.io
             </a>
-            , a UK-based IT company — marketing materials, event passes, and branded collateral.
+            , a UK-based IT company — marketing materials, event passes, and
+            branded collateral.
           </div>
         </div>
 
@@ -603,28 +702,49 @@ export default function Graphics({ setActivePage }) {
           {chorosGfxWorks.map((item, index) => (
             <div
               key={`choros-${index}`}
-              onClick={() => { handleClick(works.length + index); }}
+              onClick={() => {
+                handleClick(works.length + index);
+              }}
+              data-cursor-text="View"
               className="flex flex-col cursor-pointer group rounded-[2rem] border border-dark/10 shadow-sm bg-primary p-3 transition-all duration-300 ease-out hover:border-dark/20"
             >
               <div className="flex items-center justify-between mb-3 px-2 pt-1">
                 <div className="min-w-0">
-                  <div className="font-sans font-bold text-base uppercase tracking-tight text-dark leading-tight truncate">{item.title}</div>
-                  <div className="font-mono text-[10px] text-accent tracking-[2px] uppercase font-bold mt-0.5">{item.category}</div>
+                  <div className="font-sans font-bold text-base uppercase tracking-tight text-dark leading-tight truncate">
+                    {item.title}
+                  </div>
+                  <div className="font-mono text-[10px] text-accent tracking-[2px] uppercase font-bold mt-0.5">
+                    {item.category}
+                  </div>
                 </div>
                 <div className="flex gap-1.5 flex-shrink-0 ml-2">
                   {item.tools.map((tool, toolIndex) => (
-                    <div key={toolIndex} className="w-7 h-7 rounded-full bg-background flex items-center justify-center border border-dark/10">
-                      <img src={tool} alt={`${tool.split('/').pop().replace('.svg', '').replace('.png', '')} icon`} className="w-4 h-4 object-contain" />
+                    <div
+                      key={toolIndex}
+                      className="w-7 h-7 rounded-full bg-background flex items-center justify-center border border-dark/10"
+                    >
+                      <img
+                        src={tool}
+                        alt={`${tool.split("/").pop().replace(".svg", "").replace(".png", "")} icon`}
+                        className="w-4 h-4 object-contain"
+                      />
                     </div>
                   ))}
                 </div>
               </div>
-              <div className={`relative w-full aspect-[4/3] rounded-[1.4rem] overflow-hidden transition-all duration-300 ease-out group-hover:scale-[1.03] group-hover:shadow-[0_15px_30px_-5px_rgba(0,0,0,0.15)] ${!imagesLoaded[item.thumbnail] ? 'skeleton' : 'bg-dark/5'}`}>
+              <div
+                className={`relative w-full aspect-[4/3] rounded-[1.4rem] overflow-hidden transition-all duration-300 ease-out group-hover:scale-[1.03] group-hover:shadow-[0_15px_30px_-5px_rgba(0,0,0,0.15)] ${!imagesLoaded[item.thumbnail] ? "skeleton" : "bg-dark/5"}`}
+              >
                 <img
                   src={item.thumbnail}
                   alt={`${item.title} — ${item.category} by Juneco Mirande at Choros.io`}
-                  onLoad={() => setImagesLoaded(prev => ({ ...prev, [item.thumbnail]: true }))}
-                  className={`w-full h-full object-cover transition-all duration-[700ms] ease-out lg:grayscale lg:group-hover:grayscale-0 ${imagesLoaded[item.thumbnail] ? 'opacity-100' : 'opacity-0'}`}
+                  onLoad={() =>
+                    setImagesLoaded((prev) => ({
+                      ...prev,
+                      [item.thumbnail]: true,
+                    }))
+                  }
+                  className={`w-full h-full object-cover transition-all duration-[700ms] ease-out lg:grayscale lg:group-hover:grayscale-0 ${imagesLoaded[item.thumbnail] ? "opacity-100" : "opacity-0"}`}
                 />
               </div>
             </div>
@@ -644,7 +764,6 @@ export default function Graphics({ setActivePage }) {
           >
             <X size={24} weight="bold" />
           </button>
-
 
           {/* Gallery Type - Next/Previous Navigation (Neue & TI) */}
           {allWorks[openModal].type === "gallery" ? (
@@ -673,7 +792,10 @@ export default function Graphics({ setActivePage }) {
                           loop
                           playsInline
                           preload="auto"
-                          style={{ pointerEvents: imgIndex === currentIndex ? "auto" : "none" }}
+                          style={{
+                            pointerEvents:
+                              imgIndex === currentIndex ? "auto" : "none",
+                          }}
                         >
                           <source src={item} type="video/mp4" />
                           Your browser does not support the video tag.
@@ -683,7 +805,10 @@ export default function Graphics({ setActivePage }) {
                           src={item}
                           alt={`${allWorks[openModal].title} ${imgIndex + 1}`}
                           className="max-w-full max-h-full object-contain"
-                          style={{ pointerEvents: imgIndex === currentIndex ? "auto" : "none" }}
+                          style={{
+                            pointerEvents:
+                              imgIndex === currentIndex ? "auto" : "none",
+                          }}
                         />
                       )}
                     </div>
@@ -706,7 +831,6 @@ export default function Graphics({ setActivePage }) {
                   >
                     <CaretRight size={32} weight="bold" />
                   </button>
-
                 </>
               )}
 

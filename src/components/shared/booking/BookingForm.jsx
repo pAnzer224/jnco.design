@@ -55,6 +55,7 @@ export default function BookingForm({ onStepChange } = {}) {
   const dropdownRef = useRef(null);
   const step1CardRef = useRef(null);
   const [cardHeight, setCardHeight] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   const { showResumeModal, handleResumeDraft, handleDiscardDraft, clearDraft } = useBookingDraft({
     formData,
@@ -77,6 +78,7 @@ export default function BookingForm({ onStepChange } = {}) {
 
   useLayoutEffect(() => {
     const measure = () => {
+      setIsMobile(window.innerWidth < 640);
       if (step1CardRef.current) {
         setCardHeight(step1CardRef.current.offsetHeight);
       }
@@ -324,8 +326,8 @@ export default function BookingForm({ onStepChange } = {}) {
                 >
                   <div
                     ref={stepNum === 1 ? step1CardRef : null}
-                    className="bg-primary text-dark border border-dark/10 rounded-t-[2rem] sm:rounded-[2rem] p-6 md:p-10 shadow-2xl relative overflow-hidden flex flex-col"
-                    style={cardHeight ? { height: `${cardHeight}px` } : undefined}
+                    className="bg-primary text-dark border border-dark/10 rounded-t-[2rem] sm:rounded-[2rem] p-6 md:p-10 shadow-2xl relative overflow-hidden flex flex-col h-[calc(100dvh-6rem)] sm:h-auto"
+                    style={!isMobile && cardHeight ? { height: `${cardHeight}px` } : undefined}
                   >
                     <form
                       onSubmit={(e) => {

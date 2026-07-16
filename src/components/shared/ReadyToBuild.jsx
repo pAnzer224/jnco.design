@@ -5,6 +5,16 @@ import { ArrowRight } from '@phosphor-icons/react';
 export default function ReadyToBuild() {
   const navigate = useNavigate();
 
+  const handleBookClick = () => {
+    if (window.opener && !window.opener.closed) {
+      window.opener.postMessage({ type: "PORTFOLIO_NAV", path: "/booking" }, window.location.origin);
+      window.opener.focus();
+      window.close();
+      return;
+    }
+    navigate('/booking');
+  };
+
   return (
     <div className="w-full mt-24">
       {/* Book a Project — CTA Card */}
@@ -33,10 +43,7 @@ export default function ReadyToBuild() {
         <div className="relative z-10 flex flex-col items-center md:items-end gap-4 flex-shrink-0">
           <button
             id="shared-book-btn"
-            onClick={() => {
-              navigate('/booking');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
+            onClick={handleBookClick}
             className="group relative overflow-hidden bg-primary text-dark font-sans font-bold uppercase tracking-widest text-xs px-8 py-5 rounded-full flex items-center gap-4 hover:scale-[1.03] transition-transform duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] focus:outline-none"
           >
             <span className="absolute inset-0 bg-accent translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-in-out" />

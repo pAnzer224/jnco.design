@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "@phosphor-icons/react";
 
-const RESUME_PATH = "/images/Mirande_Juneco_Resume.pdf";
+const RESUME_PATH = "/images/resume_portfolio.html";
 
 export default function Resume({ setActivePage }) {
     useEffect(() => {
@@ -19,8 +19,8 @@ export default function Resume({ setActivePage }) {
     }, [setActivePage]);
 
     return (
-        <section className="relative w-full min-h-screen bg-dark text-primary flex flex-col">
-            <div className="flex items-center justify-between gap-4 px-4 sm:px-8 py-5 border-b border-primary/10">
+        <section className="relative w-full h-svh overflow-hidden bg-dark text-primary flex flex-col">
+            <div className="shrink-0 flex items-center justify-between gap-4 px-4 sm:px-8 py-5 border-b border-primary/10">
                 <Link
                     to="/"
                     className="group flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-primary/60 hover:text-accent transition-colors duration-300"
@@ -33,16 +33,16 @@ export default function Resume({ setActivePage }) {
                 <span className="w-[72px] sm:w-[92px]" aria-hidden="true" />
             </div>
 
-            <div className="flex-1 w-full px-2 sm:px-8 py-4 sm:py-8">
+            <div className="relative z-0 flex-1 min-h-0 w-full px-0 md:px-8 py-0 md:py-8">
                 <div
-                    className="w-full h-[calc(100dvh-140px)] max-w-4xl mx-auto rounded-xl sm:rounded-2xl overflow-hidden border border-primary/10 shadow-2xl bg-primary/5"
+                    className="relative z-0 w-full h-full md:h-[calc(100dvh-140px)] md:max-w-4xl md:mx-auto rounded-t-2xl md:rounded-2xl overflow-hidden border-0 md:border md:border-primary/10 shadow-none md:shadow-2xl bg-primary/5"
                     onContextMenu={(e) => e.preventDefault()}
                     onDragStart={(e) => e.preventDefault()}
                 >
                     <iframe
-                        src={`${RESUME_PATH}#toolbar=0&navpanes=0`}
+                        src={RESUME_PATH}
                         title="Juneco Mirande Resume"
-                        className="w-full h-full"
+                        className="absolute inset-0 w-full h-full"
                     />
                 </div>
             </div>

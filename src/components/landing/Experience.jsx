@@ -161,11 +161,13 @@ const Experience = () => {
 
             {/* Action */}
             <div className="exp-header-anim opacity-0 -translate-x-10 flex flex-col gap-3">
-              <a href="https://www.linkedin.com/in/juneco-mirande/" target="_blank" rel="noopener noreferrer" className="bg-accent/10 rounded-2xl p-4 border border-accent/20 flex items-center justify-center hover:bg-accent hover:text-white transition-colors duration-300 group cursor-pointer">
+              <a href="https://www.linkedin.com/in/juneco-mirande/" target="_blank" rel="noopener noreferrer" data-cursor-text="View" data-cursor-style="tooltip" className="bg-accent/10 rounded-2xl p-4 border border-accent/20 flex items-center justify-center hover:bg-accent hover:text-white transition-colors duration-300 group cursor-pointer">
                 <p className="font-mono text-[10px] text-accent uppercase tracking-widest font-bold group-hover:text-background transition-colors duration-300">Connect on LinkedIn</p>
               </a>
               <button
                 type="button"
+                data-cursor-text="View"
+                data-cursor-style="tooltip"
                 onClick={() => window.open("/resume", "_blank")}
                 className="flex items-center justify-center transition-colors duration-300 cursor-pointer"
               >

@@ -216,6 +216,12 @@ export default function Nav({ activePage, setActivePage }) {
   const widthClass = isHovered ? "w-[11.5rem]" : "w-[4.5rem]";
 
   const handleContactClick = () => {
+    if (window.opener && !window.opener.closed) {
+      window.opener.postMessage({ type: "PORTFOLIO_NAV", path: "/#contact" }, window.location.origin);
+      window.opener.focus();
+      window.close();
+      return;
+    }
     if (setActivePage) setActivePage("contact");
     if (location.pathname !== "/") {
       navigate("/#contact");
@@ -308,6 +314,12 @@ export default function Nav({ activePage, setActivePage }) {
           <button
             onClick={() => {
               setIsMobileMenuOpen(false);
+              if (window.opener && !window.opener.closed) {
+                window.opener.postMessage({ type: "PORTFOLIO_NAV", path: "/#contact" }, window.location.origin);
+                window.opener.focus();
+                window.close();
+                return;
+              }
               if (setActivePage) setActivePage("contact");
               if (location.pathname !== "/") {
                 navigate("/#contact");
