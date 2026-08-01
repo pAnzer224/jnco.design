@@ -65,7 +65,7 @@ function WorkCard({ item, onClick, isChoros = false }) {
         >
           {/* Shared background plate, visible by default on desktop, fades out on hover */}
           <img
-            src="/images/thumbnail-background.webp"
+            src="/images/backgrounds/thumbnail-background.webp"
             alt=""
             aria-hidden="true"
             loading="lazy"
@@ -121,14 +121,14 @@ export default function UIUX({ setActivePage }) {
     () => [
       {
         type: "scrollable-image",
-        images: ["/images/cw4a1.webp"],
+        images: ["/images/CW4A/cw4a1.webp"],
         thumbnail: "/images/CW4A/CW4A-background.webp",
         thumbnailSubject: "/images/CW4A/CW4A-subject.webp",
         subjectHoverScale:
           "group-hover:scale-[1.18] group-hover:translate-y-[3rem]",
         title: "CW4A",
         category: "Web Design",
-        tools: ["/images/photoshop.svg"],
+        tools: ["/images/logos/photoshop.svg"],
         role: "Web Graphic Designer",
         challenge:
           "Design modern, advocacy-driven web pages for community wellness programs.",
@@ -144,7 +144,7 @@ export default function UIUX({ setActivePage }) {
         subjectHoverScale: "group-hover:scale-110",
         title: "Negros Delights",
         category: "Mobile Application",
-        tools: ["/images/figma.svg"],
+        tools: ["/images/logos/figma.svg"],
         role: "Product Designer & Researcher",
         challenge:
           "Create a mobile ordering experience that highlights regional delicacies of Negros, solving poor local search visibility.",
@@ -168,7 +168,7 @@ export default function UIUX({ setActivePage }) {
           "group-hover:scale-[1.18] group-hover:translate-y-[3rem]",
         title: "Oracle UI/UX Redesign",
         category: "Interface Redesign",
-        tools: ["/images/photoshop.svg"],
+        tools: ["/images/logos/photoshop.svg"],
         role: "Visual UI Designer",
         challenge:
           "Redesign complex legacy database tables and widgets to fit a clean visual identity.",
@@ -185,7 +185,7 @@ export default function UIUX({ setActivePage }) {
           "group-hover:scale-[1.18] group-hover:translate-y-[3rem]",
         title: "LACO Innovation Hub",
         category: "UI/UX Figma Champion (1st Place)",
-        tools: ["/images/figma.svg"],
+        tools: ["/images/logos/figma.svg"],
         role: "Lead UI/UX Designer",
         challenge:
           "Design a collaborative workspace for students and innovators to pitch projects, collaborate on team boards, and share IT Month resources.",
@@ -211,13 +211,13 @@ export default function UIUX({ setActivePage }) {
         subjectHoverScale: "group-hover:scale-110",
         title: "SmartCart",
         category: "Mobile App Design",
-        tools: ["/images/figma.svg"],
+        tools: ["/images/logos/figma.svg"],
         role: "Interface Designer",
         challenge:
           "Design an optimized mobile checkout interface to simplify offline-to-online item scanning and purchase confirmation.",
         solution:
           "Implemented horizontal product scrolling layouts, rapid checkout sheets, and high-contrast total breakdown tables.",
-        images: ["/images/smartcart.webp", "/images/smartcart.webp"],
+        images: ["/images/smartcart/smartcart.webp", "/images/smartcart/smartcart.webp"],
       },
 
       {
@@ -229,7 +229,7 @@ export default function UIUX({ setActivePage }) {
           "group-hover:scale-[1.18] group-hover:translate-y-[3rem]",
         title: "Maestro Solutions",
         category: "Software Engineering Project",
-        tools: ["/images/figma.svg"],
+        tools: ["/images/logos/figma.svg"],
         role: "Lead UI/UX Designer",
         challenge:
           "Design a robust software management suite for academic developer teams to track project backlogs and milestones.",
@@ -256,7 +256,7 @@ export default function UIUX({ setActivePage }) {
           "group-hover:scale-[1.18] group-hover:translate-y-[3rem]",
         title: "Choros.io Redesign",
         category: "Skills Display",
-        tools: ["/images/figma.svg"],
+        tools: ["/images/logos/figma.svg"],
         role: "OJT UI/UX Designer",
         challenge:
           "Assist in redesigning the core business service platform layout to enhance usability and feature discovery.",
@@ -283,7 +283,7 @@ export default function UIUX({ setActivePage }) {
           "group-hover:scale-[1.18] group-hover:translate-y-[3rem]",
         title: "Y-Commerce",
         category: "Figma Prototype",
-        tools: ["/images/figma.svg"],
+        tools: ["/images/logos/figma.svg"],
         role: "OJT UI/UX Designer",
         challenge:
           "Build a responsive mobile e-commerce mockup to present feature capabilities during client pitches.",
@@ -394,7 +394,7 @@ export default function UIUX({ setActivePage }) {
                 onClick={(e) => e.stopPropagation()}
               >
                 <img
-                  src="/images/choros-logo.webp"
+                  src="/images/logos/choros-logo.webp"
                   alt="Choros.io"
                   loading="lazy"
                   decoding="async"

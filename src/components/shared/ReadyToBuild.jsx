@@ -21,7 +21,7 @@ export default function ReadyToBuild() {
       <div className="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-dark p-8 sm:p-12 md:p-14 flex flex-col md:flex-row items-center md:items-center justify-between gap-8 text-left">
 
         {/* Background glow */}
-        <div className="absolute top-0 right-0 w-[400px] h-[300px] bg-accent/10 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute top-0 right-0 w-[400px] h-[300px] pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(199, 178, 143, 0.12) 0%, transparent 70%)' }} />
         <div
           className="absolute inset-0 opacity-[0.04] pointer-events-none"
           style={{

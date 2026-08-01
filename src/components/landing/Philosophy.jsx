@@ -57,7 +57,7 @@ const Philosophy = () => {
         <section ref={containerRef} className="relative bg-dark text-primary min-h-screen flex flex-col justify-center py-32 md:pl-[120px] lg:pl-[140px] w-full" id="philosophy">
             <div
                 className="absolute inset-0 opacity-10 bg-cover bg-fixed bg-center mix-blend-lighten grayscale"
-                style={{ backgroundImage: "url('/images/laco.webp')" }}
+                style={{ backgroundImage: "url('/images/LACO/laco.webp')" }}
             />
 
             <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center justify-center text-center md:items-start md:text-left pb-20 border-b border-primary/10 px-4 md:pl-0 md:pr-4">

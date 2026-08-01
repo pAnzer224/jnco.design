@@ -86,7 +86,7 @@ const FeatureCards = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                <div className="feature-card opacity-0 translate-y-10 relative bg-primary/80 backdrop-blur-md border-[1.5px] border-dark/10 rounded-[2rem] h-[400px] p-8 shadow-xl flex flex-col justify-between overflow-hidden group hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:shadow-2xl hover:shadow-dark/5">
+                <div className="feature-card opacity-0 translate-y-10 relative bg-primary border-[1.5px] border-dark/10 rounded-[2rem] h-[400px] p-8 shadow-xl flex flex-col justify-between overflow-hidden group hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:shadow-2xl hover:shadow-dark/5 will-change-transform">
                     <div>
                         <div className="flex justify-between items-center mb-8 text-black">
                             <FigmaLogo size={32} weight="duotone" />
@@ -104,7 +104,7 @@ const FeatureCards = () => {
                             return (
                                 <div
                                     key={card.id}
-                                    className="absolute bottom-0 w-full bg-background border border-dark/20 p-4 rounded-xl shadow-lg transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] flex items-center gap-4"
+                                    className="absolute bottom-0 w-full bg-background border border-dark/20 p-4 rounded-xl shadow-lg transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] flex items-center gap-4 will-change-transform"
                                     style={{
                                         zIndex,
                                         transform: `translateY(-${translateY}px) scale(${scale})`,
@@ -124,7 +124,7 @@ const FeatureCards = () => {
                     </div>
                 </div>
 
-                <div className="feature-card opacity-0 translate-y-10 bg-dark/95 backdrop-blur-md rounded-[2rem] h-[400px] p-8 shadow-xl flex flex-col justify-between border-2 border-transparent hover:border-accent/30 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-2 group hover:shadow-2xl hover:shadow-accent/5">
+                <div className="feature-card opacity-0 translate-y-10 bg-dark rounded-[2rem] h-[400px] p-8 shadow-xl flex flex-col justify-between border-2 border-transparent hover:border-accent/30 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-2 group hover:shadow-2xl hover:shadow-accent/5 will-change-transform">
                     <div>
                         <div className="flex justify-between items-center mb-8 text-primary">
                             <PaintBrush size={32} weight="duotone" className="text-accent" />
@@ -144,7 +144,7 @@ const FeatureCards = () => {
                     </div>
                 </div>
 
-                <div className="feature-card opacity-0 translate-y-10 relative bg-primary/80 backdrop-blur-md border-[1.5px] border-dark/10 rounded-[2rem] h-[400px] p-8 shadow-xl flex flex-col justify-between hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] overflow-hidden md:col-span-2 lg:col-span-1 hover:shadow-2xl hover:shadow-dark/5">
+                <div className="feature-card opacity-0 translate-y-10 relative bg-primary border-[1.5px] border-dark/10 rounded-[2rem] h-[400px] p-8 shadow-xl flex flex-col justify-between hover:-translate-y-2 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] overflow-hidden md:col-span-2 lg:col-span-1 hover:shadow-2xl hover:shadow-dark/5 will-change-transform">
                     <div>
                         <div className="flex justify-between items-center mb-8 text-dark">
                             <TerminalWindow size={32} weight="duotone" />

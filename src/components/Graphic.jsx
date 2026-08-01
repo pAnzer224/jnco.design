@@ -8,8 +8,9 @@ import ReadyToBuild from "./shared/ReadyToBuild";
 import GlareHover from "./GlareHover";
 
 function ImageComparisonSlider({ before, after, title, aspectClass = "aspect-auto", fit = "cover", fill = true, bare = false, onInteractionStart, onInteractionEnd }) {
-  const [sliderPosition, setSliderPosition] = useState(50);
   const containerRef = useRef(null);
+  const beforeOverlayRef = useRef(null);
+  const dividerRef = useRef(null);
   const isDragging = useRef(false);
 
   const updateSlider = (clientX) => {
@@ -19,7 +20,13 @@ function ImageComparisonSlider({ before, after, title, aspectClass = "aspect-aut
     let percentage = (x / rect.width) * 100;
     if (percentage < 0) percentage = 0;
     if (percentage > 100) percentage = 100;
-    setSliderPosition(percentage);
+    
+    if (beforeOverlayRef.current) {
+      beforeOverlayRef.current.style.clipPath = `polygon(0 0, ${percentage}% 0, ${percentage}% 100%, 0 100%)`;
+    }
+    if (dividerRef.current) {
+      dividerRef.current.style.left = `${percentage}%`;
+    }
   };
 
   const handleStart = (e) => {
@@ -72,8 +79,9 @@ function ImageComparisonSlider({ before, after, title, aspectClass = "aspect-aut
 
         {/* Before Image (Overlay clipped by clipPath) */}
         <div
+          ref={beforeOverlayRef}
           className="absolute inset-0 pointer-events-none"
-          style={{ clipPath: `polygon(0 0, ${sliderPosition}% 0, ${sliderPosition}% 100%, 0 100%)` }}
+          style={{ clipPath: `polygon(0 0, 50% 0, 50% 100%, 0 100%)` }}
         >
           <img
             src={before}
@@ -84,8 +92,9 @@ function ImageComparisonSlider({ before, after, title, aspectClass = "aspect-aut
 
         {/* Divider line */}
         <div
+          ref={dividerRef}
           className="absolute top-0 bottom-0 w-1 bg-accent pointer-events-none"
-          style={{ left: `${sliderPosition}%`, transform: 'translateX(-50%)' }}
+          style={{ left: `50%`, transform: 'translateX(-50%)' }}
         >
           {/* Slider knob */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-accent border-2 border-primary flex items-center justify-center shadow-[0_0_15px_rgba(0,0,0,0.5)]">
@@ -131,12 +140,12 @@ export default function Graphics({ setActivePage }) {
     () => [
       {
         type: "slider",
-        thumbnail: "/images/simulatedsanctuarythumb.webp",
-        image: "/images/simulatedsanctuary.webp",
-        beforeImage: "/images/simulatedsanctuary-before.webp",
+        thumbnail: "/images/simulated-sanctuary/thumb.webp",
+        image: "/images/simulated-sanctuary/after.webp",
+        beforeImage: "/images/simulated-sanctuary/before.webp",
         title: "Simulated Sanctuary",
         category: "Photo Manipulation",
-        tools: ["/images/photoshop.svg"],
+        tools: ["/images/logos/photoshop.svg"],
       },
       {
         type: "gallery",
@@ -151,26 +160,27 @@ export default function Graphics({ setActivePage }) {
         ],
         title: "TI",
         category: "Branding/Marketing Graphics",
-        tools: ["/images/photoshop.svg"],
+        tools: ["/images/logos/photoshop.svg"],
       },
       {
         type: "gallery",
-        thumbnail: "/images/icecream2.webp",
+        thumbnail: "/images/poster-making/fb-meta-ads.webp",
         images: [
-          "/images/icecream1.webp",
-          "/images/icecream2.webp",
+          "/images/poster-making/fb-meta-ads.webp",
+          "/images/poster-making/1.webp",
+          "/images/poster-making/2.webp",
         ],
         title: "Poster Making",
-        category: "Ice Cream Pricing Poster",
-        tools: ["/images/photoshop.svg"],
+        category: "Client Work & Facebook Meta Ads",
+        tools: ["/images/logos/photoshop.svg"],
       },
       {
         type: "single",
-        thumbnail: "/images/graphic1.webp",
-        image: "/images/graphic1.webp",
+        thumbnail: "/images/graphic1/graphic1.webp",
+        image: "/images/graphic1/graphic1.webp",
         title: "Infographic",
         category: "Information Design",
-        tools: ["/images/photoshop.svg"],
+        tools: ["/images/logos/photoshop.svg"],
       },
       {
         type: "gallery",
@@ -184,7 +194,7 @@ export default function Graphics({ setActivePage }) {
         ],
         title: "Neue Dept.",
         category: "Branding/Marketing Graphics",
-        tools: ["/images/photoshop.svg"],
+        tools: ["/images/logos/photoshop.svg"],
       },
     ],
     []
@@ -201,7 +211,7 @@ export default function Graphics({ setActivePage }) {
         ],
         title: "Sailing Pass",
         category: "Graphic Design",
-        tools: ["/images/photoshop.svg", "/images/illustrator.svg"],
+        tools: ["/images/logos/photoshop.svg", "/images/logos/illustrator.svg"],
       },
       {
         type: "gallery",
@@ -212,7 +222,7 @@ export default function Graphics({ setActivePage }) {
         ],
         title: "Shane Bowden",
         category: "Graphic Design",
-        tools: ["/images/photoshop.svg", "/images/illustrator.svg"],
+        tools: ["/images/logos/photoshop.svg", "/images/logos/illustrator.svg"],
       },
     ],
     []
@@ -260,6 +270,35 @@ export default function Graphics({ setActivePage }) {
     ) {
       const images = imageRefs.current;
 
+      // Initialize all slides immediately without animation to prevent flash
+      images.forEach((img, index) => {
+        if (!img) return;
+        const distance = index - currentIndex;
+        const absDistance = Math.abs(distance);
+        if (distance === 0) {
+          gsap.set(img, { x: 0, scale: 1, opacity: 1, zIndex: 10 });
+        } else {
+          const offset = distance * 45;
+          gsap.set(img, {
+            x: `${offset}%`,
+            scale: 0.7 - absDistance * 0.1,
+            opacity: absDistance === 1 ? 0.6 : 0,
+            zIndex: 10 - absDistance,
+          });
+        }
+      });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [openModal]);
+
+  useEffect(() => {
+    if (
+      openModal !== null &&
+      allWorks[openModal].type === "gallery" &&
+      imageRefs.current.length > 0
+    ) {
+      const images = imageRefs.current;
+
       images.forEach((img, index) => {
         if (!img) return;
 
@@ -271,7 +310,6 @@ export default function Graphics({ setActivePage }) {
           gsap.to(img, {
             x: 0,
             scale: 1,
-            filter: "blur(0px)",
             opacity: 1,
             zIndex: 10,
             duration: 0.6,
@@ -287,12 +325,11 @@ export default function Graphics({ setActivePage }) {
             videoRefs.current[index].play();
           }
         } else {
-          // Other images - offset, scaled down, blurred
+          // Other images - offset, scaled down, no blur
           const offset = distance * 45; // percentage offset
           gsap.to(img, {
             x: `${offset}%`,
             scale: 0.7 - absDistance * 0.1,
-            filter: `blur(${absDistance * 8}px)`,
             opacity: absDistance === 1 ? 0.6 : 0.3,
             zIndex: 10 - absDistance,
             duration: 0.6,
@@ -308,6 +345,7 @@ export default function Graphics({ setActivePage }) {
       });
     }
   }, [currentIndex, openModal, allWorks]);
+
 
   const handlePrev = () => {
     setCurrentIndex((prev) =>
@@ -538,9 +576,17 @@ export default function Graphics({ setActivePage }) {
             </div>
           </>
         ) : (
-          <div
+          <GlareHover
+            width="100%"
+            height="100%"
+            borderRadius="2rem"
+            glareColor="#ffffff"
+            glareOpacity={0.15}
+            glareAngle={-30}
+            glareSize={220}
+            transitionDuration={900}
             className={`flex flex-col p-3 ${isClustered ? 'flex-1 min-h-0' : ''}`}
-            style={{ display: 'flex', flexDirection: 'column', minHeight: 0 }}
+            style={{ display: 'flex', flexDirection: 'column', minHeight: 0, overflow: 'visible' }}
           >
             <div className="flex items-center justify-between mb-3 px-2 pt-1">
               <div className="min-w-0">
@@ -573,7 +619,6 @@ export default function Graphics({ setActivePage }) {
             <div
               className={`relative w-full h-full ${isClustered ? 'flex-1 min-h-0' : 'aspect-[4/3]'}`}
               onMouseEnter={(e) => {
-                if (item.title === 'Poster Making') return;
                 const el = e.currentTarget.querySelector('.js-expand-img');
                 const img = e.currentTarget.querySelector('img');
                 if (el && img && img.naturalWidth) {
@@ -582,12 +627,11 @@ export default function Graphics({ setActivePage }) {
                 }
               }}
               onMouseLeave={(e) => {
-                if (item.title === 'Poster Making') return;
                 const el = e.currentTarget.querySelector('.js-expand-img');
                 if (el) el.style.height = '';
               }}
             >
-              <div className={`js-expand-img absolute top-0 left-0 right-0 h-full rounded-[1.4rem] overflow-hidden transition-[height,border-radius,box-shadow,transform] duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] bg-dark/5 z-0 pointer-events-none ${item.title === 'Poster Making' ? 'group-hover:scale-[1.02] group-hover:shadow-[0_15px_30px_-5px_rgba(0,0,0,0.2)]' : 'group-hover:scale-[1.03] group-hover:rounded-none group-hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.4)]'}`}>
+              <div className="js-expand-img absolute top-0 left-0 right-0 h-full rounded-[1.4rem] overflow-hidden transition-[height,border-radius,box-shadow,transform] duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] bg-dark/5 z-0 pointer-events-none group-hover:scale-[1.03] group-hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.4)]">
                 <GlareHover
                   width="100%"
                   height="100%"
@@ -618,7 +662,7 @@ export default function Graphics({ setActivePage }) {
                 </GlareHover>
               </div>
             </div>
-          </div>
+          </GlareHover>
         )}
       </div>
     );
@@ -690,7 +734,7 @@ export default function Graphics({ setActivePage }) {
                 onClick={(e) => e.stopPropagation()}
               >
                 <img
-                  src="/images/choros-logo.webp"
+                  src="/images/logos/choros-logo.webp"
                   alt="Choros.io"
                   className="h-10 sm:h-14 w-auto object-contain"
                 />
@@ -729,7 +773,18 @@ export default function Graphics({ setActivePage }) {
                 style={{ zIndex: hoveredCard === (works.length + index) ? 100 : 'auto' }}
                 className="flex flex-col cursor-pointer group rounded-[2rem] border border-dark/10 shadow-sm bg-primary transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-dark/20 relative"
               >
-                <div className="flex flex-col p-3" style={{ display: 'flex', flexDirection: 'column' }}>
+                <GlareHover
+                  width="100%"
+                  height="100%"
+                  borderRadius="2rem"
+                  glareColor="#ffffff"
+                  glareOpacity={0.15}
+                  glareAngle={-30}
+                  glareSize={220}
+                  transitionDuration={900}
+                  className="flex flex-col p-3"
+                  style={{ display: 'flex', flexDirection: 'column', overflow: 'visible' }}
+                >
                   <div className="flex items-center justify-between mb-3 px-2 pt-1">
                     <div className="min-w-0">
                       <div className="font-sans font-bold text-base uppercase tracking-tight text-dark leading-tight truncate">{item.title}</div>
@@ -766,7 +821,7 @@ export default function Graphics({ setActivePage }) {
                       if (el) el.style.height = '';
                     }}
                   >
-                    <div className="js-expand-img absolute top-0 left-0 right-0 h-full rounded-[1.4rem] overflow-hidden transition-[height,border-radius,box-shadow,transform] duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.03] group-hover:rounded-none group-hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.4)] bg-dark/5 z-0 pointer-events-none">
+                    <div className="js-expand-img absolute top-0 left-0 right-0 h-full rounded-[1.4rem] overflow-hidden transition-[height,border-radius,box-shadow,transform] duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.03] group-hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.4)] bg-dark/5 z-0 pointer-events-none">
                       <GlareHover
                         width="100%"
                         height="100%"
@@ -788,7 +843,7 @@ export default function Graphics({ setActivePage }) {
                       </GlareHover>
                     </div>
                   </div>
-                </div>
+                </GlareHover>
               </div>
             );
           })}

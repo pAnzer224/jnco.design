@@ -58,9 +58,9 @@ export default function WebDev({ setActivePage }) {
         title: "Trekko Rentals",
         category: "Full-Stack Web App",
         tools: [
-          "/images/nextjs.svg",
-          "/images/tailwind.svg",
-          "/images/firebase.svg",
+          "/images/logos/nextjs.svg",
+          "/images/logos/tailwind.svg",
+          "/images/logos/firebase.svg",
         ],
         role: "Full-Stack Developer",
         challenge:
@@ -78,9 +78,9 @@ export default function WebDev({ setActivePage }) {
         title: "Dr. Jas Pet Care",
         category: "Capstone Project",
         tools: [
-          "/images/nextjs.svg",
-          "/images/tailwind.svg",
-          "/images/supabase.svg",
+          "/images/logos/nextjs.svg",
+          "/images/logos/tailwind.svg",
+          "/images/logos/supabase.svg",
         ],
         role: "Full-Stack Developer (Best Capstone Designer)",
         challenge:
@@ -97,13 +97,13 @@ export default function WebDev({ setActivePage }) {
       {
         type: "link",
         url: "https://youreventcover.co.uk/",
-        thumbnail: "/images/youreventcover.webp",
+        thumbnail: "/images/youreventcover/youreventcover.webp",
         title: "Your Event Cover",
         category: "Front-end & UI/UX Design",
         tools: [
-          "/images/figma.svg",
-          "/images/laravel.svg",
-          "/images/tailwind.svg",
+          "/images/logos/figma.svg",
+          "/images/logos/laravel.svg",
+          "/images/logos/tailwind.svg",
         ],
         disableIframe: true,
         role: "OJT Frontend Developer & QA",
@@ -115,13 +115,13 @@ export default function WebDev({ setActivePage }) {
       {
         type: "link",
         url: "https://goodplumbing.co.uk/",
-        thumbnail: "/images/goodplumbing.webp",
+        thumbnail: "/images/goodplumbing/goodplumbing.webp",
         title: "Good Plumbing",
         category: "Front-end & UI/UX Design",
         tools: [
-          "/images/figma.svg",
-          "/images/laravel.svg",
-          "/images/tailwind.svg",
+          "/images/logos/figma.svg",
+          "/images/logos/laravel.svg",
+          "/images/logos/tailwind.svg",
         ],
         disableIframe: true,
         role: "OJT Frontend Developer & QA",
@@ -133,13 +133,13 @@ export default function WebDev({ setActivePage }) {
       {
         type: "link",
         url: "https://manorvale-main.laravel.cloud/",
-        thumbnail: "/images/manorvale.webp",
+        thumbnail: "/images/manorvale/manorvale.webp",
         title: "Manorvale",
         category: "Front-end & UI/UX Design",
         tools: [
-          "/images/figma.svg",
-          "/images/laravel.svg",
-          "/images/tailwind.svg",
+          "/images/logos/figma.svg",
+          "/images/logos/laravel.svg",
+          "/images/logos/tailwind.svg",
         ],
         disableIframe: true,
         role: "OJT Frontend Developer & QA",
@@ -151,13 +151,13 @@ export default function WebDev({ setActivePage }) {
       {
         type: "link",
         url: "https://mould-damp.co.uk/",
-        thumbnail: "/images/mould.webp",
+        thumbnail: "/images/mould/mould.webp",
         title: "Mould Damp",
         category: "Front-end & UI/UX Design",
         tools: [
-          "/images/figma.svg",
-          "/images/laravel.svg",
-          "/images/tailwind.svg",
+          "/images/logos/figma.svg",
+          "/images/logos/laravel.svg",
+          "/images/logos/tailwind.svg",
         ],
         disableIframe: true,
         role: "OJT Frontend Developer & QA",
@@ -169,13 +169,13 @@ export default function WebDev({ setActivePage }) {
       {
         type: "link",
         url: "https://wefit-main.laravel.cloud/",
-        thumbnail: "/images/wefit.webp",
+        thumbnail: "/images/wefit/wefit.webp",
         title: "We Fit",
         category: "Front-end & UI/UX Design",
         tools: [
-          "/images/figma.svg",
-          "/images/laravel.svg",
-          "/images/tailwind.svg",
+          "/images/logos/figma.svg",
+          "/images/logos/laravel.svg",
+          "/images/logos/tailwind.svg",
         ],
         disableIframe: true,
         role: "OJT Frontend Developer & QA",
@@ -308,7 +308,7 @@ export default function WebDev({ setActivePage }) {
                 className={`relative w-full aspect-[4/3] rounded-[1.4rem] overflow-hidden transition-all duration-300 ease-out group-hover:scale-[1.03] group-hover:shadow-[0_15px_30px_-5px_rgba(0,0,0,0.15)] ${!imagesLoaded[item.thumbnail] ? "skeleton" : "bg-dark/5"}`}
               >
                 <img
-                  src="/images/thumbnail-background.webp"
+                  src="/images/backgrounds/thumbnail-background.webp"
                   alt=""
                   aria-hidden="true"
                   loading="lazy"
@@ -364,7 +364,7 @@ export default function WebDev({ setActivePage }) {
                 onClick={(e) => e.stopPropagation()}
               >
                 <img
-                  src="/images/choros-logo.webp"
+                  src="/images/logos/choros-logo.webp"
                   alt="Choros.io"
                   loading="lazy"
                   decoding="async"

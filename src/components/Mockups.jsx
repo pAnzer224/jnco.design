@@ -22,37 +22,37 @@ export default function Mockups({ setActivePage }) {
 
   const works = useMemo(() => [
     {
-      thumbnail: "/images/artifythumb.webp",
+      thumbnail: "/images/artify/thumb.webp",
       images: [
-        "/images/artify0.webp",
-        "/images/artify1.webp",
-        "/images/artify2.webp",
-        "/images/artify3.webp",
+        "/images/artify/artify0.webp",
+        "/images/artify/artify1.webp",
+        "/images/artify/artify2.webp",
+        "/images/artify/artify3.webp",
       ],
       title: "Artify",
       category: "Brand Design",
-      tools: ["/images/photoshop.svg"],
+      tools: ["/images/logos/photoshop.svg"],
     },
     {
-      thumbnail: "/images/panzerexoticsthumb.webp",
+      thumbnail: "/images/panzer-exotics/thumb.webp",
       images: [
-        "/images/panzerexotics2.webp",
-        "/images/panzerexotics3.webp",
-        "/images/panzerexotics4.webp",
-        "/images/panzerexotics5.webp",
-        "/images/panzerexotics6.webp",
-        "/images/panzerexotics7.webp",
+        "/images/panzer-exotics/panzerexotics2.webp",
+        "/images/panzer-exotics/panzerexotics3.webp",
+        "/images/panzer-exotics/panzerexotics4.webp",
+        "/images/panzer-exotics/panzerexotics5.webp",
+        "/images/panzer-exotics/panzerexotics6.webp",
+        "/images/panzer-exotics/panzerexotics7.webp",
       ],
       title: "Panzer Exotics",
       category: "Product Design",
-      tools: ["/images/photoshop.svg"],
+      tools: ["/images/logos/photoshop.svg"],
     },
     {
-      thumbnail: "/images/smartcartthumb.webp",
-      images: ["/images/smartcart1.webp"],
+      thumbnail: "/images/smartcart/thumb.webp",
+      images: ["/images/smartcart/smartcart1.webp"],
       title: "SmartCart",
       category: "Mobile Design",
-      tools: ["/images/photoshop.svg"],
+      tools: ["/images/logos/photoshop.svg"],
     },
   ], []);
 
@@ -75,19 +75,17 @@ export default function Mockups({ setActivePage }) {
           gsap.to(img, {
             x: 0,
             scale: 1,
-            filter: "blur(0px)",
             opacity: 1,
             zIndex: 10,
             duration: 0.6,
             ease: "power2.out",
           });
         } else {
-          // Other images - offset, scaled down, blurred
+          // Other images - offset, scaled down, no blur
           const offset = distance * 45; // percentage offset
           gsap.to(img, {
             x: `${offset}%`,
             scale: 0.7 - absDistance * 0.1,
-            filter: `blur(${absDistance * 8}px)`,
             opacity: absDistance === 1 ? 0.6 : 0.3,
             zIndex: 10 - absDistance,
             duration: 0.6,

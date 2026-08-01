@@ -349,14 +349,14 @@ const HeroSection = () => {
                               </button>
                               <div className="bg-[#1C2329] px-5 py-3 border-b border-white/5">
                                 <img
-                                  src="/images/LinkedIn_logo.svg"
+                                  src="/images/logos/LinkedIn_logo.svg"
                                   alt="LinkedIn"
                                   className="h-4 w-auto brightness-0 invert opacity-90"
                                 />
                               </div>
                               <div className="p-5">
                                 <img
-                                  src="/images/linkedin-avatar.webp"
+                                  src="/images/avatars/linkedin-avatar.webp"
                                   alt="Juneco Mirande"
                                   className="w-16 h-16 rounded-full border border-white/10 mb-3 object-cover shadow-sm bg-gray-800"
                                 />
@@ -411,14 +411,14 @@ const HeroSection = () => {
                             </button>
                             <div className="bg-[#1C2329] px-5 py-3 border-b border-white/5">
                               <img
-                                src="/images/LinkedIn_logo.svg"
+                                src="/images/logos/LinkedIn_logo.svg"
                                 alt="LinkedIn"
                                 className="h-4 w-auto brightness-0 invert opacity-90"
                               />
                             </div>
                             <div className="p-5">
                               <img
-                                src="/images/linkedin-avatar.webp"
+                                src="/images/avatars/linkedin-avatar.webp"
                                 alt="Juneco Mirande"
                                 className="w-16 h-16 rounded-full border border-white/10 mb-3 object-cover shadow-sm bg-gray-800"
                               />
@@ -475,7 +475,7 @@ const HeroSection = () => {
               <div
                 className="absolute inset-0 bg-cover bg-center opacity-50"
                 style={{
-                  backgroundImage: "url('/images/fb-meta-ads.webp')",
+                  backgroundImage: "url('/images/poster-making/fb-meta-ads.webp')",
                 }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
@@ -501,7 +501,7 @@ const HeroSection = () => {
             >
               <div
                 className="absolute inset-0 bg-cover bg-center opacity-50"
-                style={{ backgroundImage: "url('/images/uiux-bg.webp')" }}
+                style={{ backgroundImage: "url('/images/backgrounds/uiux-bg.webp')" }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
               <div className="relative z-10 h-full p-6 flex flex-col">
@@ -526,7 +526,7 @@ const HeroSection = () => {
             >
               <div
                 className="absolute inset-0 bg-cover bg-center opacity-50"
-                style={{ backgroundImage: "url('/images/mockups-bg.webp')" }}
+                style={{ backgroundImage: "url('/images/backgrounds/mockups-bg.webp')" }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
               <div className="relative z-10 h-full p-6 flex flex-col">
@@ -547,7 +547,7 @@ const HeroSection = () => {
             >
               <div
                 className="absolute inset-0 bg-cover bg-center opacity-50"
-                style={{ backgroundImage: "url('/images/webdev-bg.webp')" }}
+                style={{ backgroundImage: "url('/images/backgrounds/webdev-bg.webp')" }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
               <div className="relative z-10 h-full p-6 flex flex-col">

@@ -7,74 +7,74 @@ gsap.registerPlugin(ScrollTrigger);
 const techStack = [
   {
     name: "React",
-    icon: "/images/react.svg",
+    icon: "/images/logos/react.svg",
     animate: "animate-[spin_20s_linear_infinite]",
     baseOpacity: "opacity-[0.15]",
     color: "#61DAFB"
   },
   {
     name: "Next.js",
-    icon: "/images/nextjs.svg",
+    icon: "/images/logos/nextjs.svg",
     baseOpacity: "opacity-[0.15]",
     color: "#000000"
   },
   {
     name: "Laravel",
-    icon: "/images/laravel.svg",
+    icon: "/images/logos/laravel.svg",
     baseOpacity: "opacity-[0.15]",
     color: "#FF2D20"
   },
   {
     name: "PHP",
-    icon: "/images/php.svg",
+    icon: "/images/logos/php.svg",
     baseOpacity: "opacity-[0.15]",
     color: "#777BB4"
   },
   {
     name: "Supabase",
-    icon: "/images/supabase.svg",
+    icon: "/images/logos/supabase.svg",
     baseOpacity: "opacity-[0.25]",
     color: "#3ECF8E"
   },
   {
     name: "Firebase",
-    icon: "/images/firebase.svg",
+    icon: "/images/logos/firebase.svg",
     baseOpacity: "opacity-[0.25]",
     color: "#FFCA28"
   },
   {
     name: "Tailwind",
-    icon: "/images/tailwind.svg",
+    icon: "/images/logos/tailwind.svg",
     baseOpacity: "opacity-[0.25]",
     color: "#38BDF8"
   },
   {
     name: "JavaScript",
-    icon: "/images/javascript.svg",
+    icon: "/images/logos/javascript.svg",
     baseOpacity: "opacity-[0.15]",
     color: "#F7DF1E"
   },
   {
     name: "GSAP",
-    icon: "/images/gsap.svg",
+    icon: "/images/logos/gsap.svg",
     baseOpacity: "opacity-[0.15]",
     color: "#88CE02"
   },
   {
     name: "Figma",
-    icon: "/images/figma.svg",
+    icon: "/images/logos/figma.svg",
     baseOpacity: "opacity-[0.15]",
     color: "#F24E1E"
   },
   {
     name: "Photoshop",
-    icon: "/images/photoshop.svg",
+    icon: "/images/logos/photoshop.svg",
     baseOpacity: "opacity-[0.15]",
     color: "#31A8FF"
   },
   {
     name: "Illustrator",
-    icon: "/images/illustrator.svg",
+    icon: "/images/logos/illustrator.svg",
     baseOpacity: "opacity-[0.15]",
     color: "#FF9A00"
   }

@@ -8,34 +8,30 @@ gsap.registerPlugin(ScrollTrigger);
 
 const categories = [
   {
-    step: "01",
     title: "Graphic Design",
     desc: "Branding, Marketing & Visual Identity",
-    bg: "/images/simulatedsanctuarythumb.webp",
+    bg: "/images/simulated-sanctuary/thumb.webp",
     path: "/graphics",
     serviceParam: "graphic",
   },
   {
-    step: "02",
     title: "UI/UX",
     desc: "Interface Design & User Experience",
-    bg: "/images/laco.webp",
+    bg: "/images/LACO/laco.webp",
     path: "/uiux",
     serviceParam: "uiux",
   },
   {
-    step: "03",
     title: "Mockups",
     desc: "Product Design & Brand Presentations",
-    bg: "/images/artifythumb.webp",
+    bg: "/images/artify/thumb.webp",
     path: "/mockups",
     serviceParam: "mockups",
   },
   {
-    step: "04",
     title: "Web Dev",
     desc: "Full-Stack Applications & Code",
-    bg: "/images/drjas.webp",
+    bg: "/images/drjas/drjas.webp",
     path: "/webdev",
     serviceParam: "webdev",
   },
@@ -148,12 +144,7 @@ const DesktopProjectsArchive = ({ setActivePage }) => {
               {/* Dark Overlay gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent" />
 
-              <div className="absolute inset-0 flex flex-col justify-between p-8 sm:p-12 z-10 text-primary">
-                <div className="flex justify-between items-start">
-                  <span className="font-mono text-xs sm:text-sm font-bold tracking-widest text-accent border border-accent px-4 py-1 rounded-full uppercase">
-                    {card.step}
-                  </span>
-                </div>
+              <div className="absolute inset-0 flex flex-col justify-end p-8 sm:p-12 z-10 text-primary">
 
                 <div className="mt-8 transition-transform duration-500 ease-[power2.out] group-hover:-translate-y-4">
                   <h3 className="font-sans font-bold text-4xl sm:text-6xl md:text-8xl md:max-w-3xl uppercase tracking-tighter leading-none mb-4">
@@ -222,9 +213,6 @@ const MobileProjectsArchive = ({ setActivePage }) => {
 
             {/* Text */}
             <div className="flex-1 min-w-0">
-              <span className="font-mono text-[10px] font-bold tracking-[2px] text-accent uppercase">
-                {card.step}
-              </span>
               <h3 className="font-sans font-bold text-xl uppercase tracking-tighter leading-none text-primary truncate">
                 {card.title}
               </h3>

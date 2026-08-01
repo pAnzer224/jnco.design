@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 const Experience = () => {
   const sectionRef = useRef(null);
   const [hoverImage, setHoverImage] = useState(null);
-  const [lastHoverImage, setLastHoverImage] = useState("/images/drjas.webp");
+  const [lastHoverImage, setLastHoverImage] = useState("/images/drjas/drjas.webp");
   const cursorImgRef = useRef(null);
   const [isDesktop, setIsDesktop] = useState(false);
 
@@ -151,7 +151,7 @@ const Experience = () => {
             {/* Avatar + Identity */}
             <div className="exp-header-anim opacity-0 -translate-x-10 flex items-center gap-4">
               <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-dark/10 shrink-0">
-                <img src="/images/avatar.webp" alt="Juneco" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" />
+                <img src="/images/avatars/avatar.webp" alt="Juneco" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" />
               </div>
               <div>
                 <p className="font-sans font-bold text-sm text-dark uppercase tracking-tight">Juneco Mirande</p>
@@ -176,10 +176,10 @@ const Experience = () => {
             </div>
 
             {/* Education: LCCB */}
-            <div className="exp-header-anim opacity-0 -translate-x-10 mt-4 p-6 rounded-3xl border border-dark/5 bg-primary/40 backdrop-blur-sm relative overflow-hidden group">
+            <div className="exp-header-anim opacity-0 -translate-x-10 mt-4 p-6 rounded-3xl border border-dark/5 bg-primary relative overflow-hidden group will-change-transform">
               <div className="absolute -right-4 -bottom-4 opacity-[0.3] group-hover:opacity-[0.5] transition-opacity duration-500 pointer-events-none">
                 <img
-                  src="/images/lcc-logo.webp"
+                  src="/images/logos/lcc-logo.webp"
                   alt="La Consolacion College Bacolod logo"
                   className="w-32 h-32 object-contain group-hover:scale-105 group-hover:-translate-x-1 group-hover:-translate-y-1 transition-transform duration-500"
                 />
@@ -222,7 +222,7 @@ const Experience = () => {
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div className="bg-primary/40 backdrop-blur-sm p-6 rounded-[2rem] border border-dark/5 hover:border-accent/30 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-1 hover:shadow-xl hover:shadow-dark/5">
+                <div className="bg-primary/90 p-6 rounded-[2rem] border border-dark/5 hover:border-accent/30 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-1 hover:shadow-xl hover:shadow-dark/5 will-change-transform">
                   <p className="font-mono text-[11px] text-dark/70 leading-relaxed uppercase">
                     Designing and building end-to-end web applications, interactive wireframes, and digital media campaigns for client portfolios.
                   </p>
@@ -259,7 +259,7 @@ const Experience = () => {
                     OJT Intern @{" "}
                     <a href="https://choros.io" target="_blank" rel="noopener noreferrer">
                       <img
-                        src="/images/choros-logo.webp"
+                        src="/images/logos/choros-logo.webp"
                         alt="Choros.io"
                         className="h-6 w-auto object-contain hover:opacity-70 transition-opacity duration-300"
                       />
@@ -277,7 +277,7 @@ const Experience = () => {
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div className="bg-primary/40 backdrop-blur-sm p-6 rounded-[2rem] border border-dark/5 hover:border-accent/30 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-1 hover:shadow-xl hover:shadow-dark/5">
+                <div className="bg-primary/90 p-6 rounded-[2rem] border border-dark/5 hover:border-accent/30 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-1 hover:shadow-xl hover:shadow-dark/5 will-change-transform">
                   <p className="font-mono text-[11px] text-dark/70 leading-relaxed uppercase">
                     Completed 486-hour OJT with a UK-based IT company. Worked across UI/UX design, frontend development, and QA in a fully remote setup.
                   </p>
@@ -287,7 +287,7 @@ const Experience = () => {
                     { hoverText: "UI/UX design and Figma prototyping", restText: "for live product screens", img: "/images/choros-gfx/sailing-pass-1.webp", link: "/graphics#ojt-choros" },
                     {
                       hoverText: "Frontend development using React, Laravel, and Tailwind CSS",
-                      img: "/images/goodplumbing.webp",
+                      img: "/images/goodplumbing/goodplumbing.webp",
                       link: "/webdev#ojt-choros"
                     },
                     { text: "Mobile responsiveness audits and cross-browser QA testing" },
@@ -345,7 +345,7 @@ const Experience = () => {
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div className="bg-primary/40 backdrop-blur-sm p-6 rounded-[2rem] border border-dark/5 hover:border-accent/30 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-1 hover:shadow-xl hover:shadow-dark/5">
+                <div className="bg-primary/90 p-6 rounded-[2rem] border border-dark/5 hover:border-accent/30 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-1 hover:shadow-xl hover:shadow-dark/5 will-change-transform">
                   <p className="font-mono text-[11px] text-dark/70 leading-relaxed uppercase">
                     Eight years of visual communication — photo manipulation, compositing, and brand identity work across print and digital.
                   </p>
@@ -391,16 +391,16 @@ const Experience = () => {
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div className="bg-primary/40 backdrop-blur-sm p-6 rounded-[2rem] border border-dark/5 hover:border-accent/30 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-1 hover:shadow-xl hover:shadow-dark/5">
+                <div className="bg-primary/90 p-6 rounded-[2rem] border border-dark/5 hover:border-accent/30 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-1 hover:shadow-xl hover:shadow-dark/5 will-change-transform">
                   <p className="font-mono text-[11px] text-dark/70 leading-relaxed uppercase">
                     Recognized for excellence in UI/UX design, user flows, and technical proficiency during academic capstone and IT Month events.
                   </p>
                 </div>
                 <div className="space-y-4">
                   {[
-                    { hoverText: "Best Designer", restText: "for Capstone Project (Veterinary Clinic System)", img: "/images/drjas.webp", link: "/webdev", projectState: "Dr. Jas Pet Care" },
+                    { hoverText: "Best Designer", restText: "for Capstone Project (Veterinary Clinic System)", img: "/images/drjas/drjas.webp", link: "/webdev", projectState: "Dr. Jas Pet Care" },
                     { text: "Best Designer Batch 2025-2026" },
-                    { hoverText: "UI/UX Figma Champion", restText: "for IT Month (LACO Innovation Hub)", img: "/images/laco.webp", link: "/uiux", projectState: "LACO Innovation Hub" }
+                    { hoverText: "UI/UX Figma Champion", restText: "for IT Month (LACO Innovation Hub)", img: "/images/LACO/laco.webp", link: "/uiux", projectState: "LACO Innovation Hub" }
                   ].map((item, i) => (
                     <div key={i} className="flex items-start gap-3">
                       <CheckCircle weight="fill" className="text-accent w-4 h-4 mt-0.5 shrink-0" />
