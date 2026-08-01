@@ -2,16 +2,18 @@ import React, { useState, useEffect, useRef } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { gsap } from "gsap";
 import { Cursor, CursorClick, CursorTextIcon, ArrowUpRight } from "@phosphor-icons/react";
+import { trackVisit } from "./lib/pipeline-api";
 
 import Nav from "./components/Nav";
-import Home from "./components/Home";
-import Graphics from "./components/Graphic";
-import Mockups from "./components/Mockups";
-import UIUX from "./components/UIUX";
-import WebDev from "./components/WebDev";
-import NotFound from "./components/NotFound";
-import Booking from "./components/Booking";
-import Resume from "./components/Resume";
+
+const Home = React.lazy(() => import("./components/Home"));
+const Graphics = React.lazy(() => import("./components/Graphic"));
+const Mockups = React.lazy(() => import("./components/Mockups"));
+const UIUX = React.lazy(() => import("./components/UIUX"));
+const WebDev = React.lazy(() => import("./components/WebDev"));
+const NotFound = React.lazy(() => import("./components/NotFound"));
+const Booking = React.lazy(() => import("./components/Booking"));
+const Resume = React.lazy(() => import("./components/Resume"));
 
 export default function App() {
   const [activePage, setActivePage] = useState("home");
@@ -42,6 +44,11 @@ export default function App() {
       document.body.classList.remove("native-cursor");
     }
   }, [location.pathname, activePage]);
+
+  // Track page visits
+  useEffect(() => {
+    trackVisit(location.pathname);
+  }, [location.pathname]);
 
   // Custom Cursor Logic
   useEffect(() => {
@@ -171,12 +178,12 @@ export default function App() {
       >
         {cursorState === "hover-text" && (
           cursorStyle === "tooltip" ? (
-            <div className="absolute -top-[60px] bg-dark/60 backdrop-blur-md text-primary text-sm font-medium px-5 py-2.5 rounded-full whitespace-nowrap transform -translate-x-1/2 border border-primary/20 shadow-2xl flex items-center gap-2">
+            <div className="absolute -top-[60px] bg-dark/95 text-primary text-sm font-medium px-5 py-2.5 rounded-full whitespace-nowrap transform -translate-x-1/2 border border-primary/20 shadow-2xl flex items-center gap-2">
               <span>{cursorText}</span>
               <ArrowUpRight size={16} weight="bold" />
             </div>
           ) : (
-            <div className="absolute bg-dark/60 backdrop-blur-md text-primary text-sm font-medium px-5 py-2.5 rounded-full whitespace-nowrap transform -translate-x-1/2 -translate-y-1/2 mt-4 ml-4 border border-primary/20 shadow-2xl flex items-center gap-2">
+            <div className="absolute bg-dark/95 text-primary text-sm font-medium px-5 py-2.5 rounded-full whitespace-nowrap transform -translate-x-1/2 -translate-y-1/2 mt-4 ml-4 border border-primary/20 shadow-2xl flex items-center gap-2">
               <span>{cursorText}</span>
               <ArrowUpRight size={16} weight="bold" />
             </div>
@@ -186,16 +193,22 @@ export default function App() {
 
       <Nav activePage={activePage} setActivePage={setActivePage} />
 
-      <Routes>
-        <Route path="/" element={<Home setActivePage={setActivePage} />} />
-        <Route path="/graphics" element={<Graphics setActivePage={setActivePage} />} />
-        <Route path="/mockups" element={<Mockups setActivePage={setActivePage} />} />
-        <Route path="/uiux" element={<UIUX setActivePage={setActivePage} />} />
-        <Route path="/webdev" element={<WebDev setActivePage={setActivePage} />} />
-        <Route path="/booking" element={<Booking setActivePage={setActivePage} />} />
-        <Route path="/resume" element={<Resume setActivePage={setActivePage} />} />
-        <Route path="*" element={<NotFound setActivePage={setActivePage} />} />
-      </Routes>
+      <React.Suspense fallback={<div className="min-h-screen bg-background flex items-center justify-center text-primary font-mono text-xs uppercase tracking-widest">Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<Home setActivePage={setActivePage} />} />
+          <Route path="/graphics" element={<Graphics setActivePage={setActivePage} />} />
+          <Route path="/graphics/:projectId" element={<Graphics setActivePage={setActivePage} />} />
+          <Route path="/mockups" element={<Mockups setActivePage={setActivePage} />} />
+          <Route path="/mockups/:projectId" element={<Mockups setActivePage={setActivePage} />} />
+          <Route path="/uiux" element={<UIUX setActivePage={setActivePage} />} />
+          <Route path="/uiux/:projectId" element={<UIUX setActivePage={setActivePage} />} />
+          <Route path="/webdev" element={<WebDev setActivePage={setActivePage} />} />
+          <Route path="/webdev/:projectId" element={<WebDev setActivePage={setActivePage} />} />
+          <Route path="/booking" element={<Booking setActivePage={setActivePage} />} />
+          <Route path="/resume" element={<Resume setActivePage={setActivePage} />} />
+          <Route path="*" element={<NotFound setActivePage={setActivePage} />} />
+        </Routes>
+      </React.Suspense>
     </div>
   );
 }

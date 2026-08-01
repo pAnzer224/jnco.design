@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://jnco.design/sitemap.xml
+Sitemap: https://juneco-mirande.web.app/sitemap.xml

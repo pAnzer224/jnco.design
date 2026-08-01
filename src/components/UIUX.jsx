@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { X, ArrowUpRight } from "@phosphor-icons/react";
+
 import CategoryNav from "./shared/CategoryNav";
 import ReadyToBuild from "./shared/ReadyToBuild";
 import GlareHover from "./GlareHover";
+
+const slugify = (text) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
 
 function WorkCard({ item, onClick, isChoros = false }) {
   const [loaded, setLoaded] = useState(false);
@@ -12,10 +16,10 @@ function WorkCard({ item, onClick, isChoros = false }) {
     : "by Juneco Mirande";
 
   return (
-    <div
+    <button
+      type="button"
       onClick={onClick}
-      data-cursor-text="View"
-      className="cursor-pointer group rounded-[2rem] border border-dark/10 shadow-sm bg-primary transition-all duration-300 ease-out hover:border-dark/20"
+      className="text-left cursor-pointer group rounded-[2rem] border border-dark/10 shadow-sm bg-primary transition-all duration-300 ease-out hover:border-dark/20"
     >
       <GlareHover
         width="100%"
@@ -64,6 +68,8 @@ function WorkCard({ item, onClick, isChoros = false }) {
             src="/images/thumbnail-background.webp"
             alt=""
             aria-hidden="true"
+            loading="lazy"
+            decoding="async"
             onLoad={() => setLoaded(true)}
             className={`hidden lg:block absolute inset-0 w-full h-full object-cover transition-opacity duration-[700ms] ease-out ${loaded ? "opacity-100" : "opacity-0"} lg:group-hover:opacity-0`}
           />
@@ -72,6 +78,8 @@ function WorkCard({ item, onClick, isChoros = false }) {
           <img
             src={item.thumbnail}
             alt={`${item.title} — ${item.category} ${attribution}`}
+            loading="lazy"
+            decoding="async"
             onLoad={() => setLoaded(true)}
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[700ms] ease-out ${loaded ? "opacity-100" : "opacity-0"} lg:opacity-0 lg:group-hover:opacity-100`}
           />
@@ -81,6 +89,8 @@ function WorkCard({ item, onClick, isChoros = false }) {
               src={item.thumbnailMid}
               alt=""
               aria-hidden="true"
+              loading="lazy"
+              decoding="async"
               className={`absolute inset-0 w-full h-full object-contain scale-100 origin-center transition-all duration-[700ms] ease-out ${item.subjectHoverScale || "group-hover:scale-110"}`}
             />
           )}
@@ -90,12 +100,14 @@ function WorkCard({ item, onClick, isChoros = false }) {
               src={item.thumbnailSubject}
               alt=""
               aria-hidden="true"
+              loading="lazy"
+              decoding="async"
               className={`absolute inset-0 w-full h-full object-contain scale-100 origin-center transition-all duration-[700ms] ease-out lg:grayscale lg:group-hover:grayscale-0 ${item.subjectHoverScale || "group-hover:scale-110"}`}
             />
           )}
         </div>
       </GlareHover>
-    </div>
+    </button>
   );
 }
 
@@ -103,6 +115,7 @@ export default function UIUX({ setActivePage }) {
   const [openModal, setOpenModal] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
+  const { projectId } = useParams();
 
   const works = useMemo(
     () => [
@@ -294,7 +307,7 @@ export default function UIUX({ setActivePage }) {
   );
 
   const handleClick = (index) => {
-    setOpenModal(index);
+    navigate(`/uiux/${slugify(allWorks[index].title)}${location.hash}`);
   };
 
   useEffect(() => {
@@ -311,16 +324,22 @@ export default function UIUX({ setActivePage }) {
   }, [openModal, allWorks]);
 
   useEffect(() => {
-    if (location.state?.openProject) {
+    if (projectId) {
+      const index = allWorks.findIndex((w) => slugify(w.title) === projectId);
+      if (index !== -1) {
+        setOpenModal(index);
+      }
+    } else if (location.state?.openProject) {
       const index = works.findIndex(
         (w) => w.title === location.state.openProject,
       );
       if (index !== -1) {
-        setOpenModal(index);
-        navigate(location.pathname, { replace: true, state: {} });
+        navigate(`/uiux/${slugify(works[index].title)}${location.hash}`, { replace: true, state: {} });
       }
+    } else {
+      setOpenModal(null);
     }
-  }, [location.state, works, navigate, location.pathname]);
+  }, [projectId, location.state?.openProject, works, allWorks, location.hash, navigate]);
 
   useEffect(() => {
     if (location.hash === "#ojt-choros") {
@@ -336,9 +355,17 @@ export default function UIUX({ setActivePage }) {
 
   return (
     <section className="min-h-screen pt-12 sm:pt-16 px-4 sm:px-8 md:px-12 md:pl-[120px] lg:px-24 lg:pl-[140px] pb-16 bg-background text-dark">
-      <div className="font-sans font-bold text-5xl sm:text-7xl tracking-tighter uppercase text-dark mb-4">
+      <Helmet>
+        <title>UI/UX Design Portfolio | Juneco Mirande Philippines</title>
+        <meta name="description" content="Explore Juneco Mirande's UI/UX design portfolio featuring mobile apps, web redesigns, and interactive Figma prototypes." />
+        <link rel="canonical" href="https://juneco-mirande.web.app/uiux" />
+        <meta property="og:title" content="UI/UX Design Portfolio | Juneco Mirande" />
+        <meta property="og:url" content="https://juneco-mirande.web.app/uiux" />
+      </Helmet>
+      
+      <h1 className="font-sans font-bold text-5xl sm:text-7xl tracking-tighter uppercase text-dark mb-4">
         UI/UX Design
-      </div>
+      </h1>
 
       <CategoryNav activeCategory="uiux" setActivePage={setActivePage} />
 
@@ -357,7 +384,7 @@ export default function UIUX({ setActivePage }) {
       <div id="ojt-choros" className="mt-32 pt-16 border-t-4 border-dark">
         <div className="flex flex-col md:flex-row gap-8 justify-between items-start mb-16">
           <div>
-            <h3 className="font-sans font-black text-3xl sm:text-5xl uppercase tracking-tighter text-dark mb-2 flex items-center gap-3 flex-wrap">
+            <h2 className="font-sans font-black text-3xl sm:text-5xl uppercase tracking-tighter text-dark mb-2 flex items-center gap-3 flex-wrap">
               OJT @
               <a
                 href="https://choros.io"
@@ -369,10 +396,12 @@ export default function UIUX({ setActivePage }) {
                 <img
                   src="/images/choros-logo.webp"
                   alt="Choros.io"
+                  loading="lazy"
+                  decoding="async"
                   className="h-10 sm:h-14 w-auto object-contain"
                 />
               </a>
-            </h3>
+            </h2>
             <div className="font-mono text-xs sm:text-sm text-dark/70 uppercase tracking-widest font-bold">
               UI/UX Designer & Frontend
             </div>
@@ -410,8 +439,10 @@ export default function UIUX({ setActivePage }) {
       {/* Modal for all content types */}
       {openModal !== null && (
         <div
-          className="fixed inset-0 bg-dark/95 backdrop-blur-xl z-[2000] flex items-center justify-center p-0 sm:p-4 md:p-8"
-          onClick={() => setOpenModal(null)}
+          className="fixed inset-0 bg-dark/95 z-[2000] flex items-center justify-center p-0 sm:p-4 md:p-8"
+          onClick={() => {
+            navigate(`/uiux${location.hash}`);
+          }}
         >
           {/* Main Split Layout Container */}
           <div
@@ -501,8 +532,10 @@ export default function UIUX({ setActivePage }) {
             {/* 2. Right Interactive / Image View */}
             <div className="flex-1 order-1 md:order-2 bg-black/40 relative flex items-center justify-center p-0 sm:p-4 overflow-hidden min-h-[40vh] md:min-h-0">
               <button
-                onClick={() => setOpenModal(null)}
-                className="absolute top-3 right-3 sm:top-4 sm:right-4 text-primary/70 hover:text-accent active:scale-95 transition-all duration-300 z-[2010] flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-primary/10 bg-dark/90 backdrop-blur-sm"
+                onClick={() => {
+                  navigate(`/uiux${location.hash}`);
+                }}
+                className="absolute top-3 right-3 sm:top-4 sm:right-4 text-primary/70 hover:text-accent active:scale-95 transition-all duration-300 z-[2010] flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-primary/10 bg-dark/95"
               >
                 <X size={18} weight="bold" />
               </button>
@@ -537,12 +570,14 @@ export default function UIUX({ setActivePage }) {
                           <img
                             key={imgIndex}
                             src={img}
+                            loading="lazy"
+                            decoding="async"
                             className={
                               allWorks[openModal].noGap
                                 ? "w-full h-auto block"
                                 : "w-full h-auto rounded-xl border border-primary/5 shadow-lg"
                             }
-                            alt="work frame"
+                            alt={`Screenshot of ${allWorks[openModal].title}`}
                           />
                         ),
                       )}

@@ -243,7 +243,8 @@ const HeroSection = () => {
 
       <div
         ref={glowRef}
-        className="absolute left-0 top-0 w-[500px] md:w-[800px] aspect-square bg-background/20 rounded-full blur-[100px] md:blur-[160px] pointer-events-none z-0 opacity-40 mix-blend-screen"
+        className="absolute left-0 top-0 w-[500px] md:w-[800px] aspect-square rounded-full pointer-events-none z-0 opacity-40 mix-blend-screen"
+        style={{ background: 'radial-gradient(circle, rgba(245,243,238,0.25) 0%, transparent 70%)' }}
       />
 
       <div
@@ -257,7 +258,8 @@ const HeroSection = () => {
       <div className="absolute inset-0 z-1 bg-gradient-to-t from-dark via-dark/40 to-transparent pointer-events-none" />
 
       <div className="relative z-10 w-full text-primary flex flex-col items-center md:items-start text-center md:text-left">
-        <h1 className="font-sans font-black text-6xl md:text-8xl tracking-tighter leading-[0.85] flex flex-col justify-center md:justify-start uppercase">
+        <h1 className="sr-only">Juneco Mirande — Frontend Developer & UI/UX Designer in the Philippines. Bridging the gap between aesthetic design and robust React architectures.</h1>
+        <div className="font-sans font-black text-6xl md:text-8xl tracking-tighter leading-[0.85] flex flex-col justify-center md:justify-start uppercase" aria-hidden="true">
           <span className="text-primary font-mono font-bold not-italic text-[12px] sm:text-[14px] md:text-2xl tracking-[0.3em] mb-4 hero-intro opacity-0 translate-y-10 whitespace-nowrap">
             Hey, I'm Juneco
           </span>
@@ -280,8 +282,8 @@ const HeroSection = () => {
             <br className="hidden min-[1045px]:block min-[1301px]:hidden" />
             Designer
           </span>
-        </h1>
-        <p className="mt-8 font-mono text-[10px] sm:text-xs tracking-[0.15em] text-primary/60 max-w-xl border-l-2 border-accent pl-4 hero-desc opacity-0 translate-y-10">
+        </div>
+        <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.15em] text-primary/60 max-w-xl border-l-2 border-accent pl-4 hero-desc opacity-0 translate-y-10">
           An award-winning designer creating intuitive{" "}
           <br className="hidden min-[1045px]:block min-[1301px]:hidden" />
           interfaces and striking visuals{" "}
@@ -326,7 +328,7 @@ const HeroSection = () => {
               <>
                 {createPortal(
                   <div
-                    className="fixed inset-0 z-[10002] bg-black/30 backdrop-blur-md animate-[fadeIn_0.2s_ease-out]"
+                    className="fixed inset-0 z-[10002] bg-black/80 animate-[fadeIn_0.2s_ease-out]"
                     onClick={() => setShowLinkedIn(false)}
                   />,
                   document.body,

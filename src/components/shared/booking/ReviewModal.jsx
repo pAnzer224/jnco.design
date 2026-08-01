@@ -37,7 +37,7 @@ export default function ReviewModal({ formData, file, submitting, onEdit, onCanc
     );
 
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-dark/70 backdrop-blur-sm">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-dark/90">
             <div className="bg-primary text-dark border border-dark/10 rounded-[2rem] shadow-2xl w-full max-w-lg max-h-[85vh] flex flex-col overflow-hidden">
                 <div className="flex items-center justify-between px-6 py-5 border-b border-dark/10 flex-shrink-0">
                     <h3 className="text-xl font-bold font-sans tracking-tight">Review Your Details</h3>

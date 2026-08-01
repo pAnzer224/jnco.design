@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import HeroSection from "./landing/HeroSection";
 import FeatureCards from "./landing/FeatureCards";
 import TechStack from "./landing/TechStack";
@@ -21,8 +22,67 @@ export default function Home({ setActivePage }) {
     }
   }, [location.hash]);
 
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Juneco Mirande",
+    "alternateName": "jnco",
+    "url": "https://juneco-mirande.web.app",
+    "image": "https://juneco-mirande.web.app/summary_large_image.jpg",
+    "sameAs": [
+      "https://juneco-mirande.web.app"
+    ],
+    "jobTitle": "UI/UX Designer & Graphic Designer",
+    "description": "Filipino UI/UX designer and graphic designer specializing in Figma-based interface design, Photoshop-driven graphic and brand work, and front-end development.",
+    "nationality": {
+      "@type": "Country",
+      "name": "Philippines"
+    },
+    "knowsAbout": ["UI/UX Design", "Graphic Design", "Branding", "Interface Design", "Front-End Development", "Mockup Design"],
+    "offers": {
+      "@type": "Offer",
+      "description": "Freelance UI/UX design, graphic design, branding, and front-end development services",
+      "availability": "https://schema.org/InStock"
+    }
+  };
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Juneco Mirande – juneco-mirande.web.app",
+    "alternateName": ["Juneco Mirande Portfolio", "jnco design", "juneco-mirande"],
+    "url": "https://juneco-mirande.web.app",
+    "description": "Portfolio of Juneco Mirande — a Filipino UI/UX designer and graphic designer.",
+    "inLanguage": "en-PH",
+    "author": {
+      "@type": "Person",
+      "name": "Juneco Mirande"
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://juneco-mirande.web.app/?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  };
+
   return (
     <>
+      <Helmet>
+        <title>Juneco Mirande · UI/UX and Graphic Designer</title>
+        <meta name="description" content="Portfolio of Juneco Mirande — a Filipino UI/UX and Graphic Designer specializing in Figma-based interface design, Photoshop-driven graphic and brand work, and front-end development." />
+        <link rel="canonical" href="https://juneco-mirande.web.app/" />
+        <meta property="og:title" content="Juneco Mirande · UI/UX and Graphic Designer" />
+        <meta property="og:url" content="https://juneco-mirande.web.app/" />
+        <script type="application/ld+json">
+          {JSON.stringify(personSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(websiteSchema)}
+        </script>
+      </Helmet>
       <main className="bg-background min-h-screen text-dark selection:bg-accent selection:text-background w-full">
         <HeroSection />
 

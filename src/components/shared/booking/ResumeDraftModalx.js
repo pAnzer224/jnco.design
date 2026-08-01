@@ -3,7 +3,7 @@ import { ClockCounterClockwise } from '@phosphor-icons/react';
 
 export default function ResumeDraftModal({ onResume, onDiscard }) {
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-dark/70 backdrop-blur-sm">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-dark/90">
             <div className="bg-primary text-dark border border-dark/10 rounded-[2rem] p-8 max-w-sm w-full shadow-2xl text-center flex flex-col items-center gap-5">
                 <div className="w-14 h-14 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center">
                     <ClockCounterClockwise size={26} weight="duotone" className="text-accent" />

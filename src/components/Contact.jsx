@@ -100,7 +100,7 @@ export default function Contact() {
               {[
                 { icon: LinkedinLogo, href: "https://www.linkedin.com/in/juneco-mirande/" }
               ].map(({ icon: Icon, href }, idx) => (
-                <a key={idx} href={href} className="contact-social w-16 h-16 rounded-full border border-dark/20 backdrop-blur-sm flex items-center justify-center text-dark hover:bg-accent hover:border-accent hover:text-background transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] transform hover:-translate-y-2 hover:shadow-xl hover:shadow-accent/20">
+                <a key={idx} href={href} className="contact-social w-16 h-16 rounded-full border border-dark/20 bg-primary/40 flex items-center justify-center text-dark hover:bg-accent hover:border-accent hover:text-background transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] transform hover:-translate-y-2 hover:shadow-xl hover:shadow-accent/20">
                   <Icon size={28} />
                 </a>
               ))}

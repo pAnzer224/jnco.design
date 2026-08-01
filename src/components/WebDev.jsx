@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { X, ArrowUpRight, ArrowsLeftRight } from "@phosphor-icons/react";
+import { Helmet } from "react-helmet-async";
+
 import CategoryNav from "./shared/CategoryNav";
 import ReadyToBuild from "./shared/ReadyToBuild";
 import GlareHover from "./GlareHover";
+
+const slugify = (text) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
 
 export default function WebDev({ setActivePage }) {
   const [openModalItem, setOpenModalItem] = useState(null);
@@ -11,6 +15,7 @@ export default function WebDev({ setActivePage }) {
   const [isDragging, setIsDragging] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const { projectId } = useParams();
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -184,7 +189,7 @@ export default function WebDev({ setActivePage }) {
   );
 
   const handleClick = (item) => {
-    setOpenModalItem(item);
+    navigate(`/webdev/${slugify(item.title)}${location.hash}`);
   };
 
   useEffect(() => {
@@ -202,16 +207,24 @@ export default function WebDev({ setActivePage }) {
   }, [openModalItem]);
 
   useEffect(() => {
-    if (location.state?.openProject) {
+    if (projectId) {
+      const project =
+        works.find((w) => slugify(w.title) === projectId) ||
+        chorosWorks.find((w) => slugify(w.title) === projectId);
+      if (project) {
+        setOpenModalItem(project);
+      }
+    } else if (location.state?.openProject) {
       const project =
         works.find((w) => w.title === location.state.openProject) ||
         chorosWorks.find((w) => w.title === location.state.openProject);
       if (project) {
-        setOpenModalItem(project);
-        navigate(location.pathname, { replace: true, state: {} });
+        navigate(`/webdev/${slugify(project.title)}${location.hash}`, { replace: true, state: {} });
       }
+    } else {
+      setOpenModalItem(null);
     }
-  }, [location.state, works, chorosWorks, navigate, location.pathname]);
+  }, [projectId, location.state?.openProject, works, chorosWorks, location.hash, navigate]);
 
   useEffect(() => {
     if (location.hash === "#ojt-choros") {
@@ -229,20 +242,28 @@ export default function WebDev({ setActivePage }) {
 
   return (
     <section className="min-h-screen pt-12 sm:pt-16 px-4 sm:px-8 md:px-12 md:pl-[120px] lg:px-24 lg:pl-[140px] pb-16 bg-background text-dark">
-      <div className="font-sans font-bold text-5xl sm:text-7xl tracking-tighter uppercase text-dark mb-4">
+      <Helmet>
+        <title>Web Development Portfolio | Juneco Mirande Philippines</title>
+        <meta name="description" content="Explore Juneco Mirande's web development portfolio featuring Next.js apps, Laravel projects, and fully responsive websites." />
+        <link rel="canonical" href="https://juneco-mirande.web.app/webdev" />
+        <meta property="og:title" content="Web Development Portfolio | Juneco Mirande" />
+        <meta property="og:url" content="https://juneco-mirande.web.app/webdev" />
+      </Helmet>
+
+      <h1 className="font-sans font-bold text-5xl sm:text-7xl tracking-tighter uppercase text-dark mb-4">
         Web Development
-      </div>
+      </h1>
 
       <CategoryNav activeCategory="webdev" setActivePage={setActivePage} />
 
       {/* Gallery Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full border-t border-dark/10 pt-10">
         {works.map((item, index) => (
-          <div
+          <button
+            type="button"
             key={index}
             onClick={() => handleClick(item)}
-            data-cursor-text="View"
-            className={`flex flex-col cursor-pointer group rounded-[2rem] border border-dark/10 shadow-sm bg-primary transition-all duration-300 ease-out hover:border-dark/20`}
+            className="text-left flex flex-col cursor-pointer group rounded-[2rem] border border-dark/10 shadow-sm bg-primary transition-all duration-300 ease-out hover:border-dark/20"
           >
             <GlareHover
               width="100%"
@@ -290,6 +311,8 @@ export default function WebDev({ setActivePage }) {
                   src="/images/thumbnail-background.webp"
                   alt=""
                   aria-hidden="true"
+                  loading="lazy"
+                  decoding="async"
                   onLoad={() =>
                     setImagesLoaded((prev) => ({
                       ...prev,
@@ -301,6 +324,8 @@ export default function WebDev({ setActivePage }) {
                 <img
                   src={item.thumbnail}
                   alt={`${item.title} — ${item.category} by Juneco Mirande`}
+                  loading="lazy"
+                  decoding="async"
                   onLoad={() =>
                     setImagesLoaded((prev) => ({
                       ...prev,
@@ -314,12 +339,14 @@ export default function WebDev({ setActivePage }) {
                     src={item.thumbnailSubject}
                     alt=""
                     aria-hidden="true"
+                    loading="lazy"
+                    decoding="async"
                     className={`absolute inset-0 w-full h-full object-contain scale-100 origin-center transition-all duration-[700ms] ease-out lg:grayscale lg:group-hover:grayscale-0 ${item.subjectHoverScale || "group-hover:scale-110"}`}
                   />
                 )}
               </div>
             </GlareHover>
-          </div>
+          </button>
         ))}
       </div>
 
@@ -327,7 +354,7 @@ export default function WebDev({ setActivePage }) {
       <div id="ojt-choros" className="mt-32 pt-16 border-t-4 border-dark">
         <div className="flex flex-col md:flex-row gap-8 justify-between items-start mb-16">
           <div>
-            <h3 className="font-sans font-black text-3xl sm:text-5xl uppercase tracking-tighter text-dark mb-2 flex items-center gap-3 flex-wrap">
+            <h2 className="font-sans font-black text-3xl sm:text-5xl uppercase tracking-tighter text-dark mb-2 flex items-center gap-3 flex-wrap">
               OJT @
               <a
                 href="https://choros.io"
@@ -339,10 +366,12 @@ export default function WebDev({ setActivePage }) {
                 <img
                   src="/images/choros-logo.webp"
                   alt="Choros.io"
+                  loading="lazy"
+                  decoding="async"
                   className="h-10 sm:h-14 w-auto object-contain"
                 />
               </a>
-            </h3>
+            </h2>
             <div className="font-mono text-xs sm:text-sm text-dark/70 uppercase tracking-widest font-bold">
               Front-end & UI/UX Designer
             </div>
@@ -366,11 +395,11 @@ export default function WebDev({ setActivePage }) {
         {/* OJT Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full border-t border-dark/10 pt-10">
           {chorosWorks.map((item, index) => (
-            <div
+            <button
+              type="button"
               key={index}
               onClick={() => handleClick(item)}
-              data-cursor-text="View"
-              className={`flex flex-col cursor-pointer group rounded-[2rem] border border-dark/10 shadow-sm bg-primary transition-all duration-300 ease-out hover:border-dark/20`}
+              className="text-left flex flex-col cursor-pointer group rounded-[2rem] border border-dark/10 shadow-sm bg-primary transition-all duration-300 ease-out hover:border-dark/20"
             >
               <GlareHover
                 width="100%"
@@ -417,6 +446,8 @@ export default function WebDev({ setActivePage }) {
                   <img
                     src={item.thumbnail}
                     alt={`${item.title} — ${item.category} by Juneco Mirande at Choros.io`}
+                    loading="lazy"
+                    decoding="async"
                     onLoad={() =>
                       setImagesLoaded((prev) => ({
                         ...prev,
@@ -427,7 +458,7 @@ export default function WebDev({ setActivePage }) {
                   />
                 </div>
               </GlareHover>
-            </div>
+            </button>
           ))}
         </div>
       </div>
@@ -435,8 +466,10 @@ export default function WebDev({ setActivePage }) {
       {/* Modal for all content types */}
       {openModalItem !== null && (
         <div
-          className="fixed inset-0 bg-dark/95 backdrop-blur-xl z-[2000] flex items-center justify-center p-4 md:p-8"
-          onClick={() => setOpenModalItem(null)}
+          className="fixed inset-0 bg-dark/95 z-[2000] flex items-center justify-center p-4 md:p-8"
+          onClick={() => {
+            navigate(`/webdev${location.hash}`);
+          }}
         >
           {/* Main Split Layout Container */}
           <div
@@ -521,7 +554,9 @@ export default function WebDev({ setActivePage }) {
             {/* 2. Right Interactive Canvas (70% Width) */}
             <div className="flex-1 bg-black/40 relative flex items-center justify-center p-4 overflow-hidden">
               <button
-                onClick={() => setOpenModalItem(null)}
+                onClick={() => {
+                  navigate(`/webdev${location.hash}`);
+                }}
                 className="absolute top-4 right-4 text-primary/50 hover:text-accent transition-colors duration-300 z-[2010] flex items-center justify-center w-10 h-10 rounded-full border border-primary/10 bg-dark/80"
               >
                 <X size={20} weight="bold" />
@@ -547,14 +582,14 @@ export default function WebDev({ setActivePage }) {
                     {/* Mock Browser Content */}
                     <div className="flex-1 relative w-full overflow-y-auto flex items-center justify-center p-4 sm:p-6">
                       <div
-                        className="absolute inset-0 bg-cover bg-center opacity-25 filter blur-2xl scale-110 pointer-events-none"
+                        className="absolute inset-0 bg-cover bg-center opacity-25 scale-110 pointer-events-none"
                         style={{
                           backgroundImage: `url('${openModalItem.thumbnail}')`,
                         }}
                       />
 
                       {/* Glassmorphic presentation card */}
-                      <div className="relative z-10 w-full max-w-md bg-dark/40 backdrop-blur-xl rounded-[2rem] border border-primary/10 p-5 text-center flex flex-col items-center shadow-2xl my-auto">
+                      <div className="relative z-10 w-full max-w-md bg-dark/90 rounded-[2rem] border border-primary/10 p-5 text-center flex flex-col items-center shadow-2xl my-auto">
                         <div className="w-full aspect-[16/9] rounded-[1rem] overflow-hidden mb-4 border border-primary/15 bg-dark/20 relative group">
                           <img
                             src={openModalItem.thumbnail}
@@ -607,7 +642,7 @@ export default function WebDev({ setActivePage }) {
                       >
                         {/* Visual handle */}
                         <div
-                          className={`relative h-full rounded-full border shadow-lg transition-all duration-300 flex items-center justify-center overflow-hidden ${isDragging ? "w-5 bg-accent border-accent text-dark" : "w-1.5 bg-primary/30 backdrop-blur-md border-primary/20 group-hover:w-5 group-hover:bg-accent/80 group-hover:border-accent group-hover:text-dark text-transparent"}`}
+                          className={`relative h-full rounded-full border shadow-lg transition-all duration-300 flex items-center justify-center overflow-hidden ${isDragging ? "w-5 bg-accent border-accent text-dark" : "w-1.5 bg-primary/30 border-primary/20 group-hover:w-5 group-hover:bg-accent/80 group-hover:border-accent group-hover:text-dark text-transparent"}`}
                         >
                           {/* Inner grip line (fades out on hover) */}
                           <div

@@ -75,8 +75,6 @@ const DesktopProjectsArchive = ({ setActivePage }) => {
               scrub: true,
             },
             scale: 0.9,
-            opacity: 0.5,
-            filter: "blur(20px)",
             ease: "none",
           });
         }
@@ -128,7 +126,6 @@ const DesktopProjectsArchive = ({ setActivePage }) => {
             <div
               onClick={() => {
                 navigate(card.path);
-                window.scrollTo({ top: 0, behavior: "auto" });
               }}
               data-cursor-text="View"
               className={`card-inner relative w-full max-w-5xl h-[70vh] rounded-[2rem] sm:rounded-[3rem] overflow-hidden cursor-pointer group shadow-2xl border-4 border-dark/5 ${!loadedImages[card.bg] ? "skeleton" : ""}`}
@@ -145,7 +142,7 @@ const DesktopProjectsArchive = ({ setActivePage }) => {
 
               {/* Background Image */}
               <div
-                className={`absolute inset-0 bg-cover bg-center transition-all duration-[800ms] ease-[power3.out] opacity-80 md:opacity-60 md:mix-blend-luminosity md:grayscale group-hover:scale-110 md:group-hover:mix-blend-normal md:group-hover:grayscale-0 md:group-hover:opacity-100 ${loadedImages[card.bg] ? "opacity-80" : "opacity-0"}`}
+                className={`absolute inset-0 bg-cover bg-center transition-all duration-[800ms] group-hover:scale-110 ${loadedImages[card.bg] ? "opacity-100" : "opacity-0"}`}
                 style={{ backgroundImage: `url('${card.bg}')` }}
               />
               {/* Dark Overlay gradient */}
@@ -175,7 +172,7 @@ const DesktopProjectsArchive = ({ setActivePage }) => {
                         navigate(`/booking?service=${card.serviceParam}`);
                         window.scrollTo({ top: 0, behavior: "smooth" });
                       }}
-                      className="flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-dark/40 backdrop-blur-sm text-primary/70 hover:border-accent hover:text-accent hover:bg-accent/10 font-mono text-[10px] uppercase tracking-widest transition-all duration-300 group/btn flex-shrink-0 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto"
+                      className="flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-dark/70 text-primary/70 hover:border-accent hover:text-accent hover:bg-accent/10 font-mono text-[10px] uppercase tracking-widest transition-all duration-300 group/btn flex-shrink-0 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto"
                     >
                       <CalendarBlank size={13} weight="duotone" />
                       Inquire for this
@@ -209,7 +206,6 @@ const MobileProjectsArchive = ({ setActivePage }) => {
             key={idx}
             onClick={() => {
               navigate(card.path);
-              window.scrollTo({ top: 0, behavior: "auto" });
             }}
             className="group relative flex items-center justify-between gap-4 rounded-[1.5rem] border border-white/10 bg-white/5 px-5 py-4 cursor-pointer overflow-hidden transition-all duration-300 hover:border-accent/50 active:scale-[0.99]"
             style={{ WebkitTapHighlightColor: "transparent" }}

@@ -65,7 +65,7 @@ export default function InquiryForm() {
 
   if (status === 'success') {
     return (
-      <div className="bg-black/40 backdrop-blur-xl border border-white/10 p-12 rounded-[2rem] flex flex-col items-center justify-center text-center gap-6 min-h-[400px]">
+      <div className="bg-black/90 border border-white/10 p-12 rounded-[2rem] flex flex-col items-center justify-center text-center gap-6 min-h-[400px]">
         <CheckCircle size={64} weight="duotone" className="text-green-400" />
         <div>
           <h3 className="text-2xl font-bold text-white mb-2">Inquiry Sent Successfully</h3>
@@ -86,7 +86,7 @@ export default function InquiryForm() {
   }
 
   return (
-    <div className="bg-black/40 backdrop-blur-xl border border-white/10 p-6 md:p-10 rounded-[2rem] w-full max-w-3xl mx-auto">
+    <div className="bg-black/90 border border-white/10 p-6 md:p-10 rounded-[2rem] w-full max-w-3xl mx-auto">
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-white mb-2">Let's work together</h2>
         <p className="text-white/60 font-mono text-xs uppercase tracking-widest">Tell me about your project</p>

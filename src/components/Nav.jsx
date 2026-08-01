@@ -352,7 +352,7 @@ export default function Nav({ activePage, setActivePage }) {
             }}
           />
           {/* Default dark background */}
-          <div className="absolute inset-[2px] bg-dark/95 rounded-[calc(2rem-2px)] backdrop-blur-xl z-10" />
+          <div className="absolute inset-[2px] bg-dark rounded-[calc(2rem-2px)] z-10" />
         </div>
 
         {/* Light background overlay — clipped to dark-section overlap */}

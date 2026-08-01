@@ -35,7 +35,7 @@ export default function ReadyToBuild() {
             Ready to Build <br />
             <span className="italic text-accent">Something?</span>
           </h3>
-          <p className="font-sans text-sm text-primary/60 max-w-md leading-relaxed border-l-2 border-accent/40 pl-4">
+          <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-primary/60 max-w-md leading-relaxed border-l-2 border-accent/40 pl-4">
             Answer a few questions to get started. <br /> Reply time: 24–48 hours.
           </p>
         </div>
