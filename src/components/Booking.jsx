@@ -3,6 +3,7 @@ import { ArrowLeft, EnvelopeSimple, LinkedinLogo, FileText } from '@phosphor-ico
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import BookingForm from './shared/booking/BookingForm';
+import SEO from './SEO';
 
 export default function Booking({ setActivePage }) {
   const containerRef = useRef(null);
@@ -68,6 +69,7 @@ export default function Booking({ setActivePage }) {
       ref={containerRef}
       className="bg-dark min-h-screen text-primary selection:bg-accent selection:text-dark flex flex-col justify-center items-center overflow-x-hidden pt-16 pb-0 sm:pb-16"
     >
+      <SEO title="Book a Project" description="Let's work together. Fill out the booking form to get in touch with Juneco Mirande." />
       {/* Subtle background overlay elements */}
       <div className="absolute top-0 left-0 right-0 h-96 bg-gradient-to-b from-accent/5 to-transparent pointer-events-none" />
 

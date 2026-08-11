@@ -1,10 +1,20 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { gsap } from "gsap";
-import { Cursor, CursorClick, CursorTextIcon, ArrowUpRight } from "@phosphor-icons/react";
+import { Cursor, CursorClick, CursorTextIcon, ArrowUpRight, Palette, DeviceMobile, Code } from "@phosphor-icons/react";
 import { trackVisit } from "./lib/pipeline-api";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Lenis from "lenis";
 
 import Nav from "./components/Nav";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const cursorIconMap = {
+  Palette: Palette,
+  DeviceMobile: DeviceMobile,
+  Code: Code,
+};
 
 const Home = React.lazy(() => import("./components/Home"));
 const Graphics = React.lazy(() => import("./components/Graphic"));
@@ -25,6 +35,7 @@ export default function App() {
   const [cursorState, setCursorState] = useState("default"); // default, click, text, hover-text
   const [cursorText, setCursorText] = useState("");
   const [cursorStyle, setCursorStyle] = useState("default"); // "default" or "tooltip"
+  const [cursorIcon, setCursorIcon] = useState(""); // key into cursorIconMap
 
   useEffect(() => {
     const path = location.pathname;
@@ -36,6 +47,14 @@ export default function App() {
     else if (path === "/booking") setActivePage("booking");
     else if (path.includes("#contact") || activePage === "contact")
       setActivePage("contact");
+
+    // Reset the custom cursor/tooltip on every route change so it
+    // doesn't stay stuck after clicking a link that unmounts before
+    // mouseleave has a chance to fire
+    setCursorState("default");
+    setCursorText("");
+    setCursorStyle("default");
+    setCursorIcon("");
 
     // Disable custom cursor on resume page
     if (path === "/resume") {
@@ -50,18 +69,36 @@ export default function App() {
     trackVisit(location.pathname);
   }, [location.pathname]);
 
+  // Lenis Smooth Scrolling
+  useEffect(() => {
+    const lenis = new Lenis();
+
+    lenis.on('scroll', ScrollTrigger.update);
+
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+
+    gsap.ticker.lagSmoothing(0);
+
+    return () => {
+      lenis.destroy();
+      gsap.ticker.remove((time) => lenis.raf(time * 1000));
+    };
+  }, []);
+
   // Custom Cursor Logic
   useEffect(() => {
     const $cursor = cursorRef.current;
     const $tooltip = tooltipRef.current;
 
     const xTo = gsap.quickTo([$cursor, $tooltip], "x", {
-      duration: 0.12,
+      duration: 0.05,
       ease: "power3.out",
     });
 
     const yTo = gsap.quickTo([$cursor, $tooltip], "y", {
-      duration: 0.12,
+      duration: 0.05,
       ease: "power3.out",
     });
 
@@ -88,6 +125,7 @@ export default function App() {
         setCursorState("hover-text");
         setCursorText(interactableText.getAttribute("data-cursor-text"));
         setCursorStyle(interactableText.getAttribute("data-cursor-style") || "default");
+        setCursorIcon(interactableText.getAttribute("data-cursor-icon") || "");
         return;
       }
 
@@ -95,6 +133,7 @@ export default function App() {
         setCursorState("default");
         setCursorText("");
         setCursorStyle("default");
+        setCursorIcon("");
         return;
       }
 
@@ -104,10 +143,12 @@ export default function App() {
         setCursorState("text");
         setCursorText("");
         setCursorStyle("default");
+        setCursorIcon("");
       } else {
         setCursorState("default");
         setCursorText("");
         setCursorStyle("default");
+        setCursorIcon("");
       }
     };
 
@@ -116,12 +157,14 @@ export default function App() {
       setCursorState("default");
       setCursorText("");
       setCursorStyle("default");
+      setCursorIcon("");
     };
 
     const handleScroll = () => {
       setCursorState("default");
       setCursorText("");
       setCursorStyle("default");
+      setCursorIcon("");
     };
 
     document.body.addEventListener("mousemove", handleMouseMove);
@@ -143,19 +186,12 @@ export default function App() {
 
   return (
     <div className="bg-background text-dark min-h-screen relative">
-      {/* Global Noise Overlay */}
-      <div className="pointer-events-none fixed inset-0 z-[9990] opacity-[0.05]">
-        <svg className="w-full h-full">
-          <filter id="noiseFilter">
-            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" />
-          </filter>
-          <rect width="100%" height="100%" filter="url(#noiseFilter)" />
-        </svg>
-      </div>
+
 
       {/* Custom Phosphor Cursor */}
       <div
         ref={cursorRef}
+        aria-hidden="true"
         className="custom-cursor fixed top-0 left-0 pointer-events-none z-[10020] hidden md:flex items-center justify-center mix-blend-difference"
       >
         <div className="text-white drop-shadow-[0_0_2px_rgba(255,255,255,0.5)] relative flex items-center justify-center">
@@ -174,21 +210,23 @@ export default function App() {
       {/* Hover Tooltip Bubble - Isolated from mix-blend-difference */}
       <div
         ref={tooltipRef}
+        aria-hidden="true"
         className="custom-cursor-tooltip fixed top-0 left-0 pointer-events-none z-[10021] hidden md:flex items-center justify-center"
       >
-        {cursorState === "hover-text" && (
-          cursorStyle === "tooltip" ? (
-            <div className="absolute -top-[60px] bg-dark/95 text-primary text-sm font-medium px-5 py-2.5 rounded-full whitespace-nowrap transform -translate-x-1/2 border border-primary/20 shadow-2xl flex items-center gap-2">
+        {cursorState === "hover-text" && (() => {
+          const TooltipIcon = cursorIconMap[cursorIcon] || ArrowUpRight;
+          return cursorStyle === "tooltip" ? (
+            <div className="absolute -top-[60px] bg-dark/95 text-primary text-sm font-medium px-5 py-2.5 rounded-full whitespace-nowrap transform -translate-x-1/2 border border-primary/20 shadow-2xl flex items-center gap-1">
+              <TooltipIcon size={16} weight="bold" className="-rotate-12" />
               <span>{cursorText}</span>
-              <ArrowUpRight size={16} weight="bold" />
             </div>
           ) : (
-            <div className="absolute bg-dark/95 text-primary text-sm font-medium px-5 py-2.5 rounded-full whitespace-nowrap transform -translate-x-1/2 -translate-y-1/2 mt-4 ml-4 border border-primary/20 shadow-2xl flex items-center gap-2">
+            <div className="absolute bg-dark/95 text-primary text-sm font-medium px-5 py-2.5 rounded-full whitespace-nowrap transform -translate-x-1/2 -translate-y-1/2 mt-4 ml-4 border border-primary/20 shadow-2xl flex items-center gap-1">
+              <TooltipIcon size={16} weight="bold" className="-rotate-12" />
               <span>{cursorText}</span>
-              <ArrowUpRight size={16} weight="bold" />
             </div>
-          )
-        )}
+          );
+        })()}
       </div>
 
       <Nav activePage={activePage} setActivePage={setActivePage} />

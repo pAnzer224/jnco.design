@@ -50,20 +50,7 @@ export default function NotFound({ setActivePage }) {
         </span>
       </div>
 
-      {/* Noise overlay */}
-      <div className="pointer-events-none fixed inset-0 z-[1] opacity-[0.04]">
-        <svg className="w-full h-full">
-          <filter id="nf404">
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.8"
-              numOctaves="3"
-              stitchTiles="stitch"
-            />
-          </filter>
-          <rect width="100%" height="100%" filter="url(#nf404)" />
-        </svg>
-      </div>
+
 
       <div className="relative z-10 flex flex-col items-center text-center max-w-xl">
         {/* 404 code */}

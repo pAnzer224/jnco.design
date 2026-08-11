@@ -51,16 +51,16 @@ const Philosophy = () => {
         return () => ctx.revert();
     }, []);
 
-    const description = "UI/UX Designer with frontend development experience, designing intuitive digital products from concept to production. I combine visual design, user experience, and modern web development to create interfaces that are as functional as they are memorable. Whether collaborating with a team or working independently, I approach every project with a balance of creativity, structure, and technical understanding.";
+    const description = "I'm a UI/UX and Graphic Designer with a frontend development background, close to 3 years now doing freelance design and turning ideas into real, working digital products. I like combining visual design, user experience, and actual code to build interfaces that feel good to use, not just look good. Whether I'm working solo or with a team, I try to bring creativity, structure, and a solid technical eye to everything I make.";
 
     return (
-        <section ref={containerRef} className="relative bg-dark text-primary min-h-screen flex flex-col justify-center py-32 md:pl-[120px] lg:pl-[140px] w-full" id="philosophy">
+        <section ref={containerRef} className="relative bg-dark text-primary min-h-screen flex flex-col justify-center py-32 md:pl-[120px] lg:pl-[140px] w-full" style={{ overflowX: 'clip' }} id="philosophy">
             <div
                 className="absolute inset-0 opacity-10 bg-cover bg-fixed bg-center mix-blend-lighten grayscale"
                 style={{ backgroundImage: "url('/images/LACO/laco.webp')" }}
             />
 
-            <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center justify-center text-center md:items-start md:text-left pb-20 border-b border-primary/10 px-4 md:pl-0 md:pr-4">
+            <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center justify-center text-center md:items-start md:text-left pb-10 md:pb-20 border-b border-primary/10 px-4 md:pl-0 md:pr-4">
                 <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-8 font-bold">Professional Summary</h3>
                 <p className="font-sans font-bold text-xl sm:text-2xl md:text-3xl leading-[1.6] text-dark tracking-tight" style={{ wordBreak: 'break-word' }}>
                     {description.split(" ").map((word, wordIndex) => (
@@ -73,11 +73,11 @@ const Philosophy = () => {
                 </p>
             </div>
 
-            <div ref={textRevealRef} className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center justify-center text-center md:items-start md:text-left pt-20 px-4 md:pl-0 md:pr-4">
+            <div ref={textRevealRef} className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center justify-center text-center md:items-start md:text-left pt-10 md:pt-20 pb-20 md:pb-0 px-4 md:pl-0 md:pr-4">
                 <p className="font-sans font-bold text-sm sm:text-base md:text-xl text-primary/40 uppercase tracking-widest reveal-text mb-8">
                     The Goal
                 </p>
-                <h2 className="reveal-text flex flex-col text-4xl sm:text-6xl md:text-[6rem] leading-[0.9] tracking-tighter">
+                <h2 className="reveal-text flex flex-col leading-[0.9] tracking-tighter" style={{ fontSize: 'clamp(2rem, 12vw, 6rem)' }}>
                     <span className="font-sans font-bold uppercase">Less Noise</span>
                     <span className="font-sans font-black mt-2 text-accent md:pr-4 uppercase tracking-tighter">More clarity.</span>
                 </h2>

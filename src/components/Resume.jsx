@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "@phosphor-icons/react";
+import SEO from "./SEO";
 
 const RESUME_PATH = "/images/resume_portfolio.html";
 
@@ -20,6 +21,7 @@ export default function Resume({ setActivePage }) {
 
     return (
         <section className="relative w-full h-svh overflow-hidden bg-dark text-primary flex flex-col">
+            <SEO title="Resume" description="View Juneco Mirande's resume." />
             <div className="shrink-0 flex items-center justify-between gap-4 px-4 sm:px-8 py-5 border-b border-primary/10">
                 <Link
                     to="/"

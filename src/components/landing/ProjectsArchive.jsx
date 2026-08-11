@@ -104,10 +104,10 @@ const DesktopProjectsArchive = ({ setActivePage }) => {
     <section
       ref={containerRef}
       id="work-archive"
-      className="relative w-full bg-dark mt-32 min-h-screen md:pl-[120px] lg:pl-[140px]"
+      className="relative w-full bg-background mt-0 min-h-screen md:pl-[120px] lg:pl-[140px]"
     >
       <div className="projects-sticky-header text-center sticky top-0 py-16 z-0 pointer-events-none">
-        <h2 className="font-sans font-bold text-lg md:text-2xl tracking-[0.2em] uppercase text-primary">
+        <h2 className="font-sans font-bold text-lg md:text-2xl tracking-[0.2em] uppercase text-dark/70">
           Projects
         </h2>
       </div>
@@ -184,9 +184,9 @@ const MobileProjectsArchive = ({ setActivePage }) => {
   const navigate = useNavigate();
 
   return (
-    <section id="work-archive" className="relative w-full bg-dark mt-32 pb-8">
-      <div className="text-center py-12 pointer-events-none">
-        <h2 className="font-sans font-bold text-lg tracking-[0.2em] uppercase text-primary">
+    <section id="work-archive" className="relative w-full bg-background mt-0 pb-8">
+      <div className="text-center py-8 pointer-events-none">
+        <h2 className="font-sans font-bold text-lg tracking-[0.2em] uppercase text-dark/70">
           Projects
         </h2>
       </div>
@@ -198,11 +198,11 @@ const MobileProjectsArchive = ({ setActivePage }) => {
             onClick={() => {
               navigate(card.path);
             }}
-            className="group relative flex items-center justify-between gap-4 rounded-[1.5rem] border border-white/10 bg-white/5 px-5 py-4 cursor-pointer overflow-hidden transition-all duration-300 hover:border-accent/50 active:scale-[0.99]"
+            className="group relative flex items-center justify-between gap-4 rounded-[1.5rem] border border-dark/10 bg-dark/5 px-5 py-4 cursor-pointer overflow-hidden transition-all duration-300 hover:border-accent/50 active:scale-[0.99]"
             style={{ WebkitTapHighlightColor: "transparent" }}
           >
             {/* Thumbnail */}
-            <div className="relative w-16 h-16 flex-shrink-0 rounded-[1rem] overflow-hidden bg-white/10">
+            <div className="relative w-16 h-16 flex-shrink-0 rounded-[1rem] overflow-hidden bg-dark/10">
               <img
                 src={card.bg}
                 alt={card.title}
@@ -213,10 +213,10 @@ const MobileProjectsArchive = ({ setActivePage }) => {
 
             {/* Text */}
             <div className="flex-1 min-w-0">
-              <h3 className="font-sans font-bold text-xl uppercase tracking-tighter leading-none text-primary truncate">
+              <h3 className="font-sans font-bold text-xl uppercase tracking-tighter leading-none text-dark truncate">
                 {card.title}
               </h3>
-              <p className="font-mono text-[10px] text-primary/50 tracking-widest uppercase mt-1 truncate">
+              <p className="font-mono text-[10px] text-dark/50 tracking-widest uppercase mt-1 truncate">
                 {card.desc}
               </p>
             </div>
@@ -231,12 +231,12 @@ const MobileProjectsArchive = ({ setActivePage }) => {
                   navigate(`/booking?service=${card.serviceParam}`);
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
-                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/15 text-primary/50 hover:border-accent/60 hover:text-accent font-mono text-[9px] uppercase tracking-widest transition-all duration-300"
+                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-dark/15 text-dark/50 hover:border-accent/60 hover:text-accent font-mono text-[9px] uppercase tracking-widest transition-all duration-300"
               >
                 <CalendarBlank size={11} weight="duotone" />
                 Inquire
               </button>
-              <div className="w-10 h-10 flex-shrink-0 rounded-full border border-white/20 flex items-center justify-center bg-dark/40 group-hover:bg-accent group-hover:border-accent text-primary group-hover:text-dark transition-all duration-300 group-hover:rotate-45">
+              <div className="w-10 h-10 flex-shrink-0 rounded-full border border-dark/20 flex items-center justify-center bg-background group-hover:bg-accent group-hover:border-accent text-dark transition-all duration-300 group-hover:rotate-45">
                 <ArrowUpRight size={20} weight="bold" />
               </div>
             </div>

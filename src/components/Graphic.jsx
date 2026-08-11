@@ -20,7 +20,7 @@ function ImageComparisonSlider({ before, after, title, aspectClass = "aspect-aut
     let percentage = (x / rect.width) * 100;
     if (percentage < 0) percentage = 0;
     if (percentage > 100) percentage = 100;
-    
+
     if (beforeOverlayRef.current) {
       beforeOverlayRef.current.style.clipPath = `polygon(0 0, ${percentage}% 0, ${percentage}% 100%, 0 100%)`;
     }
@@ -288,7 +288,7 @@ export default function Graphics({ setActivePage }) {
         }
       });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openModal]);
 
   useEffect(() => {
@@ -544,7 +544,7 @@ export default function Graphics({ setActivePage }) {
                     key={toolIndex}
                     className="w-7 h-7 rounded-full flex items-center justify-center border bg-background/25 border-primary/20"
                   >
-                    <img src={tool} alt={`${tool.split('/').pop().replace('.svg', '').replace('.png', '')} icon`} className="w-4 h-4 object-contain" />
+                    <img src={tool} alt={`${tool.split('/').pop().replace('.svg', '').replace('.png', '')} icon`} width="16" height="16" loading="lazy" className="w-4 h-4 object-contain" />
                   </div>
                 ))}
               </div>
@@ -611,7 +611,7 @@ export default function Graphics({ setActivePage }) {
                     key={toolIndex}
                     className="w-7 h-7 rounded-full flex items-center justify-center border bg-background border-dark/10"
                   >
-                    <img src={tool} alt={`${tool.split('/').pop().replace('.svg', '').replace('.png', '')} icon`} className="w-4 h-4 object-contain" />
+                    <img src={tool} alt={`${tool.split('/').pop().replace('.svg', '').replace('.png', '')} icon`} width="16" height="16" loading="lazy" className="w-4 h-4 object-contain" />
                   </div>
                 ))}
               </div>
@@ -631,21 +631,22 @@ export default function Graphics({ setActivePage }) {
                 if (el) el.style.height = '';
               }}
             >
-              <div className="js-expand-img absolute top-0 left-0 right-0 h-full rounded-[1.4rem] overflow-hidden transition-[height,border-radius,box-shadow,transform] duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] bg-dark/5 z-0 pointer-events-none group-hover:scale-[1.03] group-hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.4)]">
+              <div className="js-expand-img absolute top-0 left-0 right-0 h-full rounded-[20px] group-hover:rounded-[17px] overflow-hidden transition-[height,border-radius,box-shadow,transform] duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] bg-dark/5 z-0 pointer-events-none group-hover:scale-[1.03] group-hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.4)]">
                 <GlareHover
                   width="100%"
                   height="100%"
+                  borderRadius="20px"
                   glareColor="#ffffff"
                   glareOpacity={0.15}
                   glareAngle={-30}
                   glareSize={220}
                   transitionDuration={900}
+                  className="rounded-[20px] group-hover:!rounded-[17px]"
                   style={{ pointerEvents: 'auto' }}
                 >
                   <img
                     src={item.thumbnail}
-                    alt={`${item.title} — ${item.category} by Juneco Mirande`}
-                    loading="lazy"
+                    alt={`${item.title} — ${item.category} by Juneco Mirande`} loading="lazy"
                     decoding="async"
                     onLoad={() => setImagesLoaded(prev => ({ ...prev, [item.thumbnail]: true }))}
                     className={`w-full h-full object-cover transition-all duration-[700ms] ease-out lg:grayscale lg:group-hover:grayscale-0 ${item.title === 'Neue Dept.' ? 'group-hover:opacity-0' : ''} ${imagesLoaded[item.thumbnail] ? 'opacity-100' : 'opacity-0'}`}
@@ -801,7 +802,7 @@ export default function Graphics({ setActivePage }) {
                       )}
                       {item.tools.map((tool, toolIndex) => (
                         <div key={toolIndex} className="w-7 h-7 rounded-full bg-background flex items-center justify-center border border-dark/10">
-                          <img src={tool} alt={`${tool.split('/').pop().replace('.svg', '').replace('.png', '')} icon`} className="w-4 h-4 object-contain" />
+                          <img src={tool} alt={`${tool.split('/').pop().replace('.svg', '').replace('.png', '')} icon`} width="16" height="16" loading="lazy" className="w-4 h-4 object-contain" />
                         </div>
                       ))}
                     </div>
@@ -821,15 +822,17 @@ export default function Graphics({ setActivePage }) {
                       if (el) el.style.height = '';
                     }}
                   >
-                    <div className="js-expand-img absolute top-0 left-0 right-0 h-full rounded-[1.4rem] overflow-hidden transition-[height,border-radius,box-shadow,transform] duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.03] group-hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.4)] bg-dark/5 z-0 pointer-events-none">
+                    <div className="js-expand-img absolute top-0 left-0 right-0 h-full rounded-[20px] group-hover:rounded-[17px] overflow-hidden transition-[height,border-radius,box-shadow,transform] duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.03] group-hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.4)] bg-dark/5 z-0 pointer-events-none">
                       <GlareHover
                         width="100%"
                         height="100%"
+                        borderRadius="20px"
                         glareColor="#ffffff"
                         glareOpacity={0.15}
                         glareAngle={-30}
                         glareSize={220}
                         transitionDuration={900}
+                        className="rounded-[20px] group-hover:!rounded-[17px]"
                         style={{ pointerEvents: 'auto' }}
                       >
                         <img

@@ -52,26 +52,26 @@ export default function Contact() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative w-full py-20 px-4 sm:px-8 md:px-16 md:pl-[120px] lg:pl-[140px]" id="contact">
+    <section ref={sectionRef} className="relative w-full py-10 md:py-20 px-4 sm:px-8 md:px-16 md:pl-[120px] lg:pl-[140px]" id="contact">
       <div className="w-full flex flex-col items-center md:items-start">
-        <div className="contact-item flex justify-center md:justify-start items-center gap-4 mb-20 text-dark uppercase font-mono text-xs font-bold tracking-widest text-center md:text-left w-full">
+        <div className="contact-item flex justify-center md:justify-start items-center gap-4 mb-6 md:mb-20 text-dark uppercase font-mono text-xs font-bold tracking-widest text-center md:text-left w-full">
           <span className="hidden md:block w-12 h-[1px] bg-accent" />
           Get In Touch
         </div>
 
-        <h2 className="contact-item font-sans font-bold text-5xl sm:text-7xl md:text-8xl tracking-tighter uppercase text-dark mb-16 leading-[0.9] text-center md:text-left w-full">
-          Let's <br /><span className="font-sans font-black text-accent md:pr-4">Work.</span>
+        <h2 className="contact-item font-sans font-bold tracking-tighter uppercase text-dark mb-8 md:mb-16 leading-[0.9] text-left w-full" style={{ fontSize: 'clamp(2.5rem, 14vw, 6rem)' }}>
+          <span className="font-sans font-bold">Let's </span><span className="font-sans font-black text-accent md:pr-4">Work.</span>
         </h2>
 
-        <div className="flex flex-col gap-12 w-full">
-          <div className="contact-item border-t border-dark/20 pt-8 flex flex-col sm:flex-row sm:items-center justify-between group items-center text-center sm:text-left">
-            <div className="flex items-center justify-center sm:justify-start gap-4 text-dark/50 text-xs font-mono uppercase tracking-widest mb-4 sm:mb-0">
-              <EnvelopeSimple size={24} className="group-hover:text-accent transition-colors" />
+        <div className="flex flex-col gap-6 md:gap-12 w-full">
+          <div className="contact-item border-t border-dark/20 pt-5 md:pt-8 flex flex-col sm:flex-row sm:items-center justify-between group">
+            <div className="flex items-center gap-3 text-dark/50 text-xs font-mono uppercase tracking-widest mb-2 sm:mb-0">
+              <EnvelopeSimple size={18} className="group-hover:text-accent transition-colors shrink-0" />
               Email
             </div>
             <a href="mailto:juneco.mirande@gmail.com"
               onClick={handleEmailClick}
-              className="relative font-sans font-bold text-2xl sm:text-4xl text-dark hover:text-accent transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] transform group-hover:-translate-y-1 mt-4 sm:mt-0"
+              className="relative font-sans font-bold text-lg sm:text-4xl text-dark hover:text-accent transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] transform group-hover:-translate-y-1 break-all sm:break-normal"
             >
               juneco.mirande@gmail.com
               {emailCopied && (
@@ -82,26 +82,26 @@ export default function Contact() {
             </a>
           </div>
 
-          <div className="contact-item border-t border-dark/20 pt-8 flex flex-col sm:flex-row sm:items-center justify-between group items-center text-center sm:text-left">
-            <div className="flex items-center justify-center sm:justify-start gap-4 text-dark/50 text-xs font-mono uppercase tracking-widest mb-4 sm:mb-0">
-              <MapPin size={24} className="group-hover:text-accent transition-colors" />
+          <div className="contact-item border-t border-dark/20 pt-5 md:pt-8 flex flex-col sm:flex-row sm:items-center justify-between group">
+            <div className="flex items-center gap-3 text-dark/50 text-xs font-mono uppercase tracking-widest mb-2 sm:mb-0">
+              <MapPin size={18} className="group-hover:text-accent transition-colors shrink-0" />
               Location
             </div>
-            <div className="font-sans font-bold text-xl sm:text-2xl text-dark sm:text-right max-w-sm mt-4 sm:mt-0">
-              San Carlos City, <br className="hidden sm:block" />Negros Occidental, PH
+            <div className="font-sans font-bold text-base sm:text-2xl text-dark sm:text-right">
+              San Carlos City, Negros Occidental, PH
             </div>
           </div>
 
-          <div className="contact-item border-t border-dark/20 pt-8 flex flex-col sm:flex-row sm:items-center justify-between group items-center text-center sm:text-left">
-            <div className="flex items-center justify-center sm:justify-start gap-4 text-dark/50 text-xs font-mono uppercase tracking-widest mb-4 sm:mb-0">
+          <div className="contact-item border-t border-dark/20 pt-5 md:pt-8 flex flex-col sm:flex-row sm:items-center justify-between group">
+            <div className="flex items-center gap-3 text-dark/50 text-xs font-mono uppercase tracking-widest mb-3 sm:mb-0">
               Socials
             </div>
-            <div className="contact-social-wrap flex gap-4 justify-center sm:justify-end mt-4 sm:mt-0 w-full sm:w-auto">
+            <div className="contact-social-wrap flex gap-4 sm:justify-end w-full sm:w-auto">
               {[
-                { icon: LinkedinLogo, href: "https://www.linkedin.com/in/juneco-mirande/" }
-              ].map(({ icon: Icon, href }, idx) => (
-                <a key={idx} href={href} className="contact-social w-16 h-16 rounded-full border border-dark/20 bg-primary/40 flex items-center justify-center text-dark hover:bg-accent hover:border-accent hover:text-background transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] transform hover:-translate-y-2 hover:shadow-xl hover:shadow-accent/20">
-                  <Icon size={28} />
+                { icon: LinkedinLogo, href: "https://www.linkedin.com/in/juneco-mirande/", label: "LinkedIn Profile" }
+              ].map(({ icon: Icon, href, label }, idx) => (
+                <a key={idx} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="contact-social w-12 h-12 md:w-16 md:h-16 rounded-full border border-dark/20 bg-primary/40 flex items-center justify-center text-dark hover:bg-accent hover:border-accent hover:text-background transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] transform hover:-translate-y-2 hover:shadow-xl hover:shadow-accent/20">
+                  <Icon size={22} aria-hidden="true" />
                 </a>
               ))}
 
@@ -109,10 +109,11 @@ export default function Contact() {
           </div>
         </div>
 
-        <div className="w-full mt-24">
+        <div className="w-full mt-10 md:mt-24">
           <ReadyToBuild />
         </div>
       </div>
     </section>
   );
+
 }

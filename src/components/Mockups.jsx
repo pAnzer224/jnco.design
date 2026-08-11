@@ -48,8 +48,8 @@ export default function Mockups({ setActivePage }) {
       tools: ["/images/logos/photoshop.svg"],
     },
     {
-      thumbnail: "/images/smartcart/thumb.webp",
-      images: ["/images/smartcart/smartcart1.webp"],
+      thumbnail: "/images/SmartCart/thumb.webp",
+      images: ["/images/SmartCart/smartcart1.webp"],
       title: "SmartCart",
       category: "Mobile Design",
       tools: ["/images/logos/photoshop.svg"],

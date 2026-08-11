@@ -16,9 +16,9 @@ export default function ReadyToBuild() {
   };
 
   return (
-    <div className="w-full mt-24">
+    <div className="w-full">
       {/* Book a Project — CTA Card */}
-      <div className="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-dark p-8 sm:p-12 md:p-14 flex flex-col md:flex-row items-center md:items-center justify-between gap-8 text-left">
+      <div className="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-dark p-6 sm:p-12 md:p-14 flex flex-col md:flex-row items-center md:items-center justify-between gap-6 md:gap-8 text-left">
 
         {/* Background glow */}
         <div className="absolute top-0 right-0 w-[400px] h-[300px] pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(199, 178, 143, 0.12) 0%, transparent 70%)' }} />

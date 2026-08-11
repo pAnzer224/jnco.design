@@ -146,12 +146,12 @@ const TechStack = () => {
               cardTime
             )
             .fromTo(nameText,
-              { color: "rgba(17, 17, 17, 0.5)" },
+              { color: "rgba(232, 228, 221, 0.3)" },
               { color: "#E63B2E", duration: 0.5, ease: "power2.out" },
               cardTime
             )
             .fromTo(line,
-              { width: "1rem", backgroundColor: "rgba(17, 17, 17, 0.2)" },
+              { width: "1rem", backgroundColor: "rgba(232, 228, 221, 0.15)" },
               { width: "2rem", backgroundColor: "#E63B2E", duration: 0.5, ease: "power2.out" },
               cardTime
             )
@@ -171,7 +171,7 @@ const TechStack = () => {
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top top",
-            end: "+=250%",
+            end: "+=150%",
             scrub: 1,
             pin: true,
           }
@@ -200,7 +200,7 @@ const TechStack = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-background py-24 px-4 sm:px-8 md:pl-[120px] lg:pl-[140px] xl:pr-16 min-h-screen flex flex-col justify-center" id="tech-toolbox">
+    <section ref={sectionRef} className="bg-dark py-14 md:py-24 px-4 sm:px-8 md:pl-[120px] lg:pl-[140px] xl:pr-16 md:min-h-screen md:flex md:flex-col md:justify-center" id="tech-toolbox">
       {/* Dynamic Style Injection for hover override */}
       <style>{`
         #tech-toolbox .tech-item {
@@ -208,8 +208,8 @@ const TechStack = () => {
         }
 
         #tech-toolbox .tech-item:hover {
-          border-color: rgba(17, 17, 17, 0.2) !important;
-          box-shadow: 0 10px 25px -10px rgba(17, 17, 17, 0.08) !important;
+          border-color: rgba(232, 228, 221, 0.15) !important;
+          box-shadow: 0 10px 25px -10px rgba(0,0,0,0.3) !important;
           transform: translateY(-8px) !important;
         }
 
@@ -237,12 +237,12 @@ const TechStack = () => {
         }
       `}</style>
 
-      <div className="tech-header flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+      <div className="tech-header flex flex-col md:flex-row justify-between items-end mb-8 md:mb-16 gap-8">
         <div className="max-w-2xl tech-header-anim opacity-0 translate-y-10">
-          <h2 className="font-sans font-black text-4xl sm:text-6xl text-dark tracking-tighter uppercase mb-6">
+          <h2 className="font-sans font-black text-4xl sm:text-6xl text-primary tracking-tighter uppercase mb-6">
             technical skills
           </h2>
-          <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-dark/60 leading-relaxed pl-4 border-l-2 border-accent/20">
+          <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-primary/60 leading-relaxed pl-4 border-l-2 border-accent/40">
             Technologies and tools I use to design and build digital experiences.
           </p>
         </div>
@@ -252,14 +252,13 @@ const TechStack = () => {
         {techStack.map((tech, i) => (
           <div
             key={i}
-            className="tech-item opacity-0 translate-y-10 group relative bg-primary/80 border-[1.5px] border-dark/10 rounded-[2.5rem] p-6 h-40 sm:h-48 overflow-hidden cursor-default"
+            className="tech-item opacity-0 translate-y-10 group relative bg-primary/90 border-[1.5px] border-primary/10 rounded-[2.5rem] p-6 h-40 sm:h-48 overflow-hidden cursor-default"
           >
-            {/* Label */}
             <div className="relative z-20">
-              <span className="tech-name-text font-mono text-[10px] text-dark/50 uppercase tracking-widest font-bold block mb-1 transition-colors duration-300">
+              <span className="tech-name-text font-mono text-[10px] text-primary/40 uppercase tracking-widest font-bold block mb-1 transition-colors duration-300">
                 {tech.name}
               </span>
-              <div className="tech-line w-4 h-[1px] bg-dark/20 transition-all duration-500" />
+              <div className="tech-line w-4 h-[1px] bg-primary/20 transition-all duration-500" />
             </div>
 
             {/* Icon - "Hugging" the bottom and tilted */}
@@ -268,6 +267,9 @@ const TechStack = () => {
                 <img
                   src={tech.icon}
                   alt=""
+                  width="96"
+                  height="96"
+                  loading="lazy"
                   className={`tech-icon-img w-full h-full object-contain grayscale ${tech.baseOpacity} transition-all duration-700`}
                 />
               </div>

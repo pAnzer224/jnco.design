@@ -62,7 +62,7 @@ export default function Nav({ activePage, setActivePage }) {
   // Per-frame clip-path calculation for light overlay on dark sections
   useEffect(() => {
     let ticking = false;
-    const darkSelectors = ["#philosophy", "#work-archive"];
+    const darkSelectors = ["#hero", "#tech-toolbox", "#philosophy"];
     const isResumePage = location.pathname === "/resume";
 
     const checkOverlap = () => {
@@ -100,9 +100,6 @@ export default function Nav({ activePage, setActivePage }) {
         const r = el.getBoundingClientRect();
 
         let elBottom = r.bottom;
-        if (sel === "#philosophy") {
-          elBottom -= 80; // Adjust for the -mt-20 overlap of the footer
-        }
 
         const overlapTop = Math.max(navTop, r.top);
         const overlapBottom = Math.min(navBottom, elBottom);

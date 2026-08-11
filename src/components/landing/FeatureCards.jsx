@@ -78,8 +78,8 @@ const FeatureCards = () => {
     }, [msgIdx]);
 
     return (
-        <section ref={sectionRef} className="bg-background py-32 px-4 sm:px-8 md:pl-[120px] lg:pl-[140px] xl:pr-16 container mx-auto" id="skills">
-            <div className="text-center mb-24">
+        <section ref={sectionRef} className="bg-background py-16 md:py-32 px-4 sm:px-8 md:pl-[120px] lg:pl-[140px] xl:pr-16 container mx-auto" id="skills">
+            <div className="text-center mb-10 md:mb-24">
                 <h2 className="font-sans font-black text-4xl sm:text-6xl text-dark tracking-tighter uppercase mb-6">How i execute</h2>
                 <div className="w-16 h-1 bg-accent mx-auto" />
             </div>
@@ -95,18 +95,17 @@ const FeatureCards = () => {
                         <h3 className="font-sans font-bold text-2xl text-dark uppercase tracking-tight mb-2">Systems & logic</h3>
                         <p className="font-mono text-xs text-dark/70 leading-relaxed">I translate vague requirements into logical, pixel-perfect interfaces designed for seamless user experiences.</p>
                     </div>
-                    <div className="relative h-48 w-full mt-4">
+                    <div className="relative h-48 w-full mt-4" style={{ isolation: 'isolate' }}>
                         {layersDeck.map((card, i) => {
-                            const zIndex = 3 - i;
                             const scale = 1 - (i * 0.05);
                             const translateY = i * 20;
                             const opacity = 1 - (i * 0.2);
                             return (
                                 <div
                                     key={card.id}
-                                    className="absolute bottom-0 w-full bg-background border border-dark/20 p-4 rounded-xl shadow-lg transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] flex items-center gap-4 will-change-transform"
+                                    className="absolute bottom-0 w-full bg-background border border-dark/20 p-4 rounded-xl shadow-lg transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] flex items-center gap-4 will-change-transform"
                                     style={{
-                                        zIndex,
+                                        zIndex: 3 - i,
                                         transform: `translateY(-${translateY}px) scale(${scale})`,
                                         opacity: opacity,
                                     }}
