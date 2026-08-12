@@ -64,9 +64,9 @@ export default function WebDev({ setActivePage }) {
         ],
         role: "Full-Stack Developer",
         challenge:
-          "Develop a car rental web platform with user authentication, dynamic search filters, and an interactive reservation system.",
+          "Develop a user-friendly rental platform for outdoor enthusiasts to browse inventory, understand the booking process, and manage rental requirements efficiently.",
         solution:
-          "Built a fully responsive Next.js application using Firebase Firestore for persistent data storage and Firebase Auth for secure customer logins.",
+          "Designed a responsive web interface featuring a streamlined rental guide, clear procedural FAQ, and an intuitive product catalog to simplify equipment bookings for hikers and campers.",
       },
       {
         type: "link",

@@ -131,9 +131,9 @@ export default function UIUX({ setActivePage }) {
         tools: ["/images/logos/photoshop.svg"],
         role: "Web Graphic Designer",
         challenge:
-          "Design modern, advocacy-driven web pages for community wellness programs.",
+          "Create an engaging, modern web page for a non-profit that clearly communicates global water issues and inspires visitors to take action.",
         solution:
-          "Produced visual assets, Photoshop photo-composites, and coordinated typography styles to increase visitor engagement.",
+          "Crafted custom visual assets, photo-composites, and a warm visual hierarchy to make the organization’s mission memorable and drive community involvement.",
       },
 
       {
@@ -171,9 +171,9 @@ export default function UIUX({ setActivePage }) {
         tools: ["/images/logos/photoshop.svg"],
         role: "Visual UI Designer",
         challenge:
-          "Redesign complex legacy database tables and widgets to fit a clean visual identity.",
+          "Redesign complex enterprise pages like corporate blogs, photo galleries, and data charts into clean and readable web layouts.",
         solution:
-          "Designed modernized dashboard graphs, search states, and tables using high contrast colors and balanced paddings.",
+          "Designed structured grids, photo composites, and visual infographics in Photoshop while using the Timeline feature to animate key landing page elements.",
       },
 
       {
@@ -214,10 +214,9 @@ export default function UIUX({ setActivePage }) {
         tools: ["/images/logos/figma.svg"],
         role: "Interface Designer",
         challenge:
-          "Design an optimized mobile checkout interface to simplify offline-to-online item scanning and purchase confirmation.",
+          "Design an intuitive mobile e-commerce interface that guides users seamlessly from product browsing through to checkout.",
         solution:
-          "Implemented horizontal product scrolling layouts, rapid checkout sheets, and high-contrast total breakdown tables.",
-        images: ["/images/smartcart/smartcart.webp", "/images/smartcart/smartcart.webp"],
+          "Crafted full mobile app screen flows featuring structured product cards, a clear cart checkout system, and a user account dashboard.",
       },
 
       {
@@ -232,13 +231,37 @@ export default function UIUX({ setActivePage }) {
         tools: ["/images/logos/figma.svg"],
         role: "Lead UI/UX Designer",
         challenge:
-          "Design a robust software management suite for academic developer teams to track project backlogs and milestones.",
+          "Design a modern landing page and onboarding flow for a B2B platform selling educational software and hardware to schools.",
         solution:
-          "Created task boards, progress tracking widgets, and resource management states to bridge design-to-development collaboration.",
+          "Crafted a clean hero section highlighting IT solutions alongside a multi step registration flow featuring institutional email authentication and streamlined account setup.",
         images: [
           "/images/Maestro/Maestro1.webp",
           "/images/Maestro/Maestro2.webp",
           "/images/Maestro/Maestro3.webp",
+        ],
+      },
+
+      {
+        type: "figma",
+        src: "https://embed.figma.com/proto/jlktYX3YdOKSPDmKLWhbeC/BusyBee?node-id=18-59&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=18%3A59&embed-host=share",
+        thumbnail: "/images/Busybee/BusyBee-background.webp",
+        thumbnailSubject: "/images/Busybee/BusyBee-subject.webp",
+        subjectHoverScale:
+          "group-hover:scale-[1.18] group-hover:translate-y-[3rem]",
+        title: "BusyBee",
+        category: "Productivity App",
+        tools: ["/images/logos/figma.svg"],
+        role: "Product Designer",
+        challenge:
+          "Design a full to-do app experience across desktop and mobile that makes staying on top of your day feel simple instead of another chore.",
+        solution:
+          "Designed quick task entry, category-based organization, and clear completed/priority states across both desktop and mobile, backed by a calm, purposeful visual system that stays legible even when the list gets long.",
+        images: [
+
+          "/images/Busybee/desktop.webp",
+          "/images/Busybee/desktop-empty-state.webp",
+          "/images/Busybee/phone-mockup.webp",
+          "/images/Busybee/color-system.webp",
         ],
       },
     ],
@@ -259,9 +282,9 @@ export default function UIUX({ setActivePage }) {
         tools: ["/images/logos/figma.svg"],
         role: "OJT UI/UX Designer",
         challenge:
-          "Assist in redesigning the core business service platform layout to enhance usability and feature discovery.",
+          "Redesign the core landing page for an AI website builder to clearly communicate product features, step by step workflows, and pricing tiers.",
         solution:
-          "Drafted grid structures, interactive wireframes, and component states under senior oversight.",
+          "Created a full SaaS landing page layout featuring a high impact hero banner, a three step visual guide, detailed feature grids, and structured pricing cards.",
         images: [
           "/images/choros-redesign/choros1.webp",
           "/images/choros-redesign/choros2.webp",
@@ -286,9 +309,9 @@ export default function UIUX({ setActivePage }) {
         tools: ["/images/logos/figma.svg"],
         role: "OJT UI/UX Designer",
         challenge:
-          "Build a responsive mobile e-commerce mockup to present feature capabilities during client pitches.",
+          "Redesign an AI-driven fintech platform to clearly present complex business funding options, loan estimation tools, and virtual advisory services.",
         solution:
-          "Designed checkout sheets, cart views, and catalog navigations using unified Figma design components.",
+          "Created responsive light and dark theme landing page components featuring interactive calculator widgets, structured funding cards, and an intuitive three-step application guide.",
         images: [
           "/images/ycom/ycom1.webp",
           "/images/ycom/ycom2.webp",
@@ -362,7 +385,7 @@ export default function UIUX({ setActivePage }) {
         <meta property="og:title" content="UI/UX Design Portfolio | Juneco Mirande" />
         <meta property="og:url" content="https://juneco-mirande.web.app/uiux" />
       </Helmet>
-      
+
       <h1 className="font-sans font-bold text-5xl sm:text-7xl tracking-tighter uppercase text-dark mb-4">
         UI/UX Design
       </h1>
@@ -450,7 +473,7 @@ export default function UIUX({ setActivePage }) {
             onClick={(e) => e.stopPropagation()}
           >
             {/* 1. Left Context Sidebar (30% Width on Desktop) */}
-            <div className="w-full md:w-[320px] lg:w-[380px] shrink-0 order-2 md:order-1 max-h-[38vh] md:max-h-none border-t md:border-t-0 md:border-r border-primary/10 p-5 sm:p-6 md:p-8 flex flex-col justify-between overflow-y-auto text-primary">
+            <div className="w-full md:w-[320px] lg:w-[380px] shrink-0 order-2 md:order-1 max-h-[38vh] md:max-h-none border-t md:border-t-0 md:border-r border-primary/10 p-5 sm:p-6 md:p-8 flex flex-col justify-between overflow-y-auto text-primary" data-lenis-prevent>
               <div>
                 {/* Header */}
                 <span className="font-mono text-[9px] text-accent tracking-[3px] uppercase font-bold">
@@ -513,19 +536,19 @@ export default function UIUX({ setActivePage }) {
                 </div>
                 {(allWorks[openModal].type === "link" ||
                   allWorks[openModal].type === "figma") && (
-                  <a
-                    href={
-                      allWorks[openModal].type === "link"
-                        ? allWorks[openModal].url
-                        : allWorks[openModal].src
-                    }
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded-full font-mono text-[10px] uppercase font-bold tracking-widest transition-all"
-                  >
-                    Open Live <ArrowUpRight size={12} weight="bold" />
-                  </a>
-                )}
+                    <a
+                      href={
+                        allWorks[openModal].type === "link"
+                          ? allWorks[openModal].url
+                          : allWorks[openModal].src
+                      }
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded-full font-mono text-[10px] uppercase font-bold tracking-widest transition-all"
+                    >
+                      Open Live <ArrowUpRight size={12} weight="bold" />
+                    </a>
+                  )}
               </div>
             </div>
 
@@ -542,14 +565,14 @@ export default function UIUX({ setActivePage }) {
 
               <div className="w-full h-full">
                 {allWorks[openModal].type === "scrollable-image" ||
-                allWorks[openModal].images ? (
-                  <div className="w-full h-full overflow-y-auto py-4 sm:py-8 select-none">
+                  allWorks[openModal].images ? (
+                  <div className="w-full h-full overflow-y-auto py-4 sm:py-8 select-none" data-lenis-prevent>
                     <div
                       className={`flex flex-col items-center max-w-3xl mx-auto ${allWorks[openModal].noGap ? "gap-0" : "gap-4"}`}
                     >
                       {allWorks[openModal].images.map((img, imgIndex) =>
                         img.toLowerCase().endsWith(".webm") ||
-                        img.toLowerCase().endsWith(".mp4") ? (
+                          img.toLowerCase().endsWith(".mp4") ? (
                           <video
                             key={imgIndex}
                             src={img}
