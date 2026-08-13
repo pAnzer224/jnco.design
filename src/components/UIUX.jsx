@@ -1,6 +1,6 @@
+"use client";
 import React, { useState, useEffect, useMemo } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import { usePathname, useRouter, useParams } from "next/navigation";
 import { X, ArrowUpRight } from "@phosphor-icons/react";
 
 import CategoryNav from "./shared/CategoryNav";
@@ -113,9 +113,9 @@ function WorkCard({ item, onClick, isChoros = false }) {
 
 export default function UIUX({ setActivePage }) {
   const [openModal, setOpenModal] = useState(null);
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { projectId } = useParams();
+  const pathname = usePathname();
+  const router = useRouter();
+  const { projectId } = useParams() || {};
 
   const works = useMemo(
     () => [
@@ -330,7 +330,7 @@ export default function UIUX({ setActivePage }) {
   );
 
   const handleClick = (index) => {
-    navigate(`/uiux/${slugify(allWorks[index].title)}${location.hash}`);
+    router.push(`/uiux/${slugify(allWorks[index].title)}`);
   };
 
   useEffect(() => {
@@ -352,39 +352,23 @@ export default function UIUX({ setActivePage }) {
       if (index !== -1) {
         setOpenModal(index);
       }
-    } else if (location.state?.openProject) {
-      const index = works.findIndex(
-        (w) => w.title === location.state.openProject,
-      );
-      if (index !== -1) {
-        navigate(`/uiux/${slugify(works[index].title)}${location.hash}`, { replace: true, state: {} });
-      }
     } else {
       setOpenModal(null);
     }
-  }, [projectId, location.state?.openProject, works, allWorks, location.hash, navigate]);
+  }, [projectId, allWorks]);
 
   useEffect(() => {
-    if (location.hash === "#ojt-choros") {
+    if (typeof window !== 'undefined' && window.location.hash === "#ojt-choros" && !openModal) {
       setTimeout(() => {
-        document
-          .getElementById("ojt-choros")
-          ?.scrollIntoView({ behavior: "smooth", block: "start" });
+        document.getElementById("ojt-choros")?.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 100);
-    } else if (!location.hash) {
+    } else if (typeof window !== 'undefined' && !window.location.hash && !projectId) {
       window.scrollTo(0, 0);
     }
-  }, [location.hash]);
+  }, [projectId, allWorks, router, openModal]);
 
   return (
     <section className="min-h-screen pt-12 sm:pt-16 px-4 sm:px-8 md:px-12 md:pl-[120px] lg:px-24 lg:pl-[140px] pb-16 bg-background text-dark">
-      <Helmet>
-        <title>UI/UX Design Portfolio | Juneco Mirande Philippines</title>
-        <meta name="description" content="Explore Juneco Mirande's UI/UX design portfolio featuring mobile apps, web redesigns, and interactive Figma prototypes." />
-        <link rel="canonical" href="https://juneco-mirande.web.app/uiux" />
-        <meta property="og:title" content="UI/UX Design Portfolio | Juneco Mirande" />
-        <meta property="og:url" content="https://juneco-mirande.web.app/uiux" />
-      </Helmet>
 
       <h1 className="font-sans font-bold text-5xl sm:text-7xl tracking-tighter uppercase text-dark mb-4">
         UI/UX Design
@@ -463,9 +447,7 @@ export default function UIUX({ setActivePage }) {
       {openModal !== null && (
         <div
           className="fixed inset-0 bg-dark/95 z-[2000] flex items-center justify-center p-0 sm:p-4 md:p-8"
-          onClick={() => {
-            navigate(`/uiux${location.hash}`);
-          }}
+          onClick={() => router.push('/uiux')}
         >
           {/* Main Split Layout Container */}
           <div
@@ -556,7 +538,7 @@ export default function UIUX({ setActivePage }) {
             <div className="flex-1 order-1 md:order-2 bg-black/40 relative flex items-center justify-center p-0 sm:p-4 overflow-hidden min-h-[40vh] md:min-h-0">
               <button
                 onClick={() => {
-                  navigate(`/uiux${location.hash}`);
+                  router.push('/uiux');
                 }}
                 className="absolute top-3 right-3 sm:top-4 sm:right-4 text-primary/70 hover:text-accent active:scale-95 transition-all duration-300 z-[2010] flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-primary/10 bg-dark/95"
               >

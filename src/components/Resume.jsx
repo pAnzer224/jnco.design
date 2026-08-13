@@ -1,13 +1,12 @@
+"use client";
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { ArrowLeft } from "@phosphor-icons/react";
-import SEO from "./SEO";
 
 const RESUME_PATH = "/images/resume_portfolio.html";
 
-export default function Resume({ setActivePage }) {
+export default function Resume() {
     useEffect(() => {
-        setActivePage && setActivePage("resume");
         window.scrollTo({ top: 0 });
 
         const blockShortcuts = (e) => {
@@ -17,14 +16,13 @@ export default function Resume({ setActivePage }) {
         };
         window.addEventListener("keydown", blockShortcuts);
         return () => window.removeEventListener("keydown", blockShortcuts);
-    }, [setActivePage]);
+    }, []);
 
     return (
         <section className="relative w-full h-svh overflow-hidden bg-dark text-primary flex flex-col">
-            <SEO title="Resume" description="View Juneco Mirande's resume." />
             <div className="shrink-0 flex items-center justify-between gap-4 px-4 sm:px-8 py-5 border-b border-primary/10">
                 <Link
-                    to="/"
+                    href="/"
                     className="group flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-primary/60 hover:text-accent transition-colors duration-300"
                 >
                     <ArrowLeft size={16} weight="bold" className="group-hover:-translate-x-1 transition-transform duration-300" />

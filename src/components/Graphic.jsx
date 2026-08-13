@@ -1,8 +1,8 @@
+"use client";
 import React, { useState, useRef, useEffect, useMemo, useLayoutEffect } from "react";
 import { gsap } from "gsap";
 import { CaretLeft, CaretRight, X } from "@phosphor-icons/react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import { usePathname, useRouter, useParams } from "next/navigation";
 import CategoryNav from "./shared/CategoryNav";
 import ReadyToBuild from "./shared/ReadyToBuild";
 import GlareHover from "./GlareHover";
@@ -127,9 +127,9 @@ const slugify = (text) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace
 
 export default function Graphics({ setActivePage }) {
   const [openModal, setOpenModal] = useState(null);
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { projectId } = useParams();
+  const pathname = usePathname();
+  const router = useRouter();
+  const { projectId } = useParams() || {};
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [hoveredCard, setHoveredCard] = useState(null);
@@ -234,7 +234,7 @@ export default function Graphics({ setActivePage }) {
   const videoRefs = useRef({});
 
   const handleClick = (index) => {
-    navigate(`/graphics/${slugify(allWorks[index].title)}${location.hash}`);
+    router.push(`/graphics/${slugify(allWorks[index].title)}`);
   };
 
   useEffect(() => {
@@ -247,20 +247,20 @@ export default function Graphics({ setActivePage }) {
     } else if (location.state?.openProject) {
       const idx = allWorks.findIndex((w) => w.title === location.state.openProject);
       if (idx !== -1) {
-        navigate(`/graphics/${slugify(allWorks[idx].title)}${location.hash}`, { replace: true, state: {} });
+        router.push(`/graphics/${slugify(allWorks[idx].title)}`);
       }
     } else {
       setOpenModal(null);
     }
 
-    if (location.hash === "#ojt-choros" && !openModal) {
+    if (typeof window !== 'undefined' && window.location.hash === "#ojt-choros" && !openModal) {
       setTimeout(() => {
         document.getElementById("ojt-choros")?.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 100);
-    } else if (!location.hash && !projectId && !location.state?.openProject) {
+    } else if (typeof window !== 'undefined' && !window.location.hash && !projectId) {
       window.scrollTo(0, 0);
     }
-  }, [projectId, location.hash, location.state?.openProject, allWorks, navigate, openModal]);
+  }, [projectId, allWorks, router, openModal]);
 
   useEffect(() => {
     if (
@@ -673,14 +673,6 @@ export default function Graphics({ setActivePage }) {
     <section
       className="min-h-screen pt-12 sm:pt-16 px-4 sm:px-8 md:px-12 md:pl-[120px] lg:px-24 lg:pl-[140px] pb-16 bg-background text-dark"
     >
-      <Helmet>
-        <title>Graphic Design Portfolio | Juneco Mirande Philippines</title>
-        <meta name="description" content="Explore Juneco Mirande's graphic design portfolio featuring photo manipulation, branding, marketing graphics, and information design." />
-        <link rel="canonical" href="https://juneco-mirande.web.app/graphic" />
-        <meta property="og:title" content="Graphic Design Portfolio | Juneco Mirande" />
-        <meta property="og:url" content="https://juneco-mirande.web.app/graphic" />
-      </Helmet>
-
       <h1 className="font-sans font-bold text-5xl sm:text-7xl tracking-tighter uppercase text-dark mb-4">
         Graphic Design
       </h1>
@@ -858,12 +850,12 @@ export default function Graphics({ setActivePage }) {
         <div
           className="fixed inset-0 bg-dark/95 z-[2000] flex items-center justify-center p-4 sm:p-8"
           onClick={() => {
-            navigate(`/graphics${location.hash}`);
+            router.push(`/graphics${typeof window !== 'undefined' ? window.location.hash : ''}`);
           }}
         >
           <button
             onClick={() => {
-              navigate(`/graphics${location.hash}`);
+              router.push(`/graphics${typeof window !== 'undefined' ? window.location.hash : ''}`);
             }}
             className="absolute top-8 right-8 text-primary/50 hover:text-accent transition-colors duration-300 z-[2001] flex items-center justify-center w-12 h-12 rounded-full border border-primary/20 hover:border-accent"
           >

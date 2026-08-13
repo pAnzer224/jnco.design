@@ -1,7 +1,8 @@
+"use client";
 import React, { useState, useEffect, useMemo } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { usePathname, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { X, ArrowUpRight, ArrowsLeftRight } from "@phosphor-icons/react";
-import { Helmet } from "react-helmet-async";
 
 import CategoryNav from "./shared/CategoryNav";
 import ReadyToBuild from "./shared/ReadyToBuild";
@@ -13,9 +14,10 @@ export default function WebDev({ setActivePage }) {
   const [openModalItem, setOpenModalItem] = useState(null);
   const [iframeWidth, setIframeWidth] = useState(100);
   const [isDragging, setIsDragging] = useState(false);
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { projectId } = useParams();
+  const pathname = usePathname();
+  const router = useRouter();
+  const params = useParams();
+  const projectId = params?.projectId;
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -189,12 +191,12 @@ export default function WebDev({ setActivePage }) {
   );
 
   const handleClick = (item) => {
-    navigate(`/webdev/${slugify(item.title)}${location.hash}`);
+    router.push(`/webdev/${slugify(item.title)}`);
   };
 
   useEffect(() => {
     if (openModalItem !== null) {
-      setIframeWidth(100); // Reset width when opening a new project
+      setIframeWidth(100); 
       document.body.classList.add("modal-open");
       if (openModalItem.type !== "scrollable-image") {
         document.body.classList.add("iframe-modal-open");
@@ -208,47 +210,30 @@ export default function WebDev({ setActivePage }) {
 
   useEffect(() => {
     if (projectId) {
-      const project =
-        works.find((w) => slugify(w.title) === projectId) ||
-        chorosWorks.find((w) => slugify(w.title) === projectId);
+      const allWorks = [...works, ...chorosWorks];
+      const project = allWorks.find((w) => slugify(w.title) === projectId);
       if (project) {
         setOpenModalItem(project);
-      }
-    } else if (location.state?.openProject) {
-      const project =
-        works.find((w) => w.title === location.state.openProject) ||
-        chorosWorks.find((w) => w.title === location.state.openProject);
-      if (project) {
-        navigate(`/webdev/${slugify(project.title)}${location.hash}`, { replace: true, state: {} });
       }
     } else {
       setOpenModalItem(null);
     }
-  }, [projectId, location.state?.openProject, works, chorosWorks, location.hash, navigate]);
+  }, [projectId, works, chorosWorks]);
 
   useEffect(() => {
-    if (location.hash === "#ojt-choros") {
+    if (typeof window !== 'undefined' && window.location.hash === "#ojt-choros" && !openModalItem) {
       setTimeout(() => {
-        document
-          .getElementById("ojt-choros")
-          ?.scrollIntoView({ behavior: "smooth", block: "start" });
+        document.getElementById("ojt-choros")?.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 100);
-    } else if (!location.hash) {
+    } else if (typeof window !== 'undefined' && !window.location.hash && !projectId) {
       window.scrollTo(0, 0);
     }
-  }, [location.hash]);
+  }, [projectId, works, router, openModalItem]);
 
   const [imagesLoaded, setImagesLoaded] = useState({});
 
   return (
     <section className="min-h-screen pt-12 sm:pt-16 px-4 sm:px-8 md:px-12 md:pl-[120px] lg:px-24 lg:pl-[140px] pb-16 bg-background text-dark">
-      <Helmet>
-        <title>Web Development Portfolio | Juneco Mirande Philippines</title>
-        <meta name="description" content="Explore Juneco Mirande's web development portfolio featuring Next.js apps, Laravel projects, and fully responsive websites." />
-        <link rel="canonical" href="https://juneco-mirande.web.app/webdev" />
-        <meta property="og:title" content="Web Development Portfolio | Juneco Mirande" />
-        <meta property="og:url" content="https://juneco-mirande.web.app/webdev" />
-      </Helmet>
 
       <h1 className="font-sans font-bold text-5xl sm:text-7xl tracking-tighter uppercase text-dark mb-4">
         Web Development
@@ -467,9 +452,7 @@ export default function WebDev({ setActivePage }) {
       {openModalItem !== null && (
         <div
           className="fixed inset-0 bg-dark/95 z-[2000] flex items-center justify-center p-4 md:p-8"
-          onClick={() => {
-            navigate(`/webdev${location.hash}`);
-          }}
+          onClick={() => router.push('/webdev')}
         >
           {/* Main Split Layout Container */}
           <div
@@ -555,7 +538,7 @@ export default function WebDev({ setActivePage }) {
             <div className="flex-1 bg-black/40 relative flex items-center justify-center p-4 overflow-hidden">
               <button
                 onClick={() => {
-                  navigate(`/webdev${location.hash}`);
+                  router.push('/webdev');
                 }}
                 className="absolute top-4 right-4 text-primary/50 hover:text-accent transition-colors duration-300 z-[2010] flex items-center justify-center w-10 h-10 rounded-full border border-primary/10 bg-dark/80"
               >

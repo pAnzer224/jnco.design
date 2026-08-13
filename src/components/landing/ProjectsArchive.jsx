@@ -1,39 +1,40 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+"use client";
+import React, { useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { ArrowUpRight, CalendarBlank } from "@phosphor-icons/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const PROJECT_IMAGE = "/images/projects-section/fractal-glass.webp";
+
 const categories = [
   {
     title: "Graphic Design",
     desc: "Branding, Marketing & Visual Identity",
-    bg: "/images/simulated-sanctuary/thumb.webp",
     path: "/graphics",
     serviceParam: "graphic",
+    thumbs: [
+      "/images/projects-section/graphic-thumb1.webp",
+      "/images/projects-section/graphic-thumb2.webp",
+      "/images/projects-section/graphic-thumb3.webp",
+      "/images/projects-section/graphic-thumb4.webp",
+    ],
   },
   {
     title: "UI/UX",
     desc: "Interface Design & User Experience",
-    bg: "/images/LACO/laco.webp",
     path: "/uiux",
     serviceParam: "uiux",
-  },
-  {
-    title: "Mockups",
-    desc: "Product Design & Brand Presentations",
-    bg: "/images/artify/thumb.webp",
-    path: "/mockups",
-    serviceParam: "mockups",
+    thumb: "/images/projects-section/uiux-thumb.webp",
   },
   {
     title: "Web Dev",
     desc: "Full-Stack Applications & Code",
-    bg: "/images/drjas/drjas.webp",
     path: "/webdev",
     serviceParam: "webdev",
+    thumb: "/images/projects-section/webdev-thumb.webp",
   },
 ];
 
@@ -41,8 +42,7 @@ const categories = [
 const DesktopProjectsArchive = ({ setActivePage }) => {
   const containerRef = useRef(null);
   const cardsRef = useRef([]);
-  const navigate = useNavigate();
-  const [loadedImages, setLoadedImages] = useState({});
+  const router = useRouter();
 
   useEffect(() => {
     let ctx = gsap.context(() => {
@@ -121,160 +121,91 @@ const DesktopProjectsArchive = ({ setActivePage }) => {
           >
             <div
               onClick={() => {
-                navigate(card.path);
+                router.push(card.path);
               }}
               data-cursor-text="View"
-              className={`card-inner relative w-full max-w-5xl h-[70vh] rounded-[2rem] sm:rounded-[3rem] overflow-hidden cursor-pointer group shadow-2xl border-4 border-dark/5 ${!loadedImages[card.bg] ? "skeleton" : ""}`}
+              className="card-inner flex flex-col w-full max-w-5xl h-[70vh] rounded-tl-[2rem] rounded-tr-[2rem] rounded-br-[2rem] rounded-bl-lg sm:rounded-tl-[3rem] sm:rounded-tr-[3rem] sm:rounded-br-[3rem] sm:rounded-bl-2xl overflow-hidden cursor-pointer group shadow-2xl border-t-4 border-background bg-[#272726] text-primary p-3"
             >
-              {/* Hidden Image for Loading Listener */}
-              <img
-                src={card.bg}
-                alt=""
-                className="hidden"
-                onLoad={() =>
-                  setLoadedImages((prev) => ({ ...prev, [card.bg]: true }))
-                }
-              />
+              {/* Image — raw fractal-glass, hugs bottom-left */}
+              <div className="relative w-full flex-1 min-h-0 rounded-[1.4rem] rounded-tr-[1.6rem] rounded-tl-[1.6rem] overflow-hidden bg-primary/5 sm:rounded-tr-[2.2rem] sm:rounded-tl-[2.2rem]">
+                <div
+                  className="absolute inset-0 bg-cover"
+                  style={{
+                    backgroundImage: `url('${PROJECT_IMAGE}')`,
+                    backgroundPosition: "left bottom",
+                  }}
+                />
+                {card.thumb && (
+                  <img
+                    src={card.thumb}
+                    alt={`${card.title} thumbnail`}
+                    className="absolute left-[5%] top-[58%] -translate-y-1/3 w-[135%] max-w-none pointer-events-none sm:left-[15%] sm:top-1/2 sm:-translate-y-1/2 sm:w-[95%] sm:max-w-[843px]"
+                  />
+                )}
 
-              {/* Background Image */}
-              <div
-                className={`absolute inset-0 bg-cover bg-center transition-all duration-[800ms] group-hover:scale-110 ${loadedImages[card.bg] ? "opacity-100" : "opacity-0"}`}
-                style={{ backgroundImage: `url('${card.bg}')` }}
-              />
-              {/* Dark Overlay gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent" />
+                {card.thumbs && (
+                  <>
+                    <img
+                      src={card.thumbs[0]}
+                      alt={`${card.title} thumbnail 1`}
+                      className="absolute left-[17%] top-0 w-[95%] h-full object-contain object-left pointer-events-none scale-125 origin-top-left transition-transform duration-[1800ms] ease-out group-hover:translate-y-5 group-hover:scale-125"
+                    />
+                    <img
+                      src={card.thumbs[1]}
+                      alt={`${card.title} thumbnail 2`}
+                      className="absolute left-[17%] top-0 w-[95%] h-full object-contain object-left pointer-events-none scale-125 origin-top-left transition-transform duration-[1800ms] ease-out group-hover:-translate-y-5 group-hover:scale-125"
+                    />
+                    <img
+                      src={card.thumbs[2]}
+                      alt={`${card.title} thumbnail 3`}
+                      className="absolute left-[17%] top-0 w-[95%] h-full object-contain object-left pointer-events-none scale-125 origin-top-left transition-transform duration-[1800ms] ease-out group-hover:translate-y-5 group-hover:scale-125"
+                    />
+                    {card.thumbs[3] && (
+                      <img
+                        src={card.thumbs[3]}
+                        alt={`${card.title} thumbnail 4`}
+                        className="absolute left-[17%] top-0 w-[95%] h-full object-contain object-left pointer-events-none scale-125 origin-top-left transition-transform duration-[1800ms] ease-out group-hover:-translate-y-5 group-hover:scale-125"
+                      />
+                    )}
+                  </>
+                )}
+              </div>
 
-              <div className="absolute inset-0 flex flex-col justify-end p-8 sm:p-12 z-10 text-primary">
-
-                <div className="mt-8 transition-transform duration-500 ease-[power2.out] group-hover:-translate-y-4">
-                  <h3 className="font-sans font-bold text-4xl sm:text-6xl md:text-8xl md:max-w-3xl uppercase tracking-tighter leading-none mb-4">
-                    {card.title}.
-                  </h3>
-                  <div className="flex items-center justify-between flex-wrap gap-3">
-                    <p className="font-mono text-xs sm:text-sm text-primary/70 tracking-widest uppercase">
-                      {card.desc}
-                    </p>
-                    {/* Inquire chip */}
-                    <button
-                      id={`inquire-${card.serviceParam}`}
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        navigate(`/booking?service=${card.serviceParam}`);
-                        window.scrollTo({ top: 0, behavior: "smooth" });
-                      }}
-                      className="flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-dark/70 text-primary/70 hover:border-accent hover:text-accent hover:bg-accent/10 font-mono text-[10px] uppercase tracking-widest transition-all duration-300 group/btn flex-shrink-0 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto"
-                    >
-                      <CalendarBlank size={13} weight="duotone" />
-                      Inquire for this
-                    </button>
+              {/* Footer: title + desc — moved to bottom */}
+              <div className="flex items-center justify-between mt-3 px-2 pb-1">
+                <div className="min-w-0">
+                  <div className="font-sans font-bold text-2xl sm:text-3xl uppercase tracking-tight leading-tight truncate text-primary">
+                    {card.title}
+                  </div>
+                  <div className="font-mono text-[10px] text-accent tracking-[2px] uppercase font-bold mt-0.5">
+                    {card.desc}
                   </div>
                 </div>
+                <button
+                  id={`inquire-${card.serviceParam}`}
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    router.push(`/booking?service=${card.serviceParam}`);
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                  className="flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 text-primary/50 hover:border-accent hover:text-accent hover:bg-accent/10 font-mono text-[10px] uppercase tracking-widest transition-all duration-300 flex-shrink-0 ml-2"
+                >
+                  <CalendarBlank size={13} weight="duotone" />
+                  Inquire for this
+                </button>
               </div>
             </div>
           </div>
         ))}
       </div>
-    </section>
+    </section >
   );
 };
 
-// ── Mobile only: lightweight list ────────────────────────────────────────────
-const MobileProjectsArchive = ({ setActivePage }) => {
-  const navigate = useNavigate();
-
-  return (
-    <section id="work-archive" className="relative w-full bg-background mt-0 pb-8">
-      <div className="text-center py-8 pointer-events-none">
-        <h2 className="font-sans font-bold text-lg tracking-[0.2em] uppercase text-dark/70">
-          Projects
-        </h2>
-      </div>
-
-      <div className="px-4 flex flex-col gap-3">
-        {categories.map((card, idx) => (
-          <div
-            key={idx}
-            onClick={() => {
-              navigate(card.path);
-            }}
-            className="group relative flex items-center justify-between gap-4 rounded-[1.5rem] border border-dark/10 bg-dark/5 px-5 py-4 cursor-pointer overflow-hidden transition-all duration-300 hover:border-accent/50 active:scale-[0.99]"
-            style={{ WebkitTapHighlightColor: "transparent" }}
-          >
-            {/* Thumbnail */}
-            <div className="relative w-16 h-16 flex-shrink-0 rounded-[1rem] overflow-hidden bg-dark/10">
-              <img
-                src={card.bg}
-                alt={card.title}
-                fetchpriority="high"
-                className="w-full h-full object-cover"
-              />
-            </div>
-
-            {/* Text */}
-            <div className="flex-1 min-w-0">
-              <h3 className="font-sans font-bold text-xl uppercase tracking-tighter leading-none text-dark truncate">
-                {card.title}
-              </h3>
-              <p className="font-mono text-[10px] text-dark/50 tracking-widest uppercase mt-1 truncate">
-                {card.desc}
-              </p>
-            </div>
-
-            {/* Actions */}
-            <div className="flex items-center gap-2 flex-shrink-0">
-              <button
-                id={`mobile-inquire-${card.serviceParam}`}
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  navigate(`/booking?service=${card.serviceParam}`);
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }}
-                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-dark/15 text-dark/50 hover:border-accent/60 hover:text-accent font-mono text-[9px] uppercase tracking-widest transition-all duration-300"
-              >
-                <CalendarBlank size={11} weight="duotone" />
-                Inquire
-              </button>
-              <div className="w-10 h-10 flex-shrink-0 rounded-full border border-dark/20 flex items-center justify-center bg-background group-hover:bg-accent group-hover:border-accent text-dark transition-all duration-300 group-hover:rotate-45">
-                <ArrowUpRight size={20} weight="bold" />
-              </div>
-            </div>
-
-            {/* Subtle glow on hover */}
-            <div
-              className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[1.5rem]"
-              style={{
-                background: `radial-gradient(ellipse at center, rgba(230,59,46,0.06) 0%, transparent 70%)`,
-              }}
-            />
-          </div>
-        ))}
-      </div>
-
-      <div className="h-12" />
-    </section>
-  );
-};
-
-// ── Root: render per breakpoint ───────────────────────────────────────────────
+// ── Root ──────────────────────────────────────────────────────────────────
 const ProjectsArchive = ({ setActivePage }) => {
-  const [isMobile, setIsMobile] = useState(() => {
-    if (typeof window !== "undefined") return window.innerWidth < 768;
-    return false;
-  });
-
-  useEffect(() => {
-    const update = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
-
-  return isMobile ? (
-    <MobileProjectsArchive setActivePage={setActivePage} />
-  ) : (
-    <DesktopProjectsArchive setActivePage={setActivePage} />
-  );
+  return <DesktopProjectsArchive setActivePage={setActivePage} />;
 };
 
 export default ProjectsArchive;

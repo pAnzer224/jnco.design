@@ -1,3 +1,4 @@
+﻿"use client";
 import React, { useState, useRef, useEffect } from 'react';
 import { Question, CaretDown } from '@phosphor-icons/react';
 import Field from '../Field';

@@ -1,9 +1,10 @@
+﻿"use client";
 import React, { useState, useRef } from 'react';
 import { submitInquiry, uploadReferenceFile } from '../lib/pipeline-api';
 import { Paperclip, CheckCircle, SpinnerGap } from '@phosphor-icons/react';
 
 const PROJECT_TYPES = ['UI/UX Design', 'Graphic Design', 'Web Design/Frontend Dev', 'Branding', 'Other'];
-const BUDGET_RANGES = ['Under ₱10K', '₱10K-30K', '₱30K-50K', '₱50K+', 'Not sure yet'];
+const BUDGET_RANGES = ['Under â‚±10K', 'â‚±10K-30K', 'â‚±30K-50K', 'â‚±50K+', 'Not sure yet'];
 const TIMELINES = ['ASAP', 'Within 2 weeks', 'Within a month', 'Flexible'];
 
 export default function InquiryForm() {
@@ -184,3 +185,4 @@ export default function InquiryForm() {
     </div>
   );
 }
+

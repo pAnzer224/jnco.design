@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useRef, useState } from "react";
 import { EnvelopeSimple, LinkedinLogo, MapPin, Check } from "@phosphor-icons/react";
 import gsap from "gsap";

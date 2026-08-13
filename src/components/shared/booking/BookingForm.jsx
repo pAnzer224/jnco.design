@@ -1,5 +1,6 @@
+"use client";
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { submitInquiry, uploadReferenceFile } from '../../../lib/pipeline-api';
 import { CheckCircle, SpinnerGap, Warning, ArrowRight, ArrowLeft } from '@phosphor-icons/react';
 
@@ -14,8 +15,8 @@ import Step3BudgetTimeline from './steps/Step3BudgetTimeline';
 import Step4References from './steps/Step4References';
 
 export default function BookingForm({ onStepChange } = {}) {
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
   const serviceParam = searchParams.get('service');
   const preselectedService = serviceParam ? SERVICE_PARAM_MAP[serviceParam] : null;
@@ -126,7 +127,7 @@ export default function BookingForm({ onStepChange } = {}) {
     }));
   };
 
-  // Multi-choice version — toggles a value in/out of that question's array
+  // Multi-choice version â€” toggles a value in/out of that question's array
   // (e.g. "Existing Brand Assets: Logo, Fonts").
   const handleServiceDetailToggle = (key, value) => {
     setHasInteracted(true);
@@ -238,7 +239,7 @@ export default function BookingForm({ onStepChange } = {}) {
     return (
       <SuccessScreen
         firstName={formData.name.split(' ')[0]}
-        onBackToPortfolio={() => navigate('/')}
+        onBackToPortfolio={() => router.push('/')}
         onNewInquiry={handleNewInquiry}
       />
     );

@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -248,11 +249,11 @@ const TechStack = () => {
         </div>
       </div>
 
-      <div className="tech-grid grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-6 gap-4 sm:gap-6">
+      <div className="tech-grid grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-6">
         {techStack.map((tech, i) => (
           <div
             key={i}
-            className="tech-item opacity-0 translate-y-10 group relative bg-primary/90 border-[1.5px] border-primary/10 rounded-[2.5rem] p-6 h-40 sm:h-48 overflow-hidden cursor-default"
+            className="tech-item opacity-0 translate-y-10 group relative bg-primary/90 border-[1.5px] border-primary/10 rounded-[1.5rem] sm:rounded-[2rem] md:rounded-[2.5rem] p-3 sm:p-5 md:p-6 h-24 sm:h-40 md:h-48 overflow-hidden cursor-default"
           >
             <div className="relative z-20">
               <span className="tech-name-text font-mono text-[10px] text-primary/40 uppercase tracking-widest font-bold block mb-1 transition-colors duration-300">

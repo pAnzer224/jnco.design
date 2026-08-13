@@ -1,9 +1,10 @@
+"use client";
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { ArrowRight } from '@phosphor-icons/react';
 
 export default function ReadyToBuild() {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleBookClick = () => {
     if (window.opener && !window.opener.closed) {
@@ -12,7 +13,7 @@ export default function ReadyToBuild() {
       window.close();
       return;
     }
-    navigate('/booking');
+    router.push('/booking');
   };
 
   return (

@@ -1,3 +1,4 @@
+﻿"use client";
 import React from 'react';
 import { X, PencilSimple, PaperPlaneTilt, SpinnerGap } from '@phosphor-icons/react';
 import { stripHtml } from './helpers';

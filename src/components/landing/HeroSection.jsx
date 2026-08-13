@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import {
@@ -7,7 +8,8 @@ import {
   ArrowsHorizontal,
 } from "@phosphor-icons/react";
 import gsap from "gsap";
-import { useNavigate, Link } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const HeroSection = () => {
   const sectionRef = useRef(null);
@@ -19,7 +21,7 @@ const HeroSection = () => {
   const [popupPos, setPopupPos] = useState({ top: 0, left: 0 });
   const [isMobileView, setIsMobileView] = useState(false);
   const [hoveredHeroImg, setHoveredHeroImg] = useState(null);
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const openLinkedIn = () => {
     if (!isMobileView && linkedinBtnRef.current) {
@@ -375,7 +377,7 @@ const HeroSection = () => {
                         { src: "tablet", alt: "Tablet UI work", category: "Web Dev", icon: "Code", to: "/webdev" },
                       ].map((item, i) => (
                         <Link
-                          to={item.to}
+                          href={item.to}
                           key={`main-${item.src}`}
                           className={`hero-pop-wrap block relative cursor-pointer origin-bottom transition-transform duration-300 pointer-events-none ${hoveredHeroImg === item.src ? 'scale-[1.04] translate-y-[1%]' : ''}`}
                           style={{ height: '1.333em', marginLeft: i === 0 ? 0 : i === 1 ? '-0.375em' : '-0.208em' }}

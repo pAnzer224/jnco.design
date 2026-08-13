@@ -158,7 +158,8 @@ body.native-cursor a * {
 }
 
 /* Lenis Smooth Scrolling */
-html.lenis, html.lenis body {
+html.lenis,
+html.lenis body {
   height: auto;
 }
 

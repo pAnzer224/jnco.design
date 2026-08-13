@@ -1,3 +1,4 @@
+﻿"use client";
 import React from 'react';
 import { Link as LinkIcon, CheckCircle, Warning, Paperclip, X } from '@phosphor-icons/react';
 import Field from '../Field';
@@ -47,7 +48,7 @@ export default function Step4References({
                 </div>
                 {driveLinkValid === false && formData.driveLink && (
                     <p className="text-amber-500 font-mono text-[10px] pl-0.5 font-bold">
-                        This doesn't look like a Drive/Figma/Notion link — double-check it's shareable.
+                        This doesn't look like a Drive/Figma/Notion link â€” double-check it's shareable.
                     </p>
                 )}
             </Field>
@@ -69,7 +70,7 @@ export default function Step4References({
                             {file ? file.name : 'Click to attach a file'}
                         </p>
                         <p className="text-dark/35 font-mono text-[10px] mt-0.5">
-                            Images, PDF, DOC — max 10MB
+                            Images, PDF, DOC â€” max 10MB
                         </p>
                     </div>
                     {file && (

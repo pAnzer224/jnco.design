@@ -1,3 +1,4 @@
+﻿"use client";
 import React from 'react';
 import { CheckCircle } from '@phosphor-icons/react';
 
@@ -13,7 +14,7 @@ export default function SuccessScreen({ firstName, onBackToPortfolio, onNewInqui
                     Talk soon, {firstName}!
                 </h3>
                 <p className="text-dark/60 font-mono text-xs leading-relaxed max-w-sm">
-                    I'll review your brief and get back to you within 24–48 hours with a quote and a plan.
+                    I'll review your brief and get back to you within 24â€“48 hours with a quote and a plan.
                 </p>
             </div>
             <div className="flex gap-3 mt-2">

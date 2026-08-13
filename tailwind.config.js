@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       colors: {
@@ -10,9 +10,9 @@ module.exports = {
         dark: "#111111",
       },
       fontFamily: {
-        sans: ["'Inter'", "sans-serif"],
-        drama: ["'DM Serif Display'", "serif"],
-        mono: ["'JetBrains Mono'", "monospace"],
+        sans: ["var(--font-inter)", "sans-serif"],
+        drama: ["var(--font-dm-serif)", "serif"],
+        mono: ["var(--font-jetbrains-mono)", "monospace"],
       },
       keyframes: {
         fadeIn: {

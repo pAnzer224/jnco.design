@@ -1,5 +1,7 @@
+"use client";
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { gsap } from "gsap";
 
 import {
@@ -26,8 +28,8 @@ export default function Nav({ activePage, setActivePage }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
-  const location = useLocation();
-  const navigate = useNavigate();
+  const pathname = usePathname();
+  const router = useRouter();
   const navRef = useRef(null);
   const lightBgRef = useRef(null);
   const lightContentRef = useRef(null);
@@ -40,7 +42,7 @@ export default function Nav({ activePage, setActivePage }) {
       const docHeight = document.body.scrollHeight - winHeight;
 
       // Reveal past 40% of viewport on home page, or always on other pages
-      const isHomePage = location.pathname === "/";
+      const isHomePage = pathname === "/";
       setIsVisible(!isHomePage || scrollTop > winHeight * 0.4);
 
       if (docHeight > 0) {
@@ -56,13 +58,13 @@ export default function Nav({ activePage, setActivePage }) {
     window.addEventListener("scroll", handleScroll);
     handleScroll(); // init
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [location.pathname]);
+  }, [pathname]);
 
   // Per-frame clip-path calculation for light overlay on dark sections
   useEffect(() => {
     let ticking = false;
     const darkSelectors = ["#hero", "#tech-toolbox", "#philosophy"];
-    const isResumePage = location.pathname === "/resume";
+    const isResumePage = pathname === "/resume";
 
     const checkOverlap = () => {
       const nav = navRef.current;
@@ -150,11 +152,16 @@ export default function Nav({ activePage, setActivePage }) {
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
-  }, [location.pathname]);
+  }, [pathname]);
 
   // Handle GSAP animations for expanded/collapsed state elements
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Safety check to ensure elements exist in the DOM before animating
+      const chars = document.querySelectorAll(".logo-char, .logo-char-light");
+      const labels = document.querySelectorAll(".nav-label, .nav-label-light");
+      if (!chars.length || !labels.length) return;
+
       if (isHovered && window.innerWidth >= 768) {
         gsap.to(".logo-char, .logo-char-light", {
           opacity: 1, x: 0, duration: 0.2, stagger: 0.03, ease: "power3.out", overwrite: true
@@ -179,6 +186,8 @@ export default function Nav({ activePage, setActivePage }) {
 
 
   useEffect(() => {
+    if (!menuOverlayRef.current) return;
+
     if (isMobileMenuOpen) {
       document.body.style.overflow = "hidden";
       gsap.to(menuOverlayRef.current, {
@@ -219,8 +228,8 @@ export default function Nav({ activePage, setActivePage }) {
       return;
     }
     if (setActivePage) setActivePage("contact");
-    if (location.pathname !== "/") {
-      navigate("/#contact");
+    if (pathname !== "/") {
+      router.push("/#contact");
     } else {
       document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
     }
@@ -231,14 +240,14 @@ export default function Nav({ activePage, setActivePage }) {
     const handleMessage = (e) => {
       if (e.origin !== window.location.origin) return;
       if (e.data?.type === "PORTFOLIO_NAV" && e.data.path) {
-        navigate(e.data.path);
+        router.push(e.data.path);
       }
     };
     window.addEventListener("message", handleMessage);
     return () => window.removeEventListener("message", handleMessage);
-  }, [navigate]);
+  }, [router]);
 
-  const isBookingPage = location.pathname === "/booking";
+  const isBookingPage = pathname === "/booking";
   if (isBookingPage) return null;
 
   // If this tab was opened as a popup (resume tab), clicking any nav
@@ -277,11 +286,11 @@ export default function Nav({ activePage, setActivePage }) {
 
         <div className="flex flex-col gap-6 flex-1 justify-center">
           {navLinks.map((link) => {
-            const isActive = location.pathname === link.path || activePage === link.id;
+            const isActive = pathname === link.path || activePage === link.id;
             return (
               <Link
                 key={link.id}
-                to={link.path}
+                href={link.path}
                 onClick={(e) => {
                   if (window.opener && !window.opener.closed) {
                     e.preventDefault();
@@ -317,8 +326,8 @@ export default function Nav({ activePage, setActivePage }) {
                 return;
               }
               if (setActivePage) setActivePage("contact");
-              if (location.pathname !== "/") {
-                navigate("/#contact");
+              if (pathname !== "/") {
+                router.push("/#contact");
               } else {
                 document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
               }
@@ -351,7 +360,7 @@ export default function Nav({ activePage, setActivePage }) {
           <div className="absolute inset-[2px] bg-dark rounded-[calc(2rem-2px)] z-10" />
         </div>
 
-        {/* Light background overlay — clipped to dark-section overlap */}
+        {/* Light background overlay â€” clipped to dark-section overlap */}
         <div
           ref={lightBgRef}
           className="absolute inset-[2px] rounded-[calc(2rem-2px)] z-[15]"
@@ -362,7 +371,7 @@ export default function Nav({ activePage, setActivePage }) {
           }}
         />
 
-        {/* ===== DARK THEME CONTENT (default — interactive) ===== */}
+        {/* ===== DARK THEME CONTENT (default â€” interactive) ===== */}
         <div className="relative z-20 flex flex-col h-full w-full gap-8">
 
           {/* Logo */}
@@ -384,11 +393,11 @@ export default function Nav({ activePage, setActivePage }) {
           {/* Nav Links */}
           <div className="flex flex-col w-full gap-4 shrink-0">
             {navLinks.map((link) => {
-              const isActive = location.pathname === link.path || activePage === link.id;
+              const isActive = pathname === link.path || activePage === link.id;
               return (
                 <Link
                   key={link.id}
-                  to={link.path}
+                  href={link.path}
                   className="group relative flex items-center w-full px-6 h-10 cursor-pointer overflow-hidden"
                   onClick={(e) => handleNavLinkClick(e, link.path, link.id)}
                 >
@@ -421,7 +430,7 @@ export default function Nav({ activePage, setActivePage }) {
 
         </div>
 
-        {/* ===== LIGHT THEME CONTENT (overlay — visual only, clipped to dark sections) ===== */}
+        {/* ===== LIGHT THEME CONTENT (overlay â€” visual only, clipped to dark sections) ===== */}
         <div
           ref={lightContentRef}
           className="absolute inset-0 z-30 pointer-events-none pt-8 pb-5"
@@ -451,7 +460,7 @@ export default function Nav({ activePage, setActivePage }) {
             {/* Nav Links (light variant) */}
             <div className="flex flex-col w-full gap-4 shrink-0">
               {navLinks.map((link) => {
-                const isActive = location.pathname === link.path || activePage === link.id;
+                const isActive = pathname === link.path || activePage === link.id;
                 return (
                   <div
                     key={link.id}

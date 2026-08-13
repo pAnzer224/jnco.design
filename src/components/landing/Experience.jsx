@@ -1,5 +1,6 @@
+"use client";
 import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Briefcase, Calendar, CheckCircle } from "@phosphor-icons/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -299,7 +300,7 @@ const Experience = () => {
                       <CheckCircle weight="fill" className="text-accent w-4 h-4 mt-0.5 shrink-0" />
                       <div className="font-sans text-xs font-medium uppercase tracking-tight text-dark/80">
                         {item.link ? (
-                          <Link to={item.link}
+                          <Link href={item.link}
                             className="exp-hover-link text-dark/80 hover:text-accent transition-all cursor-pointer relative z-20 inline group/link"
                             onMouseEnter={() => {
                               setHoverImage(item.img);
@@ -404,7 +405,7 @@ const Experience = () => {
                       <CheckCircle weight="fill" className="text-accent w-4 h-4 mt-0.5 shrink-0" />
                       <div className="font-sans text-xs font-medium uppercase tracking-tight text-dark/80">
                         {item.link ? (
-                          <Link to={item.link}
+                          <Link href={item.link}
                             state={item.projectState ? { openProject: item.projectState } : {}}
                             className="exp-hover-link text-dark/80 hover:text-accent transition-all cursor-pointer relative z-20 inline group/link"
                             onMouseEnter={() => {

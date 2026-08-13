@@ -1,3 +1,4 @@
+﻿"use client";
 import React from 'react';
 
 // Every step shares this shape: a fixed title, then a scrollable field region

@@ -1,21 +1,20 @@
+"use client";
+import { Suspense } from 'react';
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowLeft, EnvelopeSimple, LinkedinLogo, FileText } from '@phosphor-icons/react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import gsap from 'gsap';
 import BookingForm from './shared/booking/BookingForm';
-import SEO from './SEO';
 
-export default function Booking({ setActivePage }) {
+export default function Booking() {
   const containerRef = useRef(null);
   const [formStep, setFormStep] = useState(1);
   const [isMobile, setIsMobile] = useState(false);
   const [formLifted, setFormLifted] = useState(false);
 
-
   useEffect(() => {
-    if (setActivePage) setActivePage('booking');
     window.scrollTo(0, 0);
-  }, [setActivePage]);
+  }, []);
 
   // Re-run the hero text fade-in whenever we land on step 1 —
   // covers the initial page load AND returning here via the form's Back button
@@ -69,7 +68,6 @@ export default function Booking({ setActivePage }) {
       ref={containerRef}
       className="bg-dark min-h-screen text-primary selection:bg-accent selection:text-dark flex flex-col justify-center items-center overflow-x-hidden pt-16 pb-0 sm:pb-16"
     >
-      <SEO title="Book a Project" description="Let's work together. Fill out the booking form to get in touch with Juneco Mirande." />
       {/* Subtle background overlay elements */}
       <div className="absolute top-0 left-0 right-0 h-96 bg-gradient-to-b from-accent/5 to-transparent pointer-events-none" />
 
@@ -99,7 +97,7 @@ export default function Booking({ setActivePage }) {
             >
               {/* Breadcrumb */}
               <Link
-                to="/"
+                href="/"
                 id="booking-breadcrumb"
                 className="booking-hero-text opacity-0 inline-flex items-center gap-2 font-mono text-[10px] text-primary/45 uppercase tracking-widest mb-6 hover:text-accent transition-colors duration-200 group"
               >
@@ -146,7 +144,7 @@ export default function Booking({ setActivePage }) {
         >
           {(formStep !== 1 || (isMobile && formLifted)) && (
             <Link
-              to="/"
+              href="/"
               id="booking-breadcrumb-compact"
               className="inline-flex items-center gap-2 font-mono text-[10px] text-primary/45 uppercase tracking-widest hover:text-accent transition-colors duration-200 group w-fit px-6 md:px-12"
             >
@@ -157,7 +155,9 @@ export default function Booking({ setActivePage }) {
               Back to Portfolio
             </Link>
           )}
-          <BookingForm onStepChange={setFormStep} />
+          <Suspense fallback={<div className="w-full h-64 flex items-center justify-center"><span className="font-mono text-xs text-primary/40 uppercase tracking-widest">Loading…</span></div>}>
+            <BookingForm onStepChange={setFormStep} />
+          </Suspense>
         </section>
 
       </div>

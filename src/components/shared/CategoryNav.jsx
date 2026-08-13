@@ -1,8 +1,8 @@
+﻿"use client";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import Link from "next/link";
 
-export default function CategoryNav({ activeCategory, setActivePage }) {
-  const navigate = useNavigate();
+export default function CategoryNav({ activeCategory }) {
 
   const navItems = [
     { id: "home", path: "/", label: "INDEX" },
@@ -11,11 +11,7 @@ export default function CategoryNav({ activeCategory, setActivePage }) {
     { id: "webdev", path: "/webdev", label: "WEB DEV" },
   ];
 
-  const handleNav = (id, path) => {
-    setActivePage(id);
-    navigate(path);
-    window.scrollTo(0, 0);
-  };
+  // handled by next/link
 
   return (
     <div className="flex flex-wrap items-center gap-y-2 font-mono text-[10px] sm:text-xs font-bold tracking-[2px] uppercase mb-12">
@@ -23,9 +19,9 @@ export default function CategoryNav({ activeCategory, setActivePage }) {
         const isActive = activeCategory === item.id;
         return (
           <React.Fragment key={item.id}>
-            {index > 0 && <span className="mx-2 text-dark/30">→</span>}
-            <button
-              onClick={() => handleNav(item.id, item.path)}
+            {index > 0 && <span className="mx-2 text-dark/30">â†’</span>}
+            <Link
+              href={item.path}
               className={`transition-colors duration-300 ${
                 isActive
                   ? "text-accent cursor-default pointer-events-none"
@@ -33,10 +29,11 @@ export default function CategoryNav({ activeCategory, setActivePage }) {
               }`}
             >
               {item.label}
-            </button>
+            </Link>
           </React.Fragment>
         );
       })}
     </div>
   );
 }
+

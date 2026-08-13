@@ -1,3 +1,4 @@
+﻿"use client";
 import React, { useEffect, useState, useRef } from "react";
 import { FigmaLogo, PaintBrush, TerminalWindow, NavigationArrow } from "@phosphor-icons/react";
 import gsap from "gsap";

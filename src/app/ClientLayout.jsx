@@ -1,14 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+"use client";
+
+import React, { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 import { Cursor, CursorClick, CursorTextIcon, ArrowUpRight, Palette, DeviceMobile, Code } from "@phosphor-icons/react";
-import { trackVisit } from "./lib/pipeline-api";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
-
-import Nav from "./components/Nav";
-
-gsap.registerPlugin(ScrollTrigger);
+import Nav from "../components/Nav";
 
 const cursorIconMap = {
   Palette: Palette,
@@ -16,28 +14,23 @@ const cursorIconMap = {
   Code: Code,
 };
 
-const Home = React.lazy(() => import("./components/Home"));
-const Graphics = React.lazy(() => import("./components/Graphic"));
-const UIUX = React.lazy(() => import("./components/UIUX"));
-const WebDev = React.lazy(() => import("./components/WebDev"));
-const NotFound = React.lazy(() => import("./components/NotFound"));
-const Booking = React.lazy(() => import("./components/Booking"));
-const Resume = React.lazy(() => import("./components/Resume"));
-
-export default function App() {
+export default function ClientLayout({ children }) {
   const [activePage, setActivePage] = useState("home");
-  const location = useLocation();
-
+  const pathname = usePathname();
 
   const cursorRef = useRef(null);
   const tooltipRef = useRef(null);
-  const [cursorState, setCursorState] = useState("default"); // default, click, text, hover-text
+  const [cursorState, setCursorState] = useState("default");
   const [cursorText, setCursorText] = useState("");
-  const [cursorStyle, setCursorStyle] = useState("default"); // "default" or "tooltip"
-  const [cursorIcon, setCursorIcon] = useState(""); // key into cursorIconMap
+  const [cursorStyle, setCursorStyle] = useState("default");
+  const [cursorIcon, setCursorIcon] = useState("");
 
   useEffect(() => {
-    const path = location.pathname;
+    gsap.registerPlugin(ScrollTrigger);
+  }, []);
+
+  useEffect(() => {
+    const path = pathname;
     if (path === "/") setActivePage("home");
     else if (path === "/graphics") setActivePage("graphic");
     else if (path === "/uiux") setActivePage("uiux");
@@ -46,37 +39,25 @@ export default function App() {
     else if (path.includes("#contact") || activePage === "contact")
       setActivePage("contact");
 
-    // Reset the custom cursor/tooltip on every route change so it
-    // doesn't stay stuck after clicking a link that unmounts before
-    // mouseleave has a chance to fire
     setCursorState("default");
     setCursorText("");
     setCursorStyle("default");
     setCursorIcon("");
 
-    // Disable custom cursor on resume page
     if (path === "/resume") {
       document.body.classList.add("native-cursor");
     } else {
       document.body.classList.remove("native-cursor");
     }
-  }, [location.pathname, activePage]);
-
-  // Track page visits
-  useEffect(() => {
-    trackVisit(location.pathname);
-  }, [location.pathname]);
+  }, [pathname, activePage]);
 
   // Lenis Smooth Scrolling
   useEffect(() => {
     const lenis = new Lenis();
-
     lenis.on('scroll', ScrollTrigger.update);
-
     gsap.ticker.add((time) => {
       lenis.raf(time * 1000);
     });
-
     gsap.ticker.lagSmoothing(0);
 
     return () => {
@@ -89,6 +70,7 @@ export default function App() {
   useEffect(() => {
     const $cursor = cursorRef.current;
     const $tooltip = tooltipRef.current;
+    if (!$cursor || !$tooltip) return;
 
     const xTo = gsap.quickTo([$cursor, $tooltip], "x", {
       duration: 0.05,
@@ -106,7 +88,7 @@ export default function App() {
     };
 
     const onMouseDown = () => {
-      if (cursorState === "hover-text") return; // don't shrink if it's text
+      if (cursorState === "hover-text") return;
       setCursorState("click");
     };
     const onMouseUp = () => {
@@ -115,7 +97,6 @@ export default function App() {
     };
 
     const handleMouseOver = (e) => {
-      // Ignore if native cursor is active
       if (document.body.classList.contains("native-cursor")) return;
 
       const interactableText = e.target.closest("[data-cursor-text]");
@@ -136,7 +117,6 @@ export default function App() {
       }
 
       const tag = e.target.tagName.toLowerCase();
-
       if (["p", "h1", "h2", "h3", "span"].includes(tag)) {
         setCursorState("text");
         setCursorText("");
@@ -151,7 +131,6 @@ export default function App() {
     };
 
     const handleMouseOut = () => {
-      // Handled by mouseover on the new target usually, but keep this to reset if leaving window
       setCursorState("default");
       setCursorText("");
       setCursorStyle("default");
@@ -180,13 +159,10 @@ export default function App() {
       document.body.removeEventListener("mouseout", handleMouseOut);
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [cursorState]); // added cursorState dependency for mousedown/up checks
+  }, [cursorState]);
 
   return (
     <div className="bg-background text-dark min-h-screen relative">
-
-
-      {/* Custom Phosphor Cursor */}
       <div
         ref={cursorRef}
         aria-hidden="true"
@@ -205,7 +181,6 @@ export default function App() {
         </div>
       </div>
 
-      {/* Hover Tooltip Bubble - Isolated from mix-blend-difference */}
       <div
         ref={tooltipRef}
         aria-hidden="true"
@@ -229,20 +204,7 @@ export default function App() {
 
       <Nav activePage={activePage} setActivePage={setActivePage} />
 
-      <React.Suspense fallback={<div className="min-h-screen bg-background flex items-center justify-center text-primary font-mono text-xs uppercase tracking-widest">Loading...</div>}>
-        <Routes>
-          <Route path="/" element={<Home setActivePage={setActivePage} />} />
-          <Route path="/graphics" element={<Graphics setActivePage={setActivePage} />} />
-          <Route path="/graphics/:projectId" element={<Graphics setActivePage={setActivePage} />} />
-          <Route path="/uiux" element={<UIUX setActivePage={setActivePage} />} />
-          <Route path="/uiux/:projectId" element={<UIUX setActivePage={setActivePage} />} />
-          <Route path="/webdev" element={<WebDev setActivePage={setActivePage} />} />
-          <Route path="/webdev/:projectId" element={<WebDev setActivePage={setActivePage} />} />
-          <Route path="/booking" element={<Booking setActivePage={setActivePage} />} />
-          <Route path="/resume" element={<Resume setActivePage={setActivePage} />} />
-          <Route path="*" element={<NotFound setActivePage={setActivePage} />} />
-        </Routes>
-      </React.Suspense>
+      {children}
     </div>
   );
 }
