@@ -26,32 +26,25 @@ export const SERVICE_OPTIONS = [
         step: '02',
     },
     {
-        id: 'mockups',
-        label: 'Mockups',
-        desc: 'Product Design & Brand Presentations',
-        bg: '/images/artify/thumb.webp',
-        step: '03',
-    },
-    {
         id: 'webdev',
         label: 'Web Dev',
         desc: 'Full-Stack Applications & Code',
         bg: '/images/drjas/drjas.webp',
-        step: '04',
+        step: '03',
     },
     {
         id: 'branding',
         label: 'Branding Package',
         desc: 'Full Brand Identity System',
         bg: null,
-        step: '05',
+        step: '04',
     },
     {
         id: 'other',
         label: 'Other / Not Sure',
         desc: "Let's talk it out",
         bg: null,
-        step: '06',
+        step: '05',
     },
 ];
 
@@ -106,7 +99,6 @@ export const SERVICE_PARAM_MAP = {
     graphic: 'graphic',
     graphics: 'graphic',
     uiux: 'uiux',
-    mockups: 'mockups',
     webdev: 'webdev',
 };
 
@@ -140,13 +132,6 @@ export const SERVICE_QUESTIONS = {
             { key: 'intendedUse', label: 'Intended Use', type: 'single', options: ['Print', 'Digital', 'Both'] },
             { key: 'existingAssets', label: 'Existing Brand Assets', type: 'multi', options: ['Logo', 'Fonts', 'Colors'] },
             { key: 'deliverables', label: 'Deliverables', type: 'multi', options: ['PNG', 'PDF', 'AI', 'PSD'] },
-        ],
-    },
-    mockups: {
-        intro: 'A few questions about your mockups.',
-        fields: [
-            { key: 'intendedUse', label: 'Intended Use', type: 'single', options: ['Print', 'Digital', 'Both'] },
-            { key: 'existingAssets', label: 'Existing Brand Assets', type: 'multi', options: ['Logo', 'Fonts', 'Colors'] },
         ],
     },
     branding: {

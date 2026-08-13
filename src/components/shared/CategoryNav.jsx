@@ -8,7 +8,6 @@ export default function CategoryNav({ activeCategory, setActivePage }) {
     { id: "home", path: "/", label: "INDEX" },
     { id: "graphic", path: "/graphics", label: "GRAPHICS" },
     { id: "uiux", path: "/uiux", label: "UI/UX" },
-    { id: "mockups", path: "/mockups", label: "MOCKUPS" },
     { id: "webdev", path: "/webdev", label: "WEB DEV" },
   ];
 

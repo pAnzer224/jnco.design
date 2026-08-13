@@ -244,8 +244,8 @@ export default function UIUX({ setActivePage }) {
       {
         type: "figma",
         src: "https://embed.figma.com/proto/jlktYX3YdOKSPDmKLWhbeC/BusyBee?node-id=18-59&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=18%3A59&embed-host=share",
-        thumbnail: "/images/Busybee/BusyBee-background.webp",
-        thumbnailSubject: "/images/Busybee/BusyBee-subject.webp",
+        thumbnail: "/images/BusyBee/BusyBee-background.webp",
+        thumbnailSubject: "/images/BusyBee/BusyBee-subject.webp",
         subjectHoverScale:
           "group-hover:scale-[1.18] group-hover:translate-y-[3rem]",
         title: "BusyBee",
@@ -258,10 +258,10 @@ export default function UIUX({ setActivePage }) {
           "Designed quick task entry, category-based organization, and clear completed/priority states across both desktop and mobile, backed by a calm, purposeful visual system that stays legible even when the list gets long.",
         images: [
 
-          "/images/Busybee/desktop.webp",
-          "/images/Busybee/desktop-empty-state.webp",
-          "/images/Busybee/phone-mockup.webp",
-          "/images/Busybee/color-system.webp",
+          "/images/BusyBee/desktop.webp",
+          "/images/BusyBee/desktop-empty-state.webp",
+          "/images/BusyBee/phone-mockup.webp",
+          "/images/BusyBee/color-system.webp",
         ],
       },
     ],

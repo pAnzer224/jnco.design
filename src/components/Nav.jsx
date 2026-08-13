@@ -16,7 +16,6 @@ import {
 const navLinks = [
   { id: "home", path: "/", label: "HOME", icon: House },
   { id: "graphic", path: "/graphics", label: "GRAPHICS", icon: PaintBrush },
-  { id: "mockups", path: "/mockups", label: "MOCKUPS", icon: Devices },
   { id: "uiux", path: "/uiux", label: "UI / UX", icon: PenNib },
   { id: "webdev", path: "/webdev", label: "WEB DEV", icon: Code },
 ];

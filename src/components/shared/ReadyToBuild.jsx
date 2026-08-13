@@ -53,7 +53,7 @@ export default function ReadyToBuild() {
 
           {/* Service tags */}
           <div className="flex flex-wrap gap-2 justify-center md:justify-end">
-            {['UI/UX', 'Graphic', 'Web Dev', 'Mockups'].map((tag) => (
+            {['UI/UX', 'Graphic', 'Web Dev'].map((tag) => (
               <span key={tag} className="px-3 py-1 rounded-full border border-primary/10 text-primary/30 font-mono text-[9px] uppercase tracking-widest">
                 {tag}
               </span>

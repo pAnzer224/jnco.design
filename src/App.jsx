@@ -18,7 +18,6 @@ const cursorIconMap = {
 
 const Home = React.lazy(() => import("./components/Home"));
 const Graphics = React.lazy(() => import("./components/Graphic"));
-const Mockups = React.lazy(() => import("./components/Mockups"));
 const UIUX = React.lazy(() => import("./components/UIUX"));
 const WebDev = React.lazy(() => import("./components/WebDev"));
 const NotFound = React.lazy(() => import("./components/NotFound"));
@@ -41,7 +40,6 @@ export default function App() {
     const path = location.pathname;
     if (path === "/") setActivePage("home");
     else if (path === "/graphics") setActivePage("graphic");
-    else if (path === "/mockups") setActivePage("mockups");
     else if (path === "/uiux") setActivePage("uiux");
     else if (path === "/webdev") setActivePage("webdev");
     else if (path === "/booking") setActivePage("booking");
@@ -236,8 +234,6 @@ export default function App() {
           <Route path="/" element={<Home setActivePage={setActivePage} />} />
           <Route path="/graphics" element={<Graphics setActivePage={setActivePage} />} />
           <Route path="/graphics/:projectId" element={<Graphics setActivePage={setActivePage} />} />
-          <Route path="/mockups" element={<Mockups setActivePage={setActivePage} />} />
-          <Route path="/mockups/:projectId" element={<Mockups setActivePage={setActivePage} />} />
           <Route path="/uiux" element={<UIUX setActivePage={setActivePage} />} />
           <Route path="/uiux/:projectId" element={<UIUX setActivePage={setActivePage} />} />
           <Route path="/webdev" element={<WebDev setActivePage={setActivePage} />} />
