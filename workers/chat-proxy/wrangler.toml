@@ -1,0 +1,13 @@
+name = "jnco-chat-proxy"
+main = "index.js"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+# Secrets (set via CLI — never in this file):
+#   wrangler secret put GEMINI_API_KEY
+#
+# Deploy:
+#   wrangler deploy
+#
+# Local dev (with .dev.vars for secrets):
+#   wrangler dev

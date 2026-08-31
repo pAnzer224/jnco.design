@@ -143,6 +143,8 @@ export default function Graphics({ setActivePage }) {
         thumbnail: "/images/simulated-sanctuary/thumb.webp",
         image: "/images/simulated-sanctuary/after.webp",
         beforeImage: "/images/simulated-sanctuary/before.webp",
+        imageThumb: "/images/simulated-sanctuary/after-thumb.webp",
+        beforeImageThumb: "/images/simulated-sanctuary/before-thumb.webp",
         title: "Simulated Sanctuary",
         category: "Photo Manipulation",
         tools: ["/images/logos/photoshop.svg"],
@@ -164,7 +166,7 @@ export default function Graphics({ setActivePage }) {
       },
       {
         type: "gallery",
-        thumbnail: "/images/poster-making/fb-meta-ads.webp",
+        thumbnail: "/images/poster-making/fb-ad-thumb.webp",
         images: [
           "/images/poster-making/fb-meta-ads.webp",
           "/images/poster-making/1.webp",
@@ -176,7 +178,7 @@ export default function Graphics({ setActivePage }) {
       },
       {
         type: "single",
-        thumbnail: "/images/graphic1/graphic1.webp",
+        thumbnail: "/images/graphic1/graphic-thumb.webp",
         image: "/images/graphic1/graphic1.webp",
         title: "Infographic",
         category: "Information Design",
@@ -204,10 +206,11 @@ export default function Graphics({ setActivePage }) {
     () => [
       {
         type: "gallery",
-        thumbnail: "/images/choros-gfx/sailing-pass-1.webp",
+        thumbnail: "/images/choros-gfx/sailing-pass-thumb.webp",
         images: [
           "/images/choros-gfx/sailing-pass-1.webp",
           "/images/choros-gfx/sailing-pass-2.webp",
+          "/images/choros-gfx/sailing-pass-3.webp",
         ],
         title: "Sailing Pass",
         category: "Graphic Design",
@@ -215,7 +218,7 @@ export default function Graphics({ setActivePage }) {
       },
       {
         type: "gallery",
-        thumbnail: "/images/choros-gfx/shane-bowden-1.webp",
+        thumbnail: "/images/choros-gfx/shane-bowden-thumb.webp",
         images: [
           "/images/choros-gfx/shane-bowden-1.webp",
           "/images/choros-gfx/shane-bowden-2.webp",
@@ -554,8 +557,8 @@ export default function Graphics({ setActivePage }) {
               onClick={(e) => e.stopPropagation()}
             >
               <ImageComparisonSlider
-                before={item.beforeImage}
-                after={item.image}
+                before={item.beforeImageThumb || item.beforeImage}
+                after={item.imageThumb || item.image}
                 title={item.title}
                 aspectClass="aspect-[3/4] md:aspect-auto md:h-0 md:min-h-full"
                 onInteractionStart={() => setSliderInteracting(true)}
@@ -653,7 +656,7 @@ export default function Graphics({ setActivePage }) {
                   />
                   {item.title === 'Neue Dept.' && (
                     <img
-                      src="/images/neue/logo2.webp"
+                      src="/images/neue/logo-hover.webp"
                       alt={`${item.title} — ${item.category} by Juneco Mirande`}
                       loading="lazy"
                       decoding="async"

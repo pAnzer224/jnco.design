@@ -232,9 +232,31 @@ const TechStack = () => {
           background-color: #E63B2E !important;
         }
 
-        #tech-toolbox .tech-item:hover .tech-decor-dot {
+      #tech-toolbox .tech-item:hover .tech-decor-dot {
           opacity: 1 !important;
           transform: scale(1) !important;
+        }
+
+        @media (max-width: 485px) {
+          #tech-toolbox .tech-item {
+            padding: 0.65rem 0.75rem;
+          }
+
+          #tech-toolbox .tech-item .relative.z-20 {
+            max-width: 58%;
+          }
+
+          #tech-toolbox .tech-name-text {
+            white-space: nowrap;
+            font-size: 9px;
+          }
+
+          #tech-toolbox .tech-icon-container {
+            width: 4.25rem;
+            height: 4.25rem;
+            bottom: -0.75rem;
+            right: -0.5rem;
+          }
         }
       `}</style>
 

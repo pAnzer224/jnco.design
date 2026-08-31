@@ -1,0 +1,4 @@
+# Local development secrets for Cloudflare Workers
+# This file is gitignored — NEVER commit it.
+# Copy this to .dev.vars and fill in your values.
+GEMINI_API_KEY=your_gemini_api_key_here

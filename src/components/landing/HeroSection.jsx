@@ -365,7 +365,7 @@ const HeroSection = () => {
                             alt=""
                             aria-hidden="true"
                             loading="lazy"
-                            className={`hero-pop-shadow hero-pop-${i + 1} z-0 w-auto h-full object-contain`}
+                            className={`hero-pop-shadow hero-pop-${i + 1} z-0 w-auto h-full object-contain opacity-0`}
                           />
                         </div>
                       ))}
@@ -390,7 +390,7 @@ const HeroSection = () => {
                             src={`/images/hero/${item.src}.webp`}
                             alt={item.alt}
                             loading="lazy"
-                            className={`hero-pop-img hero-pop-${i + 1} z-10 w-auto h-full object-contain pointer-events-none`}
+                            className={`hero-pop-img hero-pop-${i + 1} z-10 w-auto h-full object-contain pointer-events-none opacity-0`}
                           />
                         </Link>
                       ))}

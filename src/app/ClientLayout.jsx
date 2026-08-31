@@ -7,6 +7,8 @@ import { Cursor, CursorClick, CursorTextIcon, ArrowUpRight, Palette, DeviceMobil
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import Nav from "../components/Nav";
+import ChatBot from "../components/ChatBot";
+import { trackVisit } from "../lib/pipeline-api";
 
 const cursorIconMap = {
   Palette: Palette,
@@ -49,6 +51,9 @@ export default function ClientLayout({ children }) {
     } else {
       document.body.classList.remove("native-cursor");
     }
+    
+    // Track page visit
+    trackVisit(path);
   }, [pathname, activePage]);
 
   // Lenis Smooth Scrolling
@@ -161,6 +166,8 @@ export default function ClientLayout({ children }) {
     };
   }, [cursorState]);
 
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
   return (
     <div className="bg-background text-dark min-h-screen relative">
       <div
@@ -202,7 +209,8 @@ export default function ClientLayout({ children }) {
         })()}
       </div>
 
-      <Nav activePage={activePage} setActivePage={setActivePage} />
+      <Nav activePage={activePage} setActivePage={setActivePage} isChatOpen={isChatOpen} setIsChatOpen={setIsChatOpen} />
+      <ChatBot isOpen={isChatOpen} setIsOpen={setIsChatOpen} />
 
       {children}
     </div>

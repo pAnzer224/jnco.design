@@ -10,7 +10,6 @@ import GlareHover from "./GlareHover";
 const slugify = (text) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
 
 function WorkCard({ item, onClick, isChoros = false }) {
-  const [loaded, setLoaded] = useState(false);
   const attribution = isChoros
     ? "by Juneco Mirande at Choros.io"
     : "by Juneco Mirande";
@@ -61,7 +60,7 @@ function WorkCard({ item, onClick, isChoros = false }) {
 
         {/* Inner Thumbnail — every card shares the same background/reveal treatment */}
         <div
-          className={`relative w-full aspect-[4/3] rounded-[1.4rem] overflow-hidden transition-all duration-300 ease-out group-hover:scale-[1.03] group-hover:shadow-[0_15px_30px_-5px_rgba(0,0,0,0.15)] ${!loaded ? "skeleton" : "bg-dark/5"}`}
+          className="relative w-full aspect-[4/3] rounded-[1.4rem] overflow-hidden bg-dark/5 transition-all duration-300 ease-out group-hover:scale-[1.03] group-hover:shadow-[0_15px_30px_-5px_rgba(0,0,0,0.15)]"
         >
           {/* Shared background plate, visible by default on desktop, fades out on hover */}
           <img
@@ -70,8 +69,7 @@ function WorkCard({ item, onClick, isChoros = false }) {
             aria-hidden="true"
             loading="lazy"
             decoding="async"
-            onLoad={() => setLoaded(true)}
-            className={`hidden lg:block absolute inset-0 w-full h-full object-cover transition-opacity duration-[700ms] ease-out ${loaded ? "opacity-100" : "opacity-0"} lg:group-hover:opacity-0`}
+            className="hidden lg:block absolute inset-0 w-full h-full object-cover transition-opacity duration-[700ms] ease-out lg:group-hover:opacity-0"
           />
 
           {/* Real thumbnail — always visible on mobile/tablet, revealed on hover on desktop */}
@@ -80,8 +78,7 @@ function WorkCard({ item, onClick, isChoros = false }) {
             alt={`${item.title} — ${item.category} ${attribution}`}
             loading="lazy"
             decoding="async"
-            onLoad={() => setLoaded(true)}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[700ms] ease-out ${loaded ? "opacity-100" : "opacity-0"} lg:opacity-0 lg:group-hover:opacity-100`}
+            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[700ms] ease-out lg:opacity-0 lg:group-hover:opacity-100"
           />
 
           {item.thumbnailMid && (
@@ -89,7 +86,8 @@ function WorkCard({ item, onClick, isChoros = false }) {
               src={item.thumbnailMid}
               alt=""
               aria-hidden="true"
-              loading="lazy"
+              loading="eager"
+              fetchPriority="high"
               decoding="async"
               className={`absolute inset-0 w-full h-full object-contain scale-100 origin-center transition-all duration-[700ms] ease-out ${item.subjectHoverScale || "group-hover:scale-110"}`}
             />
@@ -101,6 +99,7 @@ function WorkCard({ item, onClick, isChoros = false }) {
               alt=""
               aria-hidden="true"
               loading="lazy"
+              fetchPriority="low"
               decoding="async"
               className={`absolute inset-0 w-full h-full object-contain scale-100 origin-center transition-all duration-[700ms] ease-out lg:grayscale lg:group-hover:grayscale-0 ${item.subjectHoverScale || "group-hover:scale-110"}`}
             />

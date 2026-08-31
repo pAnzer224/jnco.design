@@ -139,7 +139,7 @@ const DesktopProjectsArchive = ({ setActivePage }) => {
                   <img
                     src={card.thumb}
                     alt={`${card.title} thumbnail`}
-                    className="absolute left-[5%] top-[58%] -translate-y-1/3 w-[135%] max-w-none pointer-events-none sm:left-[15%] sm:top-1/2 sm:-translate-y-1/2 sm:w-[95%] sm:max-w-[843px]"
+                    className="absolute left-[5%] top-[58%] -translate-y-1/3 w-[135%] max-w-none pointer-events-none origin-top scale-100 transition-transform duration-700 ease-out group-hover:scale-[1.15] sm:left-[15%] sm:top-1/2 sm:-translate-y-1/2 sm:w-[95%] sm:max-w-[843px]"
                   />
                 )}
 

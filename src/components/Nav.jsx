@@ -12,7 +12,9 @@ import {
   EnvelopeSimple,
   List,
   X,
-  Code
+  Code,
+  ChatCircleDots,
+  Sparkle,
 } from "@phosphor-icons/react";
 
 const navLinks = [
@@ -22,17 +24,28 @@ const navLinks = [
   { id: "webdev", path: "/webdev", label: "WEB DEV", icon: Code },
 ];
 
-export default function Nav({ activePage, setActivePage }) {
+const CHAT_PROMPTS = ["Interested?", "Got a project?", "Let's talk shop"];
+
+export default function Nav({
+  activePage,
+  setActivePage,
+  isChatOpen,
+  setIsChatOpen,
+}) {
   const [isHovered, setIsHovered] = useState(false);
   const [scrollPct, setScrollPct] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [chatOnDark, setChatOnDark] = useState(true);
+  const [chatPrompt, setChatPrompt] = useState(CHAT_PROMPTS[0]);
 
   const pathname = usePathname();
   const router = useRouter();
   const navRef = useRef(null);
   const lightBgRef = useRef(null);
   const lightContentRef = useRef(null);
+  const chatTriggerRef = useRef(null);
+  const chatOnDarkRef = useRef(true);
 
   // Handle scroll progress and conditional visibility
   useEffect(() => {
@@ -70,7 +83,10 @@ export default function Nav({ activePage, setActivePage }) {
       const nav = navRef.current;
       const lBg = lightBgRef.current;
       const lContent = lightContentRef.current;
-      if (!nav || !lBg || !lContent) { ticking = false; return; }
+      if (!nav || !lBg || !lContent) {
+        ticking = false;
+        return;
+      }
 
       if (isResumePage) {
         const fullMask = "linear-gradient(to bottom, black 0%, black 100%)";
@@ -81,6 +97,11 @@ export default function Nav({ activePage, setActivePage }) {
         lContent.style.clipPath = "none";
         lContent.style.WebkitMaskImage = fullMask;
         lContent.style.maskImage = fullMask;
+
+        if (chatOnDarkRef.current !== true) {
+          chatOnDarkRef.current = true;
+          setChatOnDark(true);
+        }
 
         ticking = false;
         return;
@@ -129,7 +150,8 @@ export default function Nav({ activePage, setActivePage }) {
         lContent.style.WebkitMaskImage = mask;
         lContent.style.maskImage = mask;
       } else {
-        const hiddenMask = "linear-gradient(to bottom, transparent 0%, transparent 100%)";
+        const hiddenMask =
+          "linear-gradient(to bottom, transparent 0%, transparent 100%)";
         lBg.style.clipPath = "none";
         lBg.style.WebkitMaskImage = hiddenMask;
         lBg.style.maskImage = hiddenMask;
@@ -139,9 +161,28 @@ export default function Nav({ activePage, setActivePage }) {
         lContent.style.maskImage = hiddenMask;
       }
 
+      const ct = chatTriggerRef.current;
+      if (ct) {
+        const ctRect = ct.getBoundingClientRect();
+        const ctCenterY = ctRect.top + ctRect.height / 2;
+        let ctOnDark = false;
+        for (const sel of darkSelectors) {
+          const el = document.querySelector(sel);
+          if (!el) continue;
+          const r = el.getBoundingClientRect();
+          if (ctCenterY >= r.top && ctCenterY <= r.bottom) {
+            ctOnDark = true;
+            break;
+          }
+        }
+        if (ctOnDark !== chatOnDarkRef.current) {
+          chatOnDarkRef.current = ctOnDark;
+          setChatOnDark(ctOnDark);
+        }
+      }
+
       ticking = false;
     };
-
     const onScroll = () => {
       if (!ticking) {
         ticking = true;
@@ -159,31 +200,56 @@ export default function Nav({ activePage, setActivePage }) {
     const ctx = gsap.context(() => {
       // Safety check to ensure elements exist in the DOM before animating
       const chars = document.querySelectorAll(".logo-char, .logo-char-light");
-      const labels = document.querySelectorAll(".nav-label, .nav-label-light");
+      const labels = document.querySelectorAll(
+        ".nav-label, .nav-label-light, .chat-label",
+      );
       if (!chars.length || !labels.length) return;
 
-      if (isHovered && window.innerWidth >= 768) {
-        gsap.to(".logo-char, .logo-char-light", {
-          opacity: 1, x: 0, duration: 0.2, stagger: 0.03, ease: "power3.out", overwrite: true
+      if (isHovered && !isChatOpen && window.innerWidth >= 768) {
+        setChatPrompt(
+          CHAT_PROMPTS[Math.floor(Math.random() * CHAT_PROMPTS.length)],
+        );
+        gsap.to(chars, {
+          opacity: 1,
+          x: 0,
+          duration: 0.2,
+          stagger: 0.03,
+          ease: "power3.out",
+          overwrite: true,
         });
-        gsap.to(".nav-label, .nav-label-light", {
-          opacity: 1, x: 0, duration: 0.3, stagger: 0.04, ease: "power3.out", delay: 0.05, overwrite: true
+        gsap.to(labels, {
+          opacity: 1,
+          x: 0,
+          duration: 0.3,
+          stagger: 0.04,
+          ease: "power3.out",
+          delay: 0.05,
+          overwrite: true,
         });
       } else if (window.innerWidth >= 768) {
-        gsap.to(".logo-char, .logo-char-light", {
-          opacity: 0, x: -5, duration: 0.2, stagger: { amount: 0.1, from: "end" }, ease: "power3.inOut", overwrite: true
+        gsap.to(chars, {
+          opacity: 0,
+          x: -5,
+          duration: 0.2,
+          stagger: { amount: 0.1, from: "end" },
+          ease: "power3.inOut",
+          overwrite: true,
         });
-        gsap.to(".nav-label, .nav-label-light", {
-          opacity: 0, x: -8, duration: 0.2, stagger: { amount: 0.1, from: "start" }, ease: "power3.inOut", overwrite: true
+        gsap.to(labels, {
+          opacity: 0,
+          x: -8,
+          duration: 0.2,
+          stagger: { amount: 0.1, from: "start" },
+          ease: "power3.inOut",
+          overwrite: true,
         });
       }
     }, navRef);
     return () => ctx.revert();
-  }, [isHovered]);
+  }, [isHovered, isChatOpen]);
 
   // Handle Mobile Menu Animation
   const menuOverlayRef = useRef(null);
-
 
   useEffect(() => {
     if (!menuOverlayRef.current) return;
@@ -194,11 +260,19 @@ export default function Nav({ activePage, setActivePage }) {
         opacity: 1,
         visibility: "visible",
         duration: 0.4,
-        ease: "power2.out"
+        ease: "power2.out",
       });
-      gsap.fromTo(".mobile-nav-item",
+      gsap.fromTo(
+        ".mobile-nav-item",
         { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.4, stagger: 0.1, ease: "power3.out", delay: 0.2 }
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.4,
+          stagger: 0.1,
+          ease: "power3.out",
+          delay: 0.2,
+        },
       );
     } else {
       document.body.style.overflow = "";
@@ -206,7 +280,7 @@ export default function Nav({ activePage, setActivePage }) {
         opacity: 0,
         visibility: "hidden",
         duration: 0.4,
-        ease: "power2.inOut"
+        ease: "power2.inOut",
       });
     }
   }, [isMobileMenuOpen]);
@@ -214,15 +288,20 @@ export default function Nav({ activePage, setActivePage }) {
   const p = scrollPct * 100;
   const pStart = Math.max(0, p - 15);
 
-  const easingClass = isHovered
+  const effectiveHover = isHovered && !isChatOpen;
+
+  const easingClass = effectiveHover
     ? "ease-[cubic-bezier(0.215,0.61,0.355,1)]"
     : "ease-[cubic-bezier(0.645,0.045,0.355,1)]";
 
-  const widthClass = isHovered ? "w-[11.5rem]" : "w-[4.5rem]";
+  const widthClass = effectiveHover ? "w-[11.5rem]" : "w-[4.5rem]";
 
   const handleContactClick = () => {
     if (window.opener && !window.opener.closed) {
-      window.opener.postMessage({ type: "PORTFOLIO_NAV", path: "/#contact" }, window.location.origin);
+      window.opener.postMessage(
+        { type: "PORTFOLIO_NAV", path: "/#contact" },
+        window.location.origin,
+      );
       window.opener.focus();
       window.close();
       return;
@@ -231,7 +310,9 @@ export default function Nav({ activePage, setActivePage }) {
     if (pathname !== "/") {
       router.push("/#contact");
     } else {
-      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+      document
+        .getElementById("contact")
+        ?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -256,7 +337,10 @@ export default function Nav({ activePage, setActivePage }) {
   const handleNavLinkClick = (e, path, id) => {
     if (window.opener && !window.opener.closed) {
       e.preventDefault();
-      window.opener.postMessage({ type: "PORTFOLIO_NAV", path }, window.location.origin);
+      window.opener.postMessage(
+        { type: "PORTFOLIO_NAV", path },
+        window.location.origin,
+      );
       window.opener.focus();
       window.close();
     } else {
@@ -267,13 +351,28 @@ export default function Nav({ activePage, setActivePage }) {
   return (
     <>
       {/* Mobile Toggle Button */}
-      <button
-        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        className={`md:hidden fixed top-6 right-6 z-[70] w-12 h-12 rounded-full shadow-xl flex items-center justify-center transition-all duration-500 ${isMobileMenuOpen ? "bg-accent text-primary rotate-90" : "bg-dark text-primary mix-blend-difference"
-          } ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-12 pointer-events-none"}`}
+      <div
+        className={`md:hidden fixed top-6 right-6 z-[70] flex items-center gap-3 transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-12 pointer-events-none"}`}
       >
-        {isMobileMenuOpen ? <X size={24} weight="bold" /> : <List size={24} weight="bold" />}
-      </button>
+        <span className="mix-blend-difference text-white text-[10px] font-bold uppercase tracking-widest whitespace-nowrap pointer-events-none">
+          {isMobileMenuOpen ? "Close" : "Menu"}
+        </span>
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+          className={`w-12 h-12 rounded-full shadow-xl flex items-center justify-center transition-all duration-500 shrink-0 ${
+            isMobileMenuOpen
+              ? "bg-accent text-primary rotate-90"
+              : "bg-dark text-primary mix-blend-difference"
+          }`}
+        >
+          {isMobileMenuOpen ? (
+            <X size={24} weight="bold" />
+          ) : (
+            <List size={24} weight="bold" />
+          )}
+        </button>
+      </div>
 
       {/* Mobile Menu Overlay */}
       <div
@@ -294,7 +393,10 @@ export default function Nav({ activePage, setActivePage }) {
                 onClick={(e) => {
                   if (window.opener && !window.opener.closed) {
                     e.preventDefault();
-                    window.opener.postMessage({ type: "PORTFOLIO_NAV", path: link.path }, window.location.origin);
+                    window.opener.postMessage(
+                      { type: "PORTFOLIO_NAV", path: link.path },
+                      window.location.origin,
+                    );
                     window.opener.focus();
                     window.close();
                     return;
@@ -304,10 +406,14 @@ export default function Nav({ activePage, setActivePage }) {
                 }}
                 className={`mobile-nav-item flex items-center gap-6 group`}
               >
-                <div className={`p-4 rounded-2xl transition-colors duration-300 ${isActive ? "bg-accent text-primary" : "bg-primary/10 text-primary/60"}`}>
+                <div
+                  className={`p-4 rounded-2xl transition-colors duration-300 ${isActive ? "bg-accent text-primary" : "bg-primary/10 text-primary/60"}`}
+                >
                   <link.icon size={32} weight="duotone" />
                 </div>
-                <span className={`text-4xl sm:text-5xl font-sans font-black tracking-tighter uppercase transition-colors duration-300 ${isActive ? "text-accent" : "text-primary hover:text-accent"}`}>
+                <span
+                  className={`text-4xl sm:text-5xl font-sans font-black tracking-tighter uppercase transition-colors duration-300 ${isActive ? "text-accent" : "text-primary hover:text-accent"}`}
+                >
                   {link.label}
                 </span>
               </Link>
@@ -320,7 +426,10 @@ export default function Nav({ activePage, setActivePage }) {
             onClick={() => {
               setIsMobileMenuOpen(false);
               if (window.opener && !window.opener.closed) {
-                window.opener.postMessage({ type: "PORTFOLIO_NAV", path: "/#contact" }, window.location.origin);
+                window.opener.postMessage(
+                  { type: "PORTFOLIO_NAV", path: "/#contact" },
+                  window.location.origin,
+                );
                 window.opener.focus();
                 window.close();
                 return;
@@ -329,7 +438,9 @@ export default function Nav({ activePage, setActivePage }) {
               if (pathname !== "/") {
                 router.push("/#contact");
               } else {
-                document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                document
+                  .getElementById("contact")
+                  ?.scrollIntoView({ behavior: "smooth" });
               }
             }}
             className="w-full bg-primary text-dark py-6 rounded-3xl font-sans font-bold uppercase tracking-widest text-lg flex items-center justify-center gap-4 hover:bg-accent hover:text-primary transition-colors duration-300"
@@ -340,116 +451,56 @@ export default function Nav({ activePage, setActivePage }) {
         </div>
       </div>
 
-      {/* Desktop Sidebar Navigation */}
-      <nav
-        ref={navRef}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        className={`hidden md:flex fixed left-6 top-1/2 -translate-y-1/2 z-50 flex-col justify-between pt-8 pb-5 rounded-[2rem] transition-all duration-700 shadow-2xl overflow-hidden ${easingClass} ${widthClass} ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12 pointer-events-none"
-          }`}
+      {/* Desktop Sidebar Navigation Container */}
+      <div
+        className={`hidden md:flex fixed left-6 top-1/2 -translate-y-1/2 z-[60] flex-col items-center gap-2.5 transition-all duration-700 ${widthClass} ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12 pointer-events-none"}`}
       >
-        {/* Scroll-Driven Gradient Border Layer */}
-        <div className="absolute inset-0 pointer-events-none rounded-[2rem] overflow-hidden p-[2px] transition-all duration-700">
+        <nav
+          ref={navRef}
+          onMouseEnter={() => !isChatOpen && setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          suppressHydrationWarning
+          className={`relative flex flex-col justify-between pt-8 pb-5 rounded-[2rem] transition-all duration-700 shadow-2xl overflow-hidden w-full h-auto`}
+        >
+          {/* Scroll-Driven Gradient Border Layer */}
+          <div className="absolute inset-0 pointer-events-none rounded-[2rem] overflow-hidden p-[2px] transition-all duration-700">
+            <div
+              className="absolute inset-0 z-0"
+              style={{
+                background: `linear-gradient(to bottom, transparent ${pStart}%, var(--color-accent, #E63B2E) ${p}%, transparent ${p}%)`,
+              }}
+            />
+            {/* Default dark background */}
+            <div className="absolute inset-[2px] bg-dark rounded-[calc(2rem-2px)] z-10" />
+          </div>
+
+          {/* Light background overlay — clipped to dark-section overlap */}
           <div
-            className="absolute inset-0 z-0"
+            ref={lightBgRef}
+            className="absolute inset-[2px] rounded-[calc(2rem-2px)] z-[15]"
             style={{
-              background: `linear-gradient(to bottom, transparent ${pStart}%, var(--color-accent, #E63B2E) ${p}%, transparent ${p}%)`
+              backgroundColor: "rgba(232, 228, 221, 0.97)",
+              maskImage:
+                "linear-gradient(to bottom, transparent 0%, transparent 100%)",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, transparent 0%, transparent 100%)",
             }}
           />
-          {/* Default dark background */}
-          <div className="absolute inset-[2px] bg-dark rounded-[calc(2rem-2px)] z-10" />
-        </div>
 
-        {/* Light background overlay â€” clipped to dark-section overlap */}
-        <div
-          ref={lightBgRef}
-          className="absolute inset-[2px] rounded-[calc(2rem-2px)] z-[15]"
-          style={{
-            backgroundColor: "rgba(232, 228, 221, 0.97)",
-            maskImage: "linear-gradient(to bottom, transparent 0%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, transparent 100%)"
-          }}
-        />
-
-        {/* ===== DARK THEME CONTENT (default â€” interactive) ===== */}
-        <div className="relative z-20 flex flex-col h-full w-full gap-8">
-
-          {/* Logo */}
-          <div className="w-full h-10 flex items-center overflow-hidden px-6 shrink-0">
-            <div className="flex items-center text-primary font-drama italic tracking-tighter text-3xl select-none">
-              <div className="w-[24px] flex justify-center shrink-0">
-                <span className="shrink-0 tracking-normal">J</span>
-              </div>
-              <span className="flex -ml-2.5">
-                {["u", "n", "e", "c", "o", "."].map((char, i) => (
-                  <span key={i} className="logo-char opacity-0 -translate-x-1 inline-block">
-                    {char}
-                  </span>
-                ))}
-              </span>
-            </div>
-          </div>
-
-          {/* Nav Links */}
-          <div className="flex flex-col w-full gap-4 shrink-0">
-            {navLinks.map((link) => {
-              const isActive = pathname === link.path || activePage === link.id;
-              return (
-                <Link
-                  key={link.id}
-                  href={link.path}
-                  className="group relative flex items-center w-full px-6 h-10 cursor-pointer overflow-hidden"
-                  onClick={(e) => handleNavLinkClick(e, link.path, link.id)}
-                >
-                  <div className={`w-[24px] flex justify-center shrink-0 transition-colors duration-300 ${isActive ? "text-accent" : "text-primary/70 group-hover:text-accent"}`}>
-                    <link.icon size={24} weight="duotone" />
-                  </div>
-                  <span className={`nav-label ml-4 text-[12px] font-bold uppercase tracking-widest whitespace-nowrap opacity-0 transition-colors duration-300 ${isActive ? "bg-accent text-background py-0.5 " : "text-primary/70 group-hover:text-accent py-0.5 bg-transparent px-2"
-                    }`}>
-                    {link.label}
-                  </span>
-                </Link>
-              );
-            })}
-          </div>
-
-          {/* Contact Button */}
-          <div className="w-full px-4 shrink-0 mt-2">
-            <button
-              onClick={handleContactClick}
-              className="group relative flex items-center w-full h-[40px] rounded-full bg-primary text-dark hover:bg-accent hover:text-primary transition-colors duration-300 overflow-hidden"
-            >
-              <div className="w-[40px] flex items-center justify-center shrink-0 h-full">
-                <EnvelopeSimple size={20} weight="fill" />
-              </div>
-              <span className="nav-label font-bold uppercase tracking-widest text-[11px] whitespace-nowrap opacity-0">
-                Contact Me
-              </span>
-            </button>
-          </div>
-
-        </div>
-
-        {/* ===== LIGHT THEME CONTENT (overlay â€” visual only, clipped to dark sections) ===== */}
-        <div
-          ref={lightContentRef}
-          className="absolute inset-0 z-30 pointer-events-none pt-8 pb-5"
-          style={{
-            maskImage: "linear-gradient(to bottom, transparent 0%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, transparent 100%)"
-          }}
-        >
-          <div className="flex flex-col h-full w-full gap-8">
-
-            {/* Logo (light variant) */}
+          {/* ===== DARK THEME CONTENT (default — interactive) ===== */}
+          <div className="relative z-20 flex flex-col h-full w-full gap-8">
+            {/* Logo */}
             <div className="w-full h-10 flex items-center overflow-hidden px-6 shrink-0">
-              <div className="flex items-center text-dark font-drama italic tracking-tighter text-3xl select-none">
+              <div className="flex items-center text-primary font-drama italic tracking-tighter text-3xl select-none">
                 <div className="w-[24px] flex justify-center shrink-0">
                   <span className="shrink-0 tracking-normal">J</span>
                 </div>
                 <span className="flex -ml-2.5">
                   {["u", "n", "e", "c", "o", "."].map((char, i) => (
-                    <span key={i} className="logo-char-light opacity-0 -translate-x-1 inline-block">
+                    <span
+                      key={i}
+                      className="logo-char opacity-0 -translate-x-1 inline-block"
+                    >
                       {char}
                     </span>
                   ))}
@@ -457,43 +508,170 @@ export default function Nav({ activePage, setActivePage }) {
               </div>
             </div>
 
-            {/* Nav Links (light variant) */}
+            {/* Nav Links */}
             <div className="flex flex-col w-full gap-4 shrink-0">
               {navLinks.map((link) => {
-                const isActive = pathname === link.path || activePage === link.id;
+                const isActive =
+                  pathname === link.path || activePage === link.id;
                 return (
-                  <div
+                  <Link
                     key={link.id}
-                    className="group relative flex items-center w-full px-6 h-10 overflow-hidden"
+                    href={link.path}
+                    className="group relative flex items-center w-full px-6 h-10 cursor-pointer overflow-hidden"
+                    onClick={(e) => handleNavLinkClick(e, link.path, link.id)}
                   >
-                    <div className={`w-[24px] flex justify-center shrink-0 ${isActive ? "text-accent" : "text-dark/70"}`}>
+                    <div
+                      className={`w-[24px] flex justify-center shrink-0 transition-colors duration-300 ${isActive ? "text-accent" : "text-primary/70 group-hover:text-accent"}`}
+                    >
                       <link.icon size={24} weight="duotone" />
                     </div>
-                    <span className={`nav-label-light ml-4 text-[12px] font-bold uppercase tracking-widest whitespace-nowrap opacity-0 ${isActive ? "bg-accent text-background py-0.5" : "text-dark/70 py-0.5 bg-transparent px-2"
-                      }`}>
+                    <span
+                      className={`nav-label ml-4 text-[12px] font-bold uppercase tracking-widest whitespace-nowrap opacity-0 transition-colors duration-300 ${
+                        isActive
+                          ? "bg-accent text-background py-0.5 "
+                          : "text-primary/70 group-hover:text-accent py-0.5 bg-transparent px-2"
+                      }`}
+                    >
                       {link.label}
                     </span>
-                  </div>
+                  </Link>
                 );
               })}
             </div>
 
-            {/* Contact Button (light variant) */}
+            {/* Contact Button */}
             <div className="w-full px-4 shrink-0 mt-2">
-              <div className="flex items-center w-full h-[40px] rounded-full bg-dark text-primary overflow-hidden">
+              <button
+                onClick={handleContactClick}
+                className="group relative flex items-center w-full h-[40px] rounded-full bg-primary text-dark hover:bg-accent hover:text-primary transition-colors duration-300 overflow-hidden"
+              >
                 <div className="w-[40px] flex items-center justify-center shrink-0 h-full">
                   <EnvelopeSimple size={20} weight="fill" />
                 </div>
-                <span className="nav-label-light font-bold uppercase tracking-widest text-[11px] whitespace-nowrap opacity-0">
+                <span className="nav-label font-bold uppercase tracking-widest text-[11px] whitespace-nowrap opacity-0">
                   Contact Me
                 </span>
+              </button>
+            </div>
+          </div>
+
+          {/* ===== LIGHT THEME CONTENT (overlay — visual only, clipped to dark sections) ===== */}
+          <div
+            ref={lightContentRef}
+            className="absolute inset-0 z-30 pointer-events-none pt-8 pb-5"
+            style={{
+              maskImage:
+                "linear-gradient(to bottom, transparent 0%, transparent 100%)",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, transparent 0%, transparent 100%)",
+            }}
+          >
+            <div className="flex flex-col h-full w-full gap-8">
+              {/* Logo (light variant) */}
+              <div className="w-full h-10 flex items-center overflow-hidden px-6 shrink-0">
+                <div className="flex items-center text-dark font-drama italic tracking-tighter text-3xl select-none">
+                  <div className="w-[24px] flex justify-center shrink-0">
+                    <span className="shrink-0 tracking-normal">J</span>
+                  </div>
+                  <span className="flex -ml-2.5">
+                    {["u", "n", "e", "c", "o", "."].map((char, i) => (
+                      <span
+                        key={i}
+                        className="logo-char-light opacity-0 -translate-x-1 inline-block"
+                      >
+                        {char}
+                      </span>
+                    ))}
+                  </span>
+                </div>
+              </div>
+
+              {/* Nav Links (light variant) */}
+              <div className="flex flex-col w-full gap-4 shrink-0">
+                {navLinks.map((link) => {
+                  const isActive =
+                    pathname === link.path || activePage === link.id;
+                  return (
+                    <div
+                      key={link.id}
+                      className="group relative flex items-center w-full px-6 h-10 overflow-hidden"
+                    >
+                      <div
+                        className={`w-[24px] flex justify-center shrink-0 ${isActive ? "text-accent" : "text-dark/70"}`}
+                      >
+                        <link.icon size={24} weight="duotone" />
+                      </div>
+                      <span
+                        className={`nav-label-light ml-4 text-[12px] font-bold uppercase tracking-widest whitespace-nowrap opacity-0 ${
+                          isActive
+                            ? "bg-accent text-background py-0.5"
+                            : "text-dark/70 py-0.5 bg-transparent px-2"
+                        }`}
+                      >
+                        {link.label}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Contact Button (light variant) */}
+              <div className="w-full px-4 shrink-0 mt-2">
+                <div className="flex items-center w-full h-[40px] rounded-full bg-dark text-primary overflow-hidden">
+                  <div className="w-[40px] flex items-center justify-center shrink-0 h-full">
+                    <EnvelopeSimple size={20} weight="fill" />
+                  </div>
+                  <span className="nav-label-light font-bold uppercase tracking-widest text-[11px] whitespace-nowrap opacity-0">
+                    Contact Me
+                  </span>
+                </div>
               </div>
             </div>
+          </div>
+        </nav>
 
+        {/* ── Chat trigger — circular, hugs left edge, label floats outside as a tooltip ── */}
+        <div
+          ref={chatTriggerRef}
+          className="relative self-start ml-3 group shrink-0"
+          onMouseEnter={(e) => e.stopPropagation()}
+          onMouseLeave={(e) => e.stopPropagation()}
+        >
+          <button
+            onClick={() => setIsChatOpen(!isChatOpen)}
+            aria-label={isChatOpen ? "Close chat" : "Open chat assistant"}
+            className="w-12 h-12 rounded-full bg-accent shadow-lg flex items-center justify-center transition-all duration-300 hover:bg-accent/90 active:scale-95 text-primary cursor-pointer"
+          >
+            <div
+              className="transition-transform duration-300"
+              style={{
+                transform: isChatOpen ? "rotate(90deg)" : "rotate(0deg)",
+              }}
+            >
+              {isChatOpen ? (
+                <X size={18} weight="bold" />
+              ) : (
+                <ChatCircleDots size={20} weight="fill" />
+              )}
+            </div>
+          </button>
+          <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 pointer-events-none">
+            <span
+              className={` gap-0.5 chat-label opacity-0 flex items-center whitespace-nowrap transition-colors duration-300 ${chatOnDark ? "text-primary" : "text-dark"}`}
+            >
+              <Sparkle
+                size={16}
+                weight="fill"
+                className="text-accent shrink-0 mb-1"
+                style={{ transform: "rotate(-15deg)" }}
+              />
+              <span className="text-[10px] font-bold uppercase tracking-widest">
+                {isChatOpen ? "Close" : chatPrompt}
+              </span>
+            </span>
           </div>
         </div>
-
-      </nav>
+      </div>
     </>
   );
 }
